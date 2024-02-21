@@ -1,3 +1,0 @@
-/home/olixandr/Desktop/CLionProjects/Pa2/cmake-build-debug/CMakeFiles/Pa2.dir
-/home/olixandr/Desktop/CLionProjects/Pa2/cmake-build-debug/CMakeFiles/edit_cache.dir
-/home/olixandr/Desktop/CLionProjects/Pa2/cmake-build-debug/CMakeFiles/rebuild_cache.dir
