@@ -16,6 +16,8 @@ int readCuboid(Cuboid &cuboid) {
 
 
 
+
+
 #ifndef __TRAINER__
 
 int main() {

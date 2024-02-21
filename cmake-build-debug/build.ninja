@@ -49,11 +49,17 @@ cmake_ninja_workdir = /home/olixandr/CLionProjects/Pa2/cmake-build-debug/
 
 build cmake_object_order_depends_target_Pa2: phony || CMakeFiles/Pa2.dir
 
-build CMakeFiles/Pa2.dir/cv/cv_01.cpp.o: CXX_COMPILER__Pa2_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_01.cpp || cmake_object_order_depends_target_Pa2
-  DEP_FILE = CMakeFiles/Pa2.dir/cv/cv_01.cpp.o.d
+build CMakeFiles/Pa2.dir/cv/cv_01/loadData.cpp.o: CXX_COMPILER__Pa2_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_01/loadData.cpp || cmake_object_order_depends_target_Pa2
+  DEP_FILE = CMakeFiles/Pa2.dir/cv/cv_01/loadData.cpp.o.d
   FLAGS = -g -fdiagnostics-color=always
   OBJECT_DIR = CMakeFiles/Pa2.dir
-  OBJECT_FILE_DIR = CMakeFiles/Pa2.dir/cv
+  OBJECT_FILE_DIR = CMakeFiles/Pa2.dir/cv/cv_01
+
+build CMakeFiles/Pa2.dir/cv/cv_01/sort.c.o: C_COMPILER__Pa2_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_01/sort.c || cmake_object_order_depends_target_Pa2
+  DEP_FILE = CMakeFiles/Pa2.dir/cv/cv_01/sort.c.o.d
+  FLAGS = -g -fdiagnostics-color=always
+  OBJECT_DIR = CMakeFiles/Pa2.dir
+  OBJECT_FILE_DIR = CMakeFiles/Pa2.dir/cv/cv_01
 
 
 # =============================================================================
@@ -63,7 +69,7 @@ build CMakeFiles/Pa2.dir/cv/cv_01.cpp.o: CXX_COMPILER__Pa2_unscanned_Debug /home
 #############################################
 # Link the executable Pa2
 
-build Pa2: CXX_EXECUTABLE_LINKER__Pa2_Debug CMakeFiles/Pa2.dir/cv/cv_01.cpp.o
+build Pa2: CXX_EXECUTABLE_LINKER__Pa2_Debug CMakeFiles/Pa2.dir/cv/cv_01/loadData.cpp.o CMakeFiles/Pa2.dir/cv/cv_01/sort.c.o
   FLAGS = -g
   OBJECT_DIR = CMakeFiles/Pa2.dir
   POST_BUILD = :
