@@ -38,7 +38,7 @@ int main() {
     std::vector<Domino> dominos;
     Domino tempDomino;
 
-    // Načítání dominových kostek a ukládání do dynamického pole
+    // Načítání dominových kostek real ukládání do dynamického pole
     while (readDomino(tempDomino)) {
         // Otáčení kostky tak, aby x <= y
         if (tempDomino.x > tempDomino.y) {

@@ -14,10 +14,6 @@ int readCuboid(Cuboid &cuboid) {
     return std::cin && cuboid.sides[0] > 0 && cuboid.sides[1] > 0 && cuboid.sides[2] > 0;
 }
 
-
-
-
-
 #ifndef __TRAINER__
 
 int main() {

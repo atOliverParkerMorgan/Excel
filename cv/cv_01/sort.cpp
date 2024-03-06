@@ -1,6 +1,7 @@
 #ifndef __TRAINER__
 #include <algorithm>
 #include <cassert>
+#include "Cuboid"
 
 // struktura pro kvádr
 // ...
