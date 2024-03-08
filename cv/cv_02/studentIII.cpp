@@ -42,6 +42,7 @@ public:
 // trida StudentDatabase
 class StudentDatabase {
     std::vector<Student> students;
+    std::vector<Student> UnStudents;
 
 public:
 
@@ -52,6 +53,7 @@ public:
     bool addStudent(const Student &student) {
         if (!this->findStudent(student.name())) {
             students.push_back(student);
+            UnStudents.push_back(student);
             std::sort(students.begin(), students.end());
             return true;
         }
@@ -59,7 +61,7 @@ public:
     }
 
     void print(std::ostream &out) const {
-        for (const Student &student: students) {
+        for (const Student &student: UnStudents) {
             std::cout << "Student { " << student.name() << ", " << std::setprecision(5) << student.average() << " }\n"
                       << std::flush;
             out << "Student { " << student.name() << ", " << std::setprecision(5) << student.average() << " }\n"
@@ -82,6 +84,7 @@ public:
         for (auto it = students.begin(); it != students.end(); ++it) {
             if (it->name() == stud_name) {
                 students.erase(it);
+                UnStudents.erase(it);
                 return true;
             }
         }

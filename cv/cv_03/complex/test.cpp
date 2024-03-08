@@ -29,7 +29,6 @@ int main() {
         os << f + e;
         assert(os.str() == "[30, 24]");
     }
-
     // -
     {
         std::ostringstream os;

@@ -1,1 +1,2 @@
-add_executable(cv_03_complex Complex.cpp Complex.hpp test.cpp)
+add_executable(complex Complex.hpp test.cpp
+        Complex.cpp)
