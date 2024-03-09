@@ -22,6 +22,18 @@ public:
 
     friend std::ostream &operator<<(std::ostream &out, const Complex &c);
 
+    friend std::istream  &operator>>(std::istream &in, Complex &c);
+
+    friend Complex operator*(const Complex &a, const Complex &b);
+
+    friend Complex operator/(const Complex &a, const Complex &b);
+
+    Complex &operator/=(const Complex &b);
+
+    Complex &operator*=(const Complex &b);
+
+    friend Complex operator-(const Complex &b);
+
 private:
     double real, img;
 };
