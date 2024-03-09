@@ -10,6 +10,7 @@
 
 struct Complex {
 public:
+    Complex()=default;
     Complex(double real, double img = 0);
 
     friend Complex operator+(const Complex &a, const Complex &b);

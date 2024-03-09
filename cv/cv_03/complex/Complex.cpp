@@ -55,7 +55,7 @@ Complex operator-(const Complex &b) {
 std::istream &operator>>(std::istream &in, Complex &c) {
     char h;
     double realPart, imgPart;
-
+    in.clear();
     if(in >> h && h == '[' && in >> realPart  && in >> h && h==',' && in >> imgPart && in >> h && h == ']'){
         c.real = realPart;
         c.img = imgPart;
