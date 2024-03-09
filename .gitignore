@@ -1,6 +1,6 @@
 /.idea/
 
-/cv/CMakeLists.txt
+/CMakeLists.txt
 /cv/cv_01/CMakeLists.txt
 /cv/cv_02/CMakeLists.txt
 /cv/cv_03/complex/CMakeLists.txt
