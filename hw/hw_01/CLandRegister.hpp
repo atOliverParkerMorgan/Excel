@@ -2,31 +2,14 @@
 #include "CIterator.hpp"
 #include <vector>
 
+
 class CLandRegister {
 public:
-    struct Property {
-    public:
-        Property(std::string city,
-                 std::string addr,
-                 std::string region,
-                 unsigned int id);
-
-        std::string city;
-        std::string addr;
-        std::string region;
-        unsigned int id;
-        std::string owner;
-    };
-
-    static bool cmpByRegion(const Property &p1, const Property &p2);
-
-    static bool cmpByCity(const CLandRegister::Property &p1, const CLandRegister::Property &p2);
-
     CLandRegister() = default;
 
     ~CLandRegister() = default;
 
-    void print(bool byCity = true);
+    void print(std::string category);
 
     bool add(const std::string &city,
              const std::string &addr,
@@ -62,14 +45,21 @@ public:
     CIterator listByOwner(const std::string &owner) const;
 
 private:
+    static bool cmpByRegion(const Land &p1, const Land &p2);
+
+    static bool cmpByCity(const Land &p1, const Land &p2);
+
+    static bool cmpByOwner(const Land &p1, const Land &p2);
+
     bool isInProperty(const std::string &city,
                       const std::string &addr);
 
     bool isInProperty(const std::string &region,
                       unsigned int id);
 
-    std::vector<Property> byCityAddr;
-    std::vector<Property> byRegionId;
-    std::vector<Property> propertyByAquire;
+    std::vector<Land> byCityAddr;
+    std::vector<Land> byRegionId;
+    std::vector<Land> byOwner;
+    std::vector<Land> propertyByAquire;
 
 };

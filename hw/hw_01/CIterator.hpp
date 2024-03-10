@@ -1,7 +1,14 @@
 #include "iostream"
+#include "Land.hpp"
+#include <vector>
 
 class CIterator {
+private:
+    std::vector<Land> lands;
+    size_t currentIndex;
 public:
+    CIterator(std::vector<Land> in_land);
+
     bool atEnd() const;
 
     void next();
@@ -16,6 +23,5 @@ public:
 
     std::string owner() const;
 
-private:
-    // todo
+
 };
