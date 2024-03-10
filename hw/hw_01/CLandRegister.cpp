@@ -38,19 +38,43 @@ bool CLandRegister::del(const std::string &region, unsigned int id) {
 }
 
 bool CLandRegister::getOwner(const std::string &city, const std::string &addr, std::string &owner) const {
-    return false;
+    auto bounds = std::equal_range(byCityAddr.begin(), byCityAddr.end(), Property(city, addr, "", 0),
+                                   cmpByCity);
+    if (bounds.first == bounds.second) {
+        return false;
+    }
+    owner = bounds.first->owner;
+    return true;
 }
 
 bool CLandRegister::getOwner(const std::string &region, unsigned int id, std::string &owner) const {
-    return false;
+    auto bounds = std::equal_range(byRegionId.begin(), byRegionId.end(), Property("", "", region, id),
+                                   cmpByRegion);
+    if (bounds.first == bounds.second) {
+        return false;
+    }
+    owner = bounds.first->owner;
+    return true;
 }
 
 bool CLandRegister::newOwner(const std::string &city, const std::string &addr, const std::string &owner) {
-    return false;
+    auto bounds = std::equal_range(byCityAddr.begin(), byCityAddr.end(), Property(city, addr, "", 0),
+                                   cmpByCity);
+    if (bounds.first == bounds.second) {
+        return false;
+    }
+    bounds.first->owner = owner;
+    return true;
 }
 
 bool CLandRegister::newOwner(const std::string &region, unsigned int id, const std::string &owner) {
-    return false;
+    auto bounds = std::equal_range(byRegionId.begin(), byRegionId.end(), Property("", "", region, id),
+                                   cmpByRegion);
+    if (bounds.first == bounds.second) {
+        return false;
+    }
+    bounds.first->owner = owner;
+    return true;
 }
 
 size_t CLandRegister::count(const std::string &owner) const {
@@ -92,14 +116,14 @@ void CLandRegister::print(bool byAddr) {
         std::cout << "By City" << std::endl;
         for (const Property &p: byCityAddr) {
             std::cout << "[ ( City: " << p.city << ", Addr: " << p.addr << ") , Region: " << p.region << ", ID: "
-                      << p.id << " ]" << std::endl;
+                      << p.id << " ] - " << p.owner << std::endl;
         }
     } else {
         std::cout << "By Region" << std::endl;
         for (const Property &p: byRegionId) {
             std::cout << "[ ( Region: " << p.region << ", ID: " << p.id << ") , City: " << p.city << ", Addr: "
                       << p.addr
-                      << " ]" << std::endl;
+                      << " ] - " << p.owner << std::endl;
         }
     }
     std::cout << "---" << std::endl;

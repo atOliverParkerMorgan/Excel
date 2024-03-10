@@ -15,6 +15,7 @@ public:
         std::string addr;
         std::string region;
         unsigned int id;
+        std::string owner;
     };
 
     static bool cmpByRegion(const Property &p1, const Property &p2);
