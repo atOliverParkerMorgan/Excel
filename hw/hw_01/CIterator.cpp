@@ -40,6 +40,7 @@ std::string CIterator::owner() const {
 
 CIterator::CIterator(std::vector<Land> in_land) {
     this->lands = std::move(in_land);
+    currentIndex = 0;
 }
 
 std::string CIterator::region() const {

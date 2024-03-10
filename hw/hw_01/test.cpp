@@ -410,7 +410,7 @@ static void test0() {
 //}
 
 int main(void) {
-//    test0();
+    test0();
 //    test1();
     test2();
     return EXIT_SUCCESS;

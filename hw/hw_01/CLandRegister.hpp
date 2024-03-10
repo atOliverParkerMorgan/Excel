@@ -9,7 +9,7 @@ public:
 
     ~CLandRegister() = default;
 
-    void print(std::string category);
+    void print(const std::string& category);
 
     bool add(const std::string &city,
              const std::string &addr,

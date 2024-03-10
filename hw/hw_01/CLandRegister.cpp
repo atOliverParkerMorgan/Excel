@@ -156,7 +156,9 @@ CIterator CLandRegister::listByOwner(const std::string &owner) const {
     Land land = Land("", "", "", 0, 0);
     land.setOwner(owner);
     auto boundsOwner = std::equal_range(byOwner.begin(), byOwner.end(), land,
-                                        cmpByOwner);
+                                        [](const Land &l1, const Land &l2) {
+                                            return l1.owner < l2.owner;
+                                        });
 
     std::vector<Land> tmp(boundsOwner.first, boundsOwner.second);
 
@@ -190,7 +192,7 @@ bool CLandRegister::cmpByOwner(const Land &p1, const Land &p2) {
 }
 
 
-void CLandRegister::print(std::string category) {
+void CLandRegister::print(const std::string &category) {
     if (category == "_c") {
         std::cout << "By City" << std::endl;
         for (const Land &p: byCityAddr) {
@@ -203,7 +205,7 @@ void CLandRegister::print(std::string category) {
             std::cout << "[ ( Region: " << p.region << ", ID: " << p.id << ") , City: " << p.city << ", Addr: "
                       << p.addr << ", Owner: " << p.owner << ", Acquire: " << p.acquireOrder << " ]" << std::endl;
         }
-    } else if(category == "_o"){
+    } else if (category == "_o") {
         std::cout << "By Owner" << std::endl;
         for (const Land &p: byOwner) {
             std::cout << "[ ( Owner: " << p.owner << ", Acquire: " << p.acquireOrder << ") , City: " << p.city
@@ -211,9 +213,9 @@ void CLandRegister::print(std::string category) {
                       << p.addr << ", Region: " << p.region << ", ID: " << p.id
                       << " ]" << std::endl;
         }
-    } else{
+    } else {
         std::cout << "By Iterator" << std::endl;
-        for ( CIterator p = listByOwner(category); !p.atEnd(); p.next()) {
+        for (CIterator p = listByOwner(category); !p.atEnd(); p.next()) {
             std::cout << "[ ( Owner: " << p.owner() << ", Acquire: " << "null" << ") , City: " << p.city()
                       << ", Addr: "
                       << p.addr() << ", Region: " << p.region() << ", ID: " << p.id()
