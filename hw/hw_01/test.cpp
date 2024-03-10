@@ -117,10 +117,7 @@ static void test2() {
     assert (x.add("Liberec", "Evropska", "Librec", 4552));
     assert (!x.add("Liberec", "Evropska", "Librec", 4552));
     assert (x.del("Prague", "Technicka"));
-    x.print("_c");
-    x.print("_a");
-    x.print("_o");
-    x.print("");
+
     assert (x.del("Dejvice", 12345));
     assert(!x.del("Dejvice", 12345));
 
@@ -221,7 +218,12 @@ static void test0() {
     assert (x.newOwner("Dejvice", 9873, "CVUT"));
     assert (x.newOwner("Plzen", "Evropska", "Anton Hrabis"));
     assert (x.newOwner("Librec", 4552, "Cvut"));
+    x.print("_c");
+    x.print("_a");
+    x.print("_o");
+    x.print("");
     assert (x.getOwner("Prague", "Thakurova", owner) && owner == "CVUT");
+
     assert (x.getOwner("Dejvice", 12345, owner) && owner == "CVUT");
     assert (x.getOwner("Prague", "Evropska", owner) && owner == "");
     assert (x.getOwner("Vokovice", 12345, owner) && owner == "");
@@ -410,9 +412,10 @@ static void test0() {
 //}
 
 int main(void) {
+    test2();
+
     test0();
 //    test1();
-    test2();
     return EXIT_SUCCESS;
 }
 

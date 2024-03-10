@@ -9,7 +9,7 @@ public:
 
     ~CLandRegister() = default;
 
-    void print(const std::string& category);
+    void print(const std::string &category);
 
     bool add(const std::string &city,
              const std::string &addr,
@@ -44,12 +44,16 @@ public:
 
     CIterator listByOwner(const std::string &owner) const;
 
+
 private:
     static bool cmpByRegion(const Land &p1, const Land &p2);
 
     static bool cmpByCity(const Land &p1, const Land &p2);
 
-    static bool cmpByOwner(const Land &p1, const Land &p2);
+    static bool cmpByOwner(const std::pair<std::string, std::vector<Land>> &l1,
+                           const std::pair<std::string, std::vector<Land>> &l2);
+
+    static std::string stringToLower(const std::string &in);
 
     bool isInProperty(const std::string &city,
                       const std::string &addr);
@@ -59,7 +63,8 @@ private:
 
     std::vector<Land> byCityAddr;
     std::vector<Land> byRegionId;
-    std::vector<Land> byOwner;
-    std::vector<Land> propertyByAquire;
+    std::vector<std::pair<std::string, std::vector<Land>>> byOwner;
 
+    void addNewOwner(const std::string &owner, const Land &land);
+    void removeOwner(const std::string &owner, const Land &land);
 };

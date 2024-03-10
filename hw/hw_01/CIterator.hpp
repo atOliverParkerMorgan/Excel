@@ -1,6 +1,7 @@
 #include "iostream"
 #include "Land.hpp"
 #include <vector>
+#include <type_traits>
 
 class CIterator {
 private:
@@ -22,6 +23,4 @@ public:
     unsigned id() const;
 
     std::string owner() const;
-
-
 };
