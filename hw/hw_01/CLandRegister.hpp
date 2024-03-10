@@ -19,7 +19,7 @@ public:
 
     static bool cmpByRegion(const Property &p1, const Property &p2);
 
-    static bool cmpByAddr(const Property &p1, const Property &p2);
+    static bool cmpByCity(const CLandRegister::Property &p1, const CLandRegister::Property &p2);
 
     CLandRegister() = default;
 
@@ -61,14 +61,14 @@ public:
     CIterator listByOwner(const std::string &owner) const;
 
 private:
-    bool isDuplicate(const std::string &city,
-                     const std::string &addr);
+    bool isInProperty(const std::string &city,
+                      const std::string &addr);
 
-    bool isDuplicate(const std::string &region,
-                     unsigned int id);
+    bool isInProperty(const std::string &region,
+                      unsigned int id);
 
-    std::vector<Property> propertyByCityAddr;
-    std::vector<Property> propertyByRegionId;
+    std::vector<Property> byCityAddr;
+    std::vector<Property> byRegionId;
     std::vector<Property> propertyByAquire;
 
 };
