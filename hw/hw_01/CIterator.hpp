@@ -5,10 +5,10 @@
 
 class CIterator {
 private:
-    std::vector<Land> lands;
+    std::vector<Land*> lands;
     size_t currentIndex;
 public:
-    CIterator(std::vector<Land> in_land);
+    CIterator(std::vector<Land *> in_land);
 
     bool atEnd() const;
 

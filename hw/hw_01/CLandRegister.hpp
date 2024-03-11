@@ -7,7 +7,7 @@ class CLandRegister {
 public:
     CLandRegister() = default;
 
-    ~CLandRegister() = default;
+    ~CLandRegister();
 
     void print(const std::string &category);
 
@@ -46,12 +46,12 @@ public:
 
 
 private:
-    static bool cmpByRegion(const Land &p1, const Land &p2);
+    static bool cmpByRegion(const Land *p1, const Land *p2);
 
-    static bool cmpByCity(const Land &p1, const Land &p2);
+    static bool cmpByCity(const Land *p1, const Land *p2);
 
-    static bool cmpByOwner(const std::pair<std::string, std::vector<Land>> &l1,
-                           const std::pair<std::string, std::vector<Land>> &l2);
+    static bool cmpByOwner(const std::pair<std::string, std::vector<Land*>> &l1,
+                           const std::pair<std::string, std::vector<Land*>> &l2);
 
     static std::string stringToLower(const std::string &in);
 
@@ -61,10 +61,10 @@ private:
     bool isInProperty(const std::string &region,
                       unsigned int id);
 
-    std::vector<Land> byCityAddr;
-    std::vector<Land> byRegionId;
-    std::vector<std::pair<std::string, std::vector<Land>>> byOwner;
+    std::vector<Land*> byCityAddr;
+    std::vector<Land*> byRegionId;
+    std::vector<std::pair<std::string, std::vector<Land*>>> byOwner;
 
-    void addNewOwner(const std::string &owner, const Land &land);
-    void removeOwner(const std::string &owner, const Land &land);
+    void addNewOwner(const std::string &owner, Land *land);
+    void removeOwner(const std::string &owner, Land *land);
 };

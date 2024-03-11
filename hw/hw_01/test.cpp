@@ -110,16 +110,20 @@ static void test2() {
     CLandRegister x;
     std::string owner;
 
-    assert (x.add("Prague", "Thakurova", "Dejvice", 12345));
-    assert (x.add("Prague", "Evropska", "Vokovice", 12345));
-    assert (x.add("Prague", "Technicka", "Dejvice", 9873));
-    assert (x.add("Plzen", "Evropska", "Plzen mesto", 78901));
-    assert (x.add("Liberec", "Evropska", "Librec", 4552));
-    assert (!x.add("Liberec", "Evropska", "Librec", 4552));
-    assert (x.del("Prague", "Technicka"));
+    assert (x.add("A", "A", "X", 2));
+    assert (x.add("C", "A", "X", 1));
+    assert (x.add("C", "B", "Y", 3));
+    assert (x.add("D", "B", "Z", 2));
+    assert (x.add("D", "A", "Z", 1));
 
-    assert (x.del("Dejvice", 12345));
-    assert(!x.del("Dejvice", 12345));
+
+    assert (x.del("A", "A"));
+//
+    //assert (!x.del("Dejvice", 12345));
+    // assert(x.del("Z", 1));
+    x.print("_o");
+    x.print("_a");
+    x.print("_c");
 
 
 }
@@ -414,7 +418,7 @@ static void test0() {
 int main(void) {
     test2();
 
-    test0();
+    // test0();
 //    test1();
     return EXIT_SUCCESS;
 }
