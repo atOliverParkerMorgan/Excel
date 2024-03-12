@@ -1,14 +1,14 @@
 #include "iostream"
-#include "Land.hpp"
+#include "COwner.h"
 #include <vector>
 #include <type_traits>
 
 class CIterator {
 private:
-    std::vector<Land*> lands;
+    std::vector<CLand*> lands;
     size_t currentIndex;
 public:
-    CIterator(std::vector<Land *> in_land);
+    CIterator(std::vector<CLand *> in_land);
 
     bool atEnd() const;
 

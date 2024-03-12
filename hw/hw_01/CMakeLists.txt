@@ -3,6 +3,8 @@ add_executable(hw_01 CLandRegister.cpp
         CIterator.hpp
         CIterator.cpp
         test.cpp
-        Land.hpp
-        Land.cpp
+        CLand.hpp
+        CLand.cpp
+        COwner.cpp
+        COwner.h
 )

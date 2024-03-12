@@ -40,7 +40,7 @@ std::string CIterator::owner() const {
     return "";
 }
 
-CIterator::CIterator(std::vector<Land *> in_land) {
+CIterator::CIterator(std::vector<CLand *> in_land) {
     this->lands = std::move(in_land);
     currentIndex = 0;
 }

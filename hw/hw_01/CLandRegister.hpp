@@ -46,14 +46,12 @@ public:
 
 
 private:
-    static bool cmpByRegion(const Land *p1, const Land *p2);
+    static bool cmpByRegion(const CLand *p1, const CLand *p2);
 
-    static bool cmpByCity(const Land *p1, const Land *p2);
+    static bool cmpByCity(const CLand *p1, const CLand *p2);
 
-    static bool cmpByOwner(const std::pair<std::string, std::vector<Land*>> &l1,
-                           const std::pair<std::string, std::vector<Land*>> &l2);
-
-    static std::string stringToLower(const std::string &in);
+    static bool cmpByOwner(const COwner *o1,
+                           const COwner *o2);
 
     bool isInProperty(const std::string &city,
                       const std::string &addr);
@@ -61,10 +59,10 @@ private:
     bool isInProperty(const std::string &region,
                       unsigned int id);
 
-    std::vector<Land*> byCityAddr;
-    std::vector<Land*> byRegionId;
-    std::vector<std::pair<std::string, std::vector<Land*>>> byOwner;
+    std::vector<CLand*> byCityAddr;
+    std::vector<CLand*> byRegionId;
+    std::vector<COwner*> byOwner;
 
-    void addNewOwner(const std::string &owner, Land *land);
-    void removeOwner(const std::string &owner, Land *land);
+    bool addNewOwner(const std::string &owner, CLand *land);
+    void removeOwner(const std::string &owner, CLand *land);
 };

@@ -18,9 +18,9 @@
 
 #endif /* __PROGTEST__ */
 
-//struct Land {
+//struct CLand {
 //
-//    Land(std::string city,
+//    CLand(std::string city,
 //         std::string addr,
 //         std::string region,
 //         unsigned int id);
@@ -32,7 +32,7 @@
 //    std::string owner;
 //};
 //
-//Land::Land(std::string city, std::string addr, std::string region, unsigned int id) : city(std::move(city)),
+//CLand::CLand(std::string city, std::string addr, std::string region, unsigned int id) : city(std::move(city)),
 //                                                                                      addr(std::move(addr)),
 //                                                                                      region(std::move(region)),
 //                                                                                      id(id) {}
@@ -99,9 +99,9 @@
 //    bool isInProperty(const std::string &region,
 //                      unsigned int id);
 //
-//    std::vector<Land> byCityAddr;
-//    std::vector<Land> byRegionId;
-//    std::vector<Land> propertyByAquire;
+//    std::vector<CLand> byCityAddr;
+//    std::vector<CLand> byRegionId;
+//    std::vector<CLand> propertyByAquire;
 //};
 
 #ifndef __PROGTEST__
@@ -109,21 +109,24 @@
 static void test2() {
     CLandRegister x;
     std::string owner;
-
-    assert (x.add("A", "A", "X", 2));
-    assert (x.add("C", "A", "X", 1));
     assert (x.add("C", "B", "Y", 3));
     assert (x.add("D", "B", "Z", 2));
     assert (x.add("D", "A", "Z", 1));
+    assert (x.add("A", "A", "X", 2));
+    assert (x.add("C", "A", "X", 1));
 
 
-    assert (x.del("A", "A"));
+
+    //assert (x.del("A", "A"));
 //
-    //assert (!x.del("Dejvice", 12345));
-    // assert(x.del("Z", 1));
-    x.print("_o");
-    x.print("_a");
-    x.print("_c");
+    assert (!x.del("Dejvice", 12345));
+     assert(x.del("Z", 1));
+    assert(x.newOwner("A", "A", "test"));
+
+//    x.print("_o");
+//    x.print("_a");
+//    x.print("_c");
+
 
 
 }
@@ -222,10 +225,8 @@ static void test0() {
     assert (x.newOwner("Dejvice", 9873, "CVUT"));
     assert (x.newOwner("Plzen", "Evropska", "Anton Hrabis"));
     assert (x.newOwner("Librec", 4552, "Cvut"));
-    x.print("_c");
-    x.print("_a");
-    x.print("_o");
-    x.print("");
+    x.getOwner("Prague", "Thakurova", owner);
+    std::cout << owner << std::endl;
     assert (x.getOwner("Prague", "Thakurova", owner) && owner == "CVUT");
 
     assert (x.getOwner("Dejvice", 12345, owner) && owner == "CVUT");
@@ -356,70 +357,74 @@ static void test0() {
     assert (x.add("Liberec", "Evropska", "Librec", 4552));
 }
 
-//static void test1() {
-//    CLandRegister x;
-//    std::string owner;
-//
-//    assert (x.add("Prague", "Thakurova", "Dejvice", 12345));
-//    assert (x.add("Prague", "Evropska", "Vokovice", 12345));
-//    assert (x.add("Prague", "Technicka", "Dejvice", 9873));
-//    assert (!x.add("Prague", "Technicka", "Hradcany", 7344));
-//    assert (!x.add("Brno", "Bozetechova", "Dejvice", 9873));
-//    assert (!x.getOwner("Prague", "THAKUROVA", owner));
-//    assert (!x.getOwner("Hradcany", 7343, owner));
-//    CIterator i0 = x.listByAddr();
-//    assert (!i0.atEnd()
-//            && i0.city() == "Prague"
-//            && i0.addr() == "Evropska"
-//            && i0.region() == "Vokovice"
-//            && i0.id() == 12345
-//            && i0.owner() == "");
-//    i0.next();
-//    assert (!i0.atEnd()
-//            && i0.city() == "Prague"
-//            && i0.addr() == "Technicka"
-//            && i0.region() == "Dejvice"
-//            && i0.id() == 9873
-//            && i0.owner() == "");
-//    i0.next();
-//    assert (!i0.atEnd()
-//            && i0.city() == "Prague"
-//            && i0.addr() == "Thakurova"
-//            && i0.region() == "Dejvice"
-//            && i0.id() == 12345
-//            && i0.owner() == "");
-//    i0.next();
-//    assert (i0.atEnd());
-//
-//    assert (x.newOwner("Prague", "Thakurova", "CVUT"));
-//    assert (!x.newOwner("Prague", "technicka", "CVUT"));
-//    assert (!x.newOwner("prague", "Technicka", "CVUT"));
-//    assert (!x.newOwner("dejvice", 9873, "CVUT"));
-//    assert (!x.newOwner("Dejvice", 9973, "CVUT"));
-//    assert (!x.newOwner("Dejvice", 12345, "CVUT"));
-//    assert (x.count("CVUT") == 1);
-//    CIterator i1 = x.listByOwner("CVUT");
-//    assert (!i1.atEnd()
-//            && i1.city() == "Prague"
-//            && i1.addr() == "Thakurova"
-//            && i1.region() == "Dejvice"
-//            && i1.id() == 12345
-//            && i1.owner() == "CVUT");
-//    i1.next();
-//    assert (i1.atEnd());
-//
-//    assert (!x.del("Brno", "Technicka"));
-//    assert (!x.del("Karlin", 9873));
-//    assert (x.del("Prague", "Technicka"));
-//    assert (!x.del("Prague", "Technicka"));
-//    assert (!x.del("Dejvice", 9873));
-//}
+static void test1() {
+    CLandRegister x;
+    std::string owner;
+
+    assert (x.add("Prague", "Thakurova", "Dejvice", 12345));
+    assert (x.add("Prague", "Evropska", "Vokovice", 12345));
+    assert (x.add("Prague", "Technicka", "Dejvice", 9873));
+    assert (!x.add("Prague", "Technicka", "Hradcany", 7344));
+    assert (!x.add("Brno", "Bozetechova", "Dejvice", 9873));
+    assert (!x.getOwner("Prague", "THAKUROVA", owner));
+    assert (!x.getOwner("Hradcany", 7343, owner));
+    CIterator i0 = x.listByAddr();
+    assert (!i0.atEnd()
+            && i0.city() == "Prague"
+            && i0.addr() == "Evropska"
+            && i0.region() == "Vokovice"
+            && i0.id() == 12345
+            && i0.owner() == "");
+    i0.next();
+    assert (!i0.atEnd()
+            && i0.city() == "Prague"
+            && i0.addr() == "Technicka"
+            && i0.region() == "Dejvice"
+            && i0.id() == 9873
+            && i0.owner() == "");
+    i0.next();
+    assert (!i0.atEnd()
+            && i0.city() == "Prague"
+            && i0.addr() == "Thakurova"
+            && i0.region() == "Dejvice"
+            && i0.id() == 12345
+            && i0.owner() == "");
+    i0.next();
+    assert (i0.atEnd());
+
+    assert (x.newOwner("Prague", "Thakurova", "CVUT"));
+    assert (!x.newOwner("Prague", "technicka", "CVUT"));
+    assert (!x.newOwner("prague", "Technicka", "CVUT"));
+    assert (!x.newOwner("dejvice", 9873, "CVUT"));
+    assert (!x.newOwner("Dejvice", 9973, "CVUT"));
+    x.print("_o");
+    x.print("_a");
+    x.print("_c");
+    assert (!x.newOwner("Dejvice", 12345, "CVUT"));
+    assert (x.count("CVUT") == 1);
+    CIterator i1 = x.listByOwner("CVUT");
+
+    assert (!i1.atEnd()
+            && i1.city() == "Prague"
+            && i1.addr() == "Thakurova"
+            && i1.region() == "Dejvice"
+            && i1.id() == 12345
+            && i1.owner() == "CVUT");
+    i1.next();
+    assert (i1.atEnd());
+
+    assert (!x.del("Brno", "Technicka"));
+    assert (!x.del("Karlin", 9873));
+    assert (x.del("Prague", "Technicka"));
+    assert (!x.del("Prague", "Technicka"));
+    assert (!x.del("Dejvice", 9873));
+}
 
 int main(void) {
     test2();
 
-    // test0();
-//    test1();
+    test0();
+    test1();
     return EXIT_SUCCESS;
 }
 
