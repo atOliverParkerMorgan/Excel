@@ -5,7 +5,7 @@
 
 class CIterator {
 private:
-    std::vector<CLand*> lands;
+    std::vector<CLand *> lands;
     size_t currentIndex;
 public:
     CIterator(std::vector<CLand *> in_land);

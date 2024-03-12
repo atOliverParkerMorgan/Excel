@@ -104,7 +104,9 @@ bool CLandRegister::addNewOwner(const std::string &owner, CLand *land) {
         auto *newOwner = new COwner(owner);
         land->acquire = ++newOwner->acquiredCount;
         newOwner->owned.push_back(land);
-        byOwner.push_back(newOwner);
+
+        auto it = std::lower_bound(byOwner.begin(), byOwner.end(), newOwner, cmpByOwner);
+        byOwner.insert(it, newOwner);
     } else {
         auto it = std::lower_bound((*itOwner)->owned.begin(), (*itOwner)->owned.end(), land,
                                    cmpByRegion);

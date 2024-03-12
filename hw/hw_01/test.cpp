@@ -115,20 +115,9 @@ static void test2() {
     assert (x.add("A", "A", "X", 2));
     assert (x.add("C", "A", "X", 1));
 
-
-
-    //assert (x.del("A", "A"));
-//
     assert (!x.del("Dejvice", 12345));
-     assert(x.del("Z", 1));
+    assert(x.del("Z", 1));
     assert(x.newOwner("A", "A", "test"));
-
-//    x.print("_o");
-//    x.print("_a");
-//    x.print("_c");
-
-
-
 }
 
 static void test0() {
@@ -397,9 +386,7 @@ static void test1() {
     assert (!x.newOwner("prague", "Technicka", "CVUT"));
     assert (!x.newOwner("dejvice", 9873, "CVUT"));
     assert (!x.newOwner("Dejvice", 9973, "CVUT"));
-    x.print("_o");
-    x.print("_a");
-    x.print("_c");
+
     assert (!x.newOwner("Dejvice", 12345, "CVUT"));
     assert (x.count("CVUT") == 1);
     CIterator i1 = x.listByOwner("CVUT");
