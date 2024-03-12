@@ -14,111 +14,479 @@
 #include <algorithm>
 #include <functional>
 #include <memory>
-#include "CLandRegister.hpp"
 
 #endif /* __PROGTEST__ */
 
-//struct CLand {
-//
-//    CLand(std::string city,
-//         std::string addr,
-//         std::string region,
-//         unsigned int id);
-//
-//    std::string city;
-//    std::string addr;
-//    std::string region;
-//    unsigned int id;
-//    std::string owner;
-//};
-//
-//CLand::CLand(std::string city, std::string addr, std::string region, unsigned int id) : city(std::move(city)),
-//                                                                                      addr(std::move(addr)),
-//                                                                                      region(std::move(region)),
-//                                                                                      id(id) {}
-//
-//class CIterator {
-//public:
-//    bool atEnd() const;
-//
-//    void next();
-//
-//    std::string city() const;
-//
-//    std::string addr() const;
-//
-//    std::string region() const;
-//
-//    unsigned id() const;
-//
-//    std::string owner() const;
-//
-//private:
-//    // todo
-//};
-//
-//class CLandRegister {
-//public:
-//    bool add(const std::string &city,
-//             const std::string &addr,
-//             const std::string &region,
-//             unsigned int id);
-//
-//    bool del(const std::string &city,
-//             const std::string &addr);
-//
-//    bool del(const std::string &region,
-//             unsigned int id);
-//
-//    bool getOwner(const std::string &city,
-//                  const std::string &addr,
-//                  std::string &owner) const;
-//
-//    bool getOwner(const std::string &region,
-//                  unsigned int id,
-//                  std::string &owner) const;
-//
-//    bool newOwner(const std::string &city,
-//                  const std::string &addr,
-//                  const std::string &owner);
-//
-//    bool newOwner(const std::string &region,
-//                  unsigned int id,
-//                  const std::string &owner);
-//
-//    size_t count(const std::string &owner) const;
-//
-//    CIterator listByAddr() const;
-//
-//    CIterator listByOwner(const std::string &owner) const;
-//
-//private:
-//    bool isInProperty(const std::string &city,
-//                      const std::string &addr);
-//
-//    bool isInProperty(const std::string &region,
-//                      unsigned int id);
-//
-//    std::vector<CLand> byCityAddr;
-//    std::vector<CLand> byRegionId;
-//    std::vector<CLand> propertyByAquire;
-//};
+struct CLand {
+
+    CLand(std::string city,
+          std::string addr,
+          std::string region,
+          unsigned int id);
+
+    std::string city;
+    std::string addr;
+    std::string region;
+    unsigned int id;
+    std::string owner;
+    size_t acquire;
+
+    bool operator==(const CLand &other) const;
+
+    void setOwner(const std::string &newOwner);
+};
+
+CLand::CLand(std::string city, std::string addr, std::string region, unsigned int id) :
+        city(std::move(city)),
+        addr(std::move(addr)),
+        region(std::move(region)),
+        id(id) {}
+
+void CLand::setOwner(const std::string &newOwner) {
+    owner = newOwner;
+}
+
+bool CLand::operator==(const CLand &other) const {
+    return city == other.city && addr == other.addr && region == other.region && id == other.id;
+}
+
+
+class COwner {
+public:
+    explicit COwner(const std::string &name);
+
+    std::string nameLower;
+    size_t acquiredCount;
+    std::vector<CLand *> owned;
+
+    static std::string stringToLower(const std::string &in);
+
+    std::vector<CLand *> getSortedCopyByAcquire() const;
+};
+
+COwner::COwner(const std::string &name) : nameLower(std::move(stringToLower(name))), acquiredCount(0) {}
+
+std::vector<CLand *> COwner::getSortedCopyByAcquire() const {
+    std::vector<CLand *> ownedLandVector = owned;
+
+    std::sort(ownedLandVector.begin(), ownedLandVector.end(), [](const CLand *l1, const CLand *l2) {
+        return l1->acquire < l2->acquire;
+    });
+
+    return ownedLandVector;
+};
+
+std::string COwner::stringToLower(const std::string &in) {
+    std::string out;
+    for (char c: in) {
+        out += static_cast<char>(tolower(static_cast<unsigned char>(c)));
+    }
+    return out;
+}
+
+
+class CIterator {
+private:
+    std::vector<CLand *> lands;
+    size_t currentIndex;
+public:
+    CIterator(std::vector<CLand *> in_land);
+
+    bool atEnd() const;
+
+    void next();
+
+    std::string city() const;
+
+    std::string addr() const;
+
+    std::string region() const;
+
+    unsigned id() const;
+
+    std::string owner() const;
+};
+
+
+bool CIterator::atEnd() const {
+    return currentIndex == lands.size();
+}
+
+void CIterator::next() {
+    if (!atEnd()) {
+        currentIndex++;
+    }
+}
+
+std::string CIterator::city() const {
+    if (!atEnd()) {
+        return lands[currentIndex]->city;
+    }
+    return "";
+}
+
+std::string CIterator::addr() const {
+    if (!atEnd()) {
+        return lands[currentIndex]->addr;
+    }
+    return "";
+}
+
+unsigned CIterator::id() const {
+    if (!atEnd()) {
+        return lands[currentIndex]->id;
+    }
+    return 0;
+}
+
+std::string CIterator::owner() const {
+    if (!atEnd()) {
+        return lands[currentIndex]->owner;
+    }
+    return "";
+}
+
+CIterator::CIterator(std::vector<CLand *> in_land) {
+    this->lands = std::move(in_land);
+    currentIndex = 0;
+}
+
+std::string CIterator::region() const {
+    if (!atEnd()) {
+        return lands[currentIndex]->region;
+    }
+    return "";
+}
+
+class CLandRegister {
+public:
+    CLandRegister() = default;
+
+    ~CLandRegister();
+
+    void print(const std::string &category);
+
+    bool add(const std::string &city,
+             const std::string &addr,
+             const std::string &region,
+             unsigned int id);
+
+    bool del(const std::string &city,
+             const std::string &addr);
+
+    bool del(const std::string &region,
+             unsigned int id);
+
+    bool getOwner(const std::string &city,
+                  const std::string &addr,
+                  std::string &owner) const;
+
+    bool getOwner(const std::string &region,
+                  unsigned int id,
+                  std::string &owner) const;
+
+    bool newOwner(const std::string &city,
+                  const std::string &addr,
+                  const std::string &owner);
+
+    bool newOwner(const std::string &region,
+                  unsigned int id,
+                  const std::string &owner);
+
+    size_t count(const std::string &owner) const;
+
+    CIterator listByAddr() const;
+
+    CIterator listByOwner(const std::string &owner) const;
+
+
+private:
+    static bool cmpByRegion(const CLand *p1, const CLand *p2);
+
+    static bool cmpByCity(const CLand *p1, const CLand *p2);
+
+    static bool cmpByOwner(const COwner *o1,
+                           const COwner *o2);
+
+    bool isInProperty(const std::string &city,
+                      const std::string &addr);
+
+    bool isInProperty(const std::string &region,
+                      unsigned int id);
+
+    std::vector<CLand *> byCityAddr;
+    std::vector<CLand *> byRegionId;
+    std::vector<COwner *> byOwner;
+
+    bool addNewOwner(const std::string &owner, CLand *land);
+
+    void removeOwner(const std::string &owner, CLand *land);
+};
+
+bool CLandRegister::add(const std::string &city, const std::string &addr, const std::string &region, unsigned int id) {
+    if (isInProperty(city, addr) || isInProperty(region, id)) {
+        return false;
+    }
+
+    auto *land = new CLand(city, addr, region, id);
+    land->setOwner("");
+
+    if (byOwner.empty()) {
+        byOwner.push_back(new COwner(""));
+    }
+
+    auto it = std::lower_bound(byOwner[0]->owned.begin(), byOwner[0]->owned.end(), land,
+                               cmpByRegion);
+
+    land->acquire = ++byOwner[0]->acquiredCount;
+    byOwner[0]->owned.insert(it, land);
+
+    it = std::lower_bound(byRegionId.begin(), byRegionId.end(), land,
+                          cmpByRegion);
+    byRegionId.insert(it, land);
+
+    it = std::lower_bound(byCityAddr.begin(), byCityAddr.end(), land,
+                          cmpByCity);
+    byCityAddr.insert(it, land);
+    return true;
+}
+
+bool CLandRegister::del(const std::string &city, const std::string &addr) {
+    CLand land = CLand(city, addr, "", 0);
+
+    auto it = std::lower_bound(byCityAddr.begin(), byCityAddr.end(), &land, cmpByCity);
+    if (it == byCityAddr.end() || (*it)->city != city || (*it)->addr != addr) {
+        return false;
+    }
+
+    land.region = (*it)->region;
+    land.id = (*it)->id;
+
+    removeOwner((*it)->owner, &land);
+    byCityAddr.erase(it);
+
+    it = std::lower_bound(byRegionId.begin(), byRegionId.end(), &land, cmpByRegion);
+    delete *it;
+
+    byRegionId.erase(it);
+
+    return true;
+}
+
+bool CLandRegister::del(const std::string &region, unsigned int id) {
+    CLand land = CLand("", "", region, id);
+    std::pair<std::string, std::vector<CLand *>> ownedLand;
+
+    auto it = std::lower_bound(byRegionId.begin(), byRegionId.end(), &land, cmpByRegion);
+    if (it == byRegionId.end() || (*it)->region != region || (*it)->id != id) {
+        return false;
+    }
+
+    land.city = (*it)->city;
+    land.addr = (*it)->addr;
+
+    removeOwner((*it)->owner, &land);
+    byRegionId.erase(it);
+
+
+    it = std::lower_bound(byCityAddr.begin(), byCityAddr.end(), &land, cmpByCity);
+    delete *it;
+    byCityAddr.erase(it);
+
+
+    return true;
+}
+
+bool CLandRegister::getOwner(const std::string &city, const std::string &addr, std::string &owner) const {
+    CLand land = CLand(city, addr, "", 0);
+
+    auto it = std::lower_bound(byCityAddr.begin(), byCityAddr.end(), &land,
+                               cmpByCity);
+    if (it == byCityAddr.end() || (*it)->city != city || (*it)->addr != addr) {
+
+        return false;
+    }
+    owner = (*it)->owner;
+    return true;
+}
+
+bool CLandRegister::getOwner(const std::string &region, unsigned int id, std::string &owner) const {
+    CLand land = CLand("", "", region, id);
+    auto it = std::lower_bound(byRegionId.begin(), byRegionId.end(), &land,
+                               cmpByRegion);
+    if (it == byRegionId.end() || (*it)->region != region || (*it)->id != id) {
+        return false;
+    }
+    owner = (*it)->owner;
+    return true;
+}
+
+bool CLandRegister::addNewOwner(const std::string &owner, CLand *land) {
+    COwner tmpOwner = COwner(owner);
+
+    auto itOwner = std::lower_bound(byOwner.begin(), byOwner.end(), &tmpOwner, cmpByOwner);
+    if (itOwner == byOwner.end() || (*itOwner)->nameLower != tmpOwner.nameLower) {
+        auto *newOwner = new COwner(owner);
+        land->acquire = ++newOwner->acquiredCount;
+        newOwner->owned.push_back(land);
+
+        auto it = std::lower_bound(byOwner.begin(), byOwner.end(), newOwner, cmpByOwner);
+        byOwner.insert(it, newOwner);
+    } else {
+        auto it = std::lower_bound((*itOwner)->owned.begin(), (*itOwner)->owned.end(), land,
+                                   cmpByRegion);
+        if (it != (*itOwner)->owned.end() && (*itOwner)->nameLower == tmpOwner.nameLower && (*it) == land) {
+            return false;
+        }
+
+        land->acquire = ++(*itOwner)->acquiredCount;
+        (*itOwner)->owned.insert(it, land);
+    }
+    removeOwner(land->owner, land);
+    land->owner = owner;
+
+    return true;
+}
+
+void CLandRegister::removeOwner(const std::string &owner, CLand *land) {
+    COwner ownedLand = COwner(owner);
+
+    auto itOwner = std::lower_bound(byOwner.begin(), byOwner.end(), &ownedLand, cmpByOwner);
+    if (itOwner != byOwner.end() && (*itOwner)->nameLower == ownedLand.nameLower) {
+        auto itLand = std::lower_bound((*itOwner)->owned.begin(), (*itOwner)->owned.end(),
+                                       land, cmpByRegion);
+        if (itLand != (*itOwner)->owned.end() && (*itLand)->region == land->region) {
+            (*itOwner)->owned.erase(itLand);
+        }
+    }
+}
+
+bool CLandRegister::newOwner(const std::string &city, const std::string &addr, const std::string &owner) {
+    CLand land = CLand(city, addr, "", 0);
+    auto it = std::lower_bound(byCityAddr.begin(), byCityAddr.end(), &land,
+                               cmpByCity);
+    if (it == byCityAddr.end() || (*it)->city != city || (*it)->addr != addr) {
+        return false;
+    }
+
+    return addNewOwner(owner, *it);
+}
+
+bool CLandRegister::newOwner(const std::string &region, unsigned int id, const std::string &owner) {
+    CLand land = CLand("", "", region, id);
+
+    auto it = std::lower_bound(byRegionId.begin(), byRegionId.end(), &land,
+                               cmpByRegion);
+    if (it == byRegionId.end() || (*it)->region != region || (*it)->id != id) {
+        return false;
+    }
+
+    return addNewOwner(owner, *it);
+}
+
+size_t CLandRegister::count(const std::string &owner) const {
+    COwner tmpOwner = COwner(owner);
+
+    auto it = std::lower_bound(byOwner.begin(), byOwner.end(), &tmpOwner,
+                               cmpByOwner);
+
+    if (it == byOwner.end() || (*it)->nameLower != tmpOwner.nameLower) return 0;
+    return (*it)->owned.size();
+}
+
+CIterator CLandRegister::listByAddr() const {
+    return {byCityAddr};
+}
+
+CIterator CLandRegister::listByOwner(const std::string &owner) const {
+    COwner tmpOwner = COwner(owner);
+
+    auto it = std::lower_bound(byOwner.begin(), byOwner.end(), &tmpOwner,
+                               cmpByOwner);
+    if (it == byOwner.end() || (*it)->nameLower != tmpOwner.nameLower) {
+        return {{}};
+    }
+
+    return {(*it)->getSortedCopyByAcquire()};
+}
+
+
+bool CLandRegister::isInProperty(const std::string &region, unsigned int id) {
+    CLand land = CLand("", "", region, id);
+    auto it = std::lower_bound(byRegionId.begin(), byRegionId.end(),
+                               &land, CLandRegister::cmpByRegion);
+    return (it != byRegionId.end() && region == (*it)->region && id == (*it)->id);
+}
+
+bool CLandRegister::isInProperty(const std::string &city, const std::string &addr) {
+    CLand land = CLand(city, addr, "", 0);
+    auto it = std::lower_bound(byCityAddr.begin(), byCityAddr.end(),
+                               &land, CLandRegister::cmpByCity);
+    return (it != byCityAddr.end() && city == (*it)->city && addr == (*it)->addr);
+}
+
+bool CLandRegister::cmpByCity(const CLand *p1, const CLand *p2) {
+    return (p1->city < p2->city) || (p1->city == p2->city && p1->addr < p2->addr);
+};
+
+
+bool CLandRegister::cmpByRegion(const CLand *p1, const CLand *p2) {
+    return (p1->region < p2->region) || (p1->region == p2->region && p1->id < p2->id);
+}
+
+bool CLandRegister::cmpByOwner(const COwner *o1,
+                               const COwner *o2) {
+    return (o1->nameLower < o2->nameLower);
+}
+
+
+void CLandRegister::print(const std::string &category) {
+    if (category == "_c") {
+        std::cout << "By City" << std::endl;
+        for (const CLand *p: byCityAddr) {
+            std::cout << "[ ( City: " << p->city << ", Addr: " << p->addr << ") , Region: " << p->region << ", ID: "
+                      << p->id << ", Owner: " << p->owner << " ]" << std::endl;
+        }
+    } else if (category == "_a") {
+        std::cout << "By Region" << std::endl;
+        for (const CLand *p: byRegionId) {
+            std::cout << "[ ( Region: " << p->region << ", ID: " << p->id << ") , City: " << p->city << ", Addr: "
+                      << p->addr << ", Owner: " << p->owner << " ]" << std::endl;
+        }
+    } else if (category == "_o") {
+        std::cout << "By Owner" << std::endl;
+        for (COwner *owner: byOwner) {
+            std::cout << "Owner: " << owner->nameLower << std::endl;
+            for (const CLand *p: owner->owned) {
+                std::cout << "[ ( Region: " << p->region << ", ID: " << p->id << ") , City: " << p->city << ", Addr: "
+                          << p->addr << ", Owner: " << p->owner << " ] Acquire: " << p->acquire << std::endl;
+            }
+        }
+    } else {
+        std::cout << "By Iterator" << std::endl;
+        for (CIterator p = listByOwner(category); !p.atEnd(); p.next()) {
+            std::cout << "[ ( Owner: " << p.owner() << ") , City: " << p.city()
+                      << ", Addr: "
+                      << p.addr() << ", Region: " << p.region() << ", ID: " << p.id()
+                      << " ]" << std::endl;
+        }
+    }
+    std::cout << "---" << std::endl;
+}
+
+
+CLandRegister::~CLandRegister() {
+    for (COwner *owner: byOwner) {
+
+        for (const CLand *land: owner->owned) {
+            delete land;
+        }
+        delete owner;
+    }
+}
+
 
 #ifndef __PROGTEST__
-
-static void test2() {
-    CLandRegister x;
-    std::string owner;
-    assert (x.add("C", "B", "Y", 3));
-    assert (x.add("D", "B", "Z", 2));
-    assert (x.add("D", "A", "Z", 1));
-    assert (x.add("A", "A", "X", 2));
-    assert (x.add("C", "A", "X", 1));
-
-    assert (!x.del("Dejvice", 12345));
-    assert(x.del("Z", 1));
-    assert(x.newOwner("A", "A", "test"));
-}
 
 static void test0() {
     CLandRegister x;
@@ -215,7 +583,6 @@ static void test0() {
     assert (x.newOwner("Plzen", "Evropska", "Anton Hrabis"));
     assert (x.newOwner("Librec", 4552, "Cvut"));
     x.getOwner("Prague", "Thakurova", owner);
-    std::cout << owner << std::endl;
     assert (x.getOwner("Prague", "Thakurova", owner) && owner == "CVUT");
 
     assert (x.getOwner("Dejvice", 12345, owner) && owner == "CVUT");
@@ -408,10 +775,8 @@ static void test1() {
 }
 
 int main(void) {
-    test2();
-
     test0();
-    test1();
+     test1();
     return EXIT_SUCCESS;
 }
 
