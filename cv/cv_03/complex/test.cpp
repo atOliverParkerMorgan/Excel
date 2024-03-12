@@ -51,7 +51,6 @@ int main() {
         os << c;
         assert(os.str() == "[0.00499445, -0.00562867]");
     }
-
     // -
     {
         std::ostringstream os;
