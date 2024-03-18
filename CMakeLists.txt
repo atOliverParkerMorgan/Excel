@@ -12,5 +12,7 @@ add_subdirectory(cv/cv_01)
 add_subdirectory(cv/cv_02)
 add_subdirectory(cv/cv_03/complex)
 add_subdirectory(hw/hw_01)
+add_subdirectory(hw/hw_02)
+add_subdirectory(hw_cv/cv_3)
 
-add_compile_options(-std=c++20 -Wall -pedantic -Wno-long-long -O2 -c -Werror -o )
+add_compile_options(-Wall -pedantic -Wno-long-long -O2 -c -Werror -o )
