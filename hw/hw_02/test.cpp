@@ -275,25 +275,31 @@ std::istream &operator>>(std::istream &is, CBigInt &val) {
     std::string num_str;
     char ch;
 
-    bool is_first = true;
     bool found_number = false;
     bool is_positive = true;
+    bool found_start_zero = false;
 
-
-    while ((is.get(ch) && std::isdigit(ch)) || (is_first && ch == '-')) {
-        if (is_first && ch == '-') {
-            is_positive = false;
-        } else {
-            num_str.push_back(ch);
-            found_number = true;
-        }
-        is_first = false;
-
+    if (is.peek() == '-') {
+        is_positive = false;
+        is.get();
     }
-    if (is) {
-        is.unget();
+
+
+    while (is.peek() == '0'){
+        is.get();
+        found_start_zero = true;
     }
-    if (found_number) {
+
+    while ((is.get(ch) && std::isdigit(ch))) {
+        num_str.push_back(ch);
+        found_number = true;
+    }
+    if(!found_number && found_start_zero){
+        num_str = "0";
+    }
+    if(num_str == "0") is_positive = true;
+
+    if (found_number || found_start_zero) {
         is.clear();
         val.value = num_str;
         val.is_positive = is_positive;
@@ -370,6 +376,12 @@ int main() {
     is.str(" 12 34");
     assert (is >> b);
     assert (equal(b, "12"));
+
+    is.clear();
+    is.str(" -0000000000123a2");
+    assert (is >> b);
+    assert (equal(b, "-123"));
+
     is.clear();
     is.str("999z");
     assert (is >> b);

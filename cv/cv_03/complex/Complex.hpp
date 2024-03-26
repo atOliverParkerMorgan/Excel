@@ -1,4 +1,4 @@
-// next line is include guard, do not modify
+// m_next line is include guard, do not modify
 #pragma once
 
 // Complex class

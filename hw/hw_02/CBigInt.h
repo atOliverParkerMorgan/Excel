@@ -23,8 +23,6 @@ public:
     // default constructor
     CBigInt();
 
-    CBigInt(const std::string &basicString);
-
     ~CBigInt() = default;
     // copying/assignment/destruction
 
@@ -67,5 +65,5 @@ public:
 
 private:
     bool is_positive;
-    std::string value;
+    std::vector<unsigned int> value;
 };
