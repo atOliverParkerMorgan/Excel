@@ -28,8 +28,7 @@ String::String(): str(nullptr) {}
 String::String(const char *s) : str(new ShareStr(s)){}
 
 String::String(const String &other) {
-    if(str)
-        str->incRef();
+    if(str)str->incRef();
 }
 
 String::~String() {
