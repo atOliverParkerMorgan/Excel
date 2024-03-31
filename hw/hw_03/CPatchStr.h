@@ -12,7 +12,42 @@
 // testfoobar
 // tstfooestfoobar
 class CPatchStr {
+
+
+    struct SharedPtr {
+        size_t ref_count;
+        char *data;
+
+        void incRef();
+
+        void decRef();
+
+        SharedPtr();
+
+        SharedPtr(const char *str);
+
+        ~SharedPtr();
+    };
+
+    struct Str {
+        size_t ofs;
+        size_t len;
+        SharedPtr *sharedPtr;
+        Str();
+        Str(const char *str);
+        Str(const Str & other);
+        ~Str();
+
+    };
+
+    size_t total_len = 0;
+    size_t size;
+    size_t cap;
+    Str **data;
+
 public:
+
+
     CPatchStr();
 
     CPatchStr(const char *str);
@@ -35,32 +70,10 @@ public:
                       const CPatchStr &src);
 
     CPatchStr &remove(size_t from,
-                      size_t len);
+                      size_t length);
 
     char *toStr() const;
-    void print();
 
+    void push(Str str);
 
-private:
-
-
-    struct CNode {
-        CNode *next = nullptr;
-        std::shared_ptr<char> sharedPtr;
-        size_t ofs = 0;
-        size_t len;
-
-        CNode();
-
-        CNode(const std::shared_ptr<char> &ptr);
-        CNode(const char*  string);
-
-        ~CNode();
-    };
-
-    CNode *getCStrOnPos(size_t pos);
-
-    CPatchStr::CNode *head;
-    CPatchStr::CNode *tail;
-    size_t len = 0;
 };

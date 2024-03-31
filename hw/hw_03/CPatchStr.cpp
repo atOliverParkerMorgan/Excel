@@ -4,159 +4,134 @@
 
 #include "CPatchStr.h"
 
-CPatchStr::CPatchStr() {
-    head = tail = nullptr;
+CPatchStr::CPatchStr() : size(0), cap(0), data(nullptr) {}
+
+CPatchStr::CPatchStr(const char *string) : size(0), cap(0), data(nullptr) {
+    auto *str = new Str(string);
+    push(str);
+
 }
 
-CPatchStr::CPatchStr(const char *string) {
-    len = strlen(string);
-    auto *node = new CNode(string);
-    head = tail = node;
-}
-
-CPatchStr::CPatchStr(const CPatchStr &other) : head(nullptr), tail(nullptr), len(other.len) {
-    if (other.head) {
-        head = tail = new CNode(other.head->sharedPtr);
-        CNode *otherCurrentPtr = other.head;
-        otherCurrentPtr = otherCurrentPtr->next;
-
-        while (otherCurrentPtr) {
-            tail->next = new CNode(otherCurrentPtr->sharedPtr);
-            tail = tail->next;
-
-            otherCurrentPtr = otherCurrentPtr->next;
-        }
+CPatchStr::CPatchStr(const CPatchStr &other) : cap(other.cap), size(other.size), total_len(other.total_len) {
+    data = new Str *[cap];
+    for (int i = 0; i < size; ++i) {
+        data[i] = other.data[i];
+        data[i]->sharedPtr->incRef();
     }
 }
 
 CPatchStr::~CPatchStr() {
-    while (head) {
-        CNode *tmp = head->next;
-        head->sharedPtr.reset();
-        head = tmp;
-    }
+//    for (int i = 0; i < size; ++i) {
+//        delete data[i];
+//    }
+
 }
 
 
 CPatchStr &CPatchStr::operator=(const CPatchStr &rhs) {
     if (this != &rhs) {
-        CPatchStr tmp(rhs);
-        std::swap(head, tmp.head);
-        std::swap(tail, tmp.tail);
-        len = rhs.len;
+        for (int i = 0; i < size; ++i) {
+            data[i]->sharedPtr->decRef();
+        }
+
+        delete[] data;
+        size = rhs.size;
+        cap = rhs.cap;
+        total_len = rhs.total_len;
+
+        data = new Str *[cap];
+        for (int i = 0; i < size; ++i) {
+            data[i] = rhs.data[i];
+            data[i]->sharedPtr->incRef();
+        }
     }
     return *this;
 }
 
 
 CPatchStr CPatchStr::subStr(size_t from, size_t len) const {
-
+    size_t cnt = 0;
+    auto *sub = new CPatchStr();
+    for (int i = 0; i < size; ++i) {
+        cnt += data[i]->len - data[i]->ofs;
+        if (cnt > from) {
+            sub->push(data[i]);
+        }
+    }
 }
 
 CPatchStr &CPatchStr::append(const CPatchStr &src) {
-    if (src.head) {
-        CNode *srcCurrentPtr = src.head;
-
-        while (srcCurrentPtr) {
-            CNode *newNode = new CNode(srcCurrentPtr->sharedPtr);
-            if (!head) {
-                head = tail = newNode;
-            } else {
-                tail->next = newNode;
-                tail = tail->next;
-            }
-            len += newNode->len - newNode->ofs;
-            srcCurrentPtr = srcCurrentPtr->next;
-        }
+    for (int i = 0; i < src.size; ++i) {
+        push(src.data[i]);
+        src.data[i]->sharedPtr->incRef();
     }
-
     return *this;
 }
 
-
-CPatchStr::CNode *CPatchStr::getCStrOnPos(size_t pos) {
-    CNode *tmp = head;
-    size_t current_length = head->len - head->ofs;
-    while (pos < current_length) {
-        current_length += tmp->len - tmp->ofs;
-        tmp = tmp->next;
-    }
-    return tmp;
-}
 
 CPatchStr &CPatchStr::insert(size_t pos, const CPatchStr &src) {
 
 
-    if (pos > len) {
+    if (pos > total_len) {
         throw std::out_of_range("Insert out of range");
     }
-    if (!head)
-        return *this;
 
-    if (pos == len) {
-        append(src);
-    } else {
-
-        CNode *insertPos = getCStrOnPos(pos);
-        CNode *afterInsertPos = insertPos->next;
-        insertPos->next = src.head;
-        src.tail->next = afterInsertPos;
-
-        if (!afterInsertPos) {
-            tail = src.tail;
-        }
-
-        len += src.len;
-    }
     return *this;
 }
 
-CPatchStr &CPatchStr::remove(size_t from, size_t len) {
+CPatchStr &CPatchStr::remove(size_t from, size_t length) {
     return *this;
 }
 
 char *CPatchStr::toStr() const {
-    if (len == 0)
-        return nullptr;
-
-    char *result = new char[len + 1];
-    char *currentPointer = result;
-
-    CNode *tmp = head;
-    while (tmp) {
-        std::copy(tmp->sharedPtr.get() + tmp->ofs, tmp->sharedPtr.get() + tmp->ofs + tmp->len, currentPointer);
-        currentPointer += tmp->len - tmp->ofs;
-        tmp = tmp->next;
+    char *out = new char[total_len + 1];
+    size_t current_index = 0;
+    for (int i = 0; i < size; ++i) {
+        strncpy(out + current_index, data[i]->sharedPtr->data + data[i]->ofs, data[i]->len);
+        current_index += data[i]->len - data[i]->ofs;
     }
-    result[len] = '\0';
-    return result;
+    out[total_len] = 0;
+    return out;
 }
 
-void CPatchStr::print() {
-    CNode *tmp = head;
-    while (tmp) {
-        std::cout << tmp->ofs << " - " << tmp->len << " " << tmp->sharedPtr.get() << std::endl;
-        tmp = tmp->next;
+void CPatchStr::push(Str str) {
+    if (cap >= size) {
+        cap = 2 * cap + 8;
+        auto **newData = new Str *[cap];
+        memcpy(newData, data, size * sizeof(Str *));
+        delete[] data;
+        data = newData;
     }
+    total_len += str.len - str.ofs;
+    data[size++] = &str;
 }
 
-
-CPatchStr::CNode::CNode() : len(0) {};
-
-CPatchStr::CNode::CNode(const std::shared_ptr<char> &ptr) : sharedPtr(ptr), len(strlen(sharedPtr.get())) {}
-
-CPatchStr::CNode::~CNode() {
-    sharedPtr.reset();
+void CPatchStr::SharedPtr::incRef() {
+    ++ref_count;
 }
 
-CPatchStr::CNode::CNode(const char *string) {
-    len = strlen(string);
-    char *stringCopy = new char[len + 1];
-    std::strcpy(stringCopy, string);
-
-    sharedPtr = std::shared_ptr<char>(stringCopy, std::default_delete<char[]>());
-    std::cout << "Here" << sharedPtr.get() << std::endl;
+void CPatchStr::SharedPtr::decRef() {
+    if (--ref_count == 0) delete this;
 }
 
+CPatchStr::SharedPtr::SharedPtr(const char *s) : data(new char[strlen(s) + 1]), ref_count(1) {
+    strcpy(data, s);
+}
 
+CPatchStr::SharedPtr::~SharedPtr() {
+    delete[] data;
+}
 
+CPatchStr::SharedPtr::SharedPtr() : ref_count(0), data(nullptr) {}
+
+CPatchStr::Str::Str() : ofs(0), len(0), sharedPtr(nullptr) {}
+
+CPatchStr::Str::Str(const char *str) : ofs(0), len(strlen(str)), sharedPtr(new SharedPtr(str)) {}
+
+CPatchStr::Str::~Str() {
+    sharedPtr->decRef();
+}
+
+CPatchStr::Str::Str(const CPatchStr::Str &other): ofs(other.ofs), len(other.len), sharedPtr(other.sharedPtr){
+    other.sharedPtr->incRef();
+}
