@@ -15,14 +15,9 @@ class CPatchStr {
 
 
     struct SharedPtr {
-        size_t ref_count;
         size_t ofs;
         size_t len;
-        char *data;
-
-        void incRef();
-
-        void decRef();
+        std::shared_ptr<char> data;
 
         SharedPtr();
 
@@ -35,7 +30,7 @@ class CPatchStr {
     size_t total_len = 0;
     size_t size;
     size_t cap;
-    SharedPtr **data;
+    SharedPtr *data;
 
 public:
 
