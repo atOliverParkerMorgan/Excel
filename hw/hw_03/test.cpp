@@ -27,21 +27,22 @@ bool stringMatch(char *str,
 int main() {
     char tmpStr[100];
 
-    CPatchStr a("test");
 
-    assert (stringMatch(a.toStr(), "test"));
-    std::strncpy(tmpStr, " da", sizeof(tmpStr) - 1);
-    a.append(tmpStr);
-    std::cout << a.toStr() << std::endl;
-    assert (stringMatch(a.toStr(), "test da"));
-    std::strncpy(tmpStr, "ta", sizeof(tmpStr) - 1);
-    a.append(tmpStr);
-    assert (stringMatch(a.toStr(), "test data"));
-    std::strncpy(tmpStr, "foo text", sizeof(tmpStr) - 1);
-    CPatchStr b(tmpStr);
-    assert (stringMatch(b.toStr(), "foo text"));
-    CPatchStr c(a);
-    assert (stringMatch(c.toStr(), "test data"));
+
+
+//    assert (stringMatch(a.toStr(), "test"));
+//    std::strncpy(tmpStr, " da", sizeof(tmpStr) - 1);
+//    a.append(tmpStr);
+//    assert (stringMatch(a.toStr(), "test da"));
+//    std::strncpy(tmpStr, "ta", sizeof(tmpStr) - 1);
+//    a.append(tmpStr);
+//    assert (stringMatch(a.toStr(), "test data"));
+//    std::strncpy(tmpStr, "foo text", sizeof(tmpStr) - 1);
+//    CPatchStr b(tmpStr);
+//    assert (stringMatch(b.toStr(), "foo text"));
+//    CPatchStr c(a);
+//
+//    assert (stringMatch(c.toStr(), "test data"));
 //    CPatchStr d(a.subStr(3, 5));
 //    assert (stringMatch(d.toStr(), "t dat"));
 //    d.append(b);

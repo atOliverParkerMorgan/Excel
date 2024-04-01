@@ -16,6 +16,8 @@ class CPatchStr {
 
     struct SharedPtr {
         size_t ref_count;
+        size_t ofs;
+        size_t len;
         char *data;
 
         void incRef();
@@ -29,21 +31,11 @@ class CPatchStr {
         ~SharedPtr();
     };
 
-    struct Str {
-        size_t ofs;
-        size_t len;
-        SharedPtr *sharedPtr;
-        Str();
-        Str(const char *str);
-        Str(const Str & other);
-        ~Str();
-
-    };
 
     size_t total_len = 0;
     size_t size;
     size_t cap;
-    Str **data;
+    SharedPtr **data;
 
 public:
 
@@ -74,6 +66,6 @@ public:
 
     char *toStr() const;
 
-    void push(Str str);
+    void push(SharedPtr * sharedPtr);
 
 };
