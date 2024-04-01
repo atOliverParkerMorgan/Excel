@@ -33,9 +33,13 @@ class CPatchStr {
         size_t ofs;
         size_t len;
         SharedPtr *sharedPtr;
+
         Str();
+
         Str(const char *str);
-        Str(const Str & other);
+
+        Str(const Str &other);
+
         ~Str();
 
     };
@@ -74,6 +78,6 @@ public:
 
     char *toStr() const;
 
-    void push(Str str);
+    void push(Str *str);
 
 };

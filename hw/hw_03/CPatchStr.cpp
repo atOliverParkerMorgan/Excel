@@ -8,6 +8,7 @@ CPatchStr::CPatchStr() : size(0), cap(0), data(nullptr) {}
 
 CPatchStr::CPatchStr(const char *string) : size(0), cap(0), data(nullptr) {
     auto *str = new Str(string);
+    str->sharedPtr->incRef();
     push(str);
 
 }
@@ -21,9 +22,12 @@ CPatchStr::CPatchStr(const CPatchStr &other) : cap(other.cap), size(other.size),
 }
 
 CPatchStr::~CPatchStr() {
-//    for (int i = 0; i < size; ++i) {
-//        delete data[i];
-//    }
+    for (int i = 0; i < size; ++i) {
+        data[i]->sharedPtr->decRef();
+        delete data[i];
+    }
+
+    delete[] data;
 
 }
 
@@ -62,7 +66,8 @@ CPatchStr CPatchStr::subStr(size_t from, size_t len) const {
 
 CPatchStr &CPatchStr::append(const CPatchStr &src) {
     for (int i = 0; i < src.size; ++i) {
-        push(src.data[i]);
+        Str *newStr = new Str(*+src.data[i]);
+        push(newStr);
         src.data[i]->sharedPtr->incRef();
     }
     return *this;
@@ -94,7 +99,7 @@ char *CPatchStr::toStr() const {
     return out;
 }
 
-void CPatchStr::push(Str str) {
+void CPatchStr::push(Str *str) {
     if (cap >= size) {
         cap = 2 * cap + 8;
         auto **newData = new Str *[cap];
@@ -102,8 +107,8 @@ void CPatchStr::push(Str str) {
         delete[] data;
         data = newData;
     }
-    total_len += str.len - str.ofs;
-    data[size++] = &str;
+    total_len += str->len - str->ofs;
+    data[size++] = str;
 }
 
 void CPatchStr::SharedPtr::incRef() {
@@ -129,9 +134,8 @@ CPatchStr::Str::Str() : ofs(0), len(0), sharedPtr(nullptr) {}
 CPatchStr::Str::Str(const char *str) : ofs(0), len(strlen(str)), sharedPtr(new SharedPtr(str)) {}
 
 CPatchStr::Str::~Str() {
-    sharedPtr->decRef();
 }
 
-CPatchStr::Str::Str(const CPatchStr::Str &other): ofs(other.ofs), len(other.len), sharedPtr(other.sharedPtr){
+CPatchStr::Str::Str(const CPatchStr::Str &other) : ofs(other.ofs), len(other.len), sharedPtr(other.sharedPtr) {
     other.sharedPtr->incRef();
 }
