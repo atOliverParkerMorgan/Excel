@@ -12,25 +12,8 @@
 // testfoobar
 // tstfooestfoobar
 class CPatchStr {
-
-
-    struct SharedPtr {
-        size_t ofs;
-        size_t len;
-        std::shared_ptr<char> data;
-
-        SharedPtr();
-
-        SharedPtr(const char *str);
-
-        ~SharedPtr();
-    };
-
-
-    size_t total_len = 0;
     size_t size;
-    size_t cap;
-    SharedPtr *data;
+    char *data;
 
 public:
 
@@ -57,10 +40,10 @@ public:
                       const CPatchStr &src);
 
     CPatchStr &remove(size_t from,
-                      size_t length);
+                      size_t len);
 
     char *toStr() const;
 
-    void push(SharedPtr * sharedPtr);
+    void push(char * str);
 
 };
