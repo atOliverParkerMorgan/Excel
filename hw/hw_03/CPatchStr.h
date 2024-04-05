@@ -30,6 +30,8 @@ public:
         size_t strLen;
 
         PatchList();
+        PatchList(const PatchList &patchList);
+
     };
 
 
@@ -43,7 +45,7 @@ public:
 
     ~CPatchStr();
 
-    CPatchStr &operator=(CPatchStr &rhs);
+    CPatchStr &operator=(const CPatchStr &rhs);
 
     // copy constructor
     // destructor
