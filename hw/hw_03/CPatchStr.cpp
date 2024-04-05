@@ -32,6 +32,10 @@ CPatchStr &CPatchStr::operator=(const CPatchStr &rhs) {
 }
 
 CPatchStr CPatchStr::subStr(size_t from, size_t len) const {
+    if (from + len > patchList->strLen) {
+        throw std::out_of_range("Out of range error");
+    }
+
     CPatchStr newCPatchStr;
 
     size_t totalLength = 0;
@@ -68,24 +72,19 @@ CPatchStr &CPatchStr::append(const CPatchStr &src) {
 }
 
 CPatchStr &CPatchStr::insert(size_t pos, const CPatchStr &src) {
-    if (pos > patchList->size) {
-        throw std::out_of_range("Invalid position for insertion");
+    if (pos > patchList->strLen) {
+        throw std::out_of_range("Out of range error");
     }
 
     CPatchStr newStr;
 
-    // Copy characters before the insertion position
-    for (size_t i = 0; i < pos; ++i) {
-        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset, patchList->nodes[i].len);
-    }
-
-    // Find the starting node index and offset within that node for insertion
     size_t totalLength = 0;
     size_t startIndex = 0;
     size_t startOffset = 0;
 
     for (size_t i = 0; i < patchList->size; ++i) {
         totalLength += patchList->nodes[i].len - patchList->nodes[i].offset;
+
         if (totalLength >= pos) {
             startIndex = i;
             startOffset = pos - (totalLength - patchList->nodes[i].len + patchList->nodes[i].offset);
@@ -93,66 +92,56 @@ CPatchStr &CPatchStr::insert(size_t pos, const CPatchStr &src) {
         }
     }
 
-    // Copy characters from the src string
+    if (startOffset > 0) {
+        startIndex++;
+    }
+
+    for (size_t i = 0; i < startIndex; ++i) {
+        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset, patchList->nodes[i].len);
+    }
+
+    size_t newLength = 0;
+    if (startOffset > 0) {
+        newLength = patchList->nodes[startIndex - 1].len - startOffset;
+
+        newStr.patchList->nodes[startIndex - 1].len = startOffset;
+    }
+
     for (size_t i = 0; i < src.patchList->size; ++i) {
         newStr.push_back(src.patchList->nodes[i].patch.get() + src.patchList->nodes[i].offset,
                          src.patchList->nodes[i].len);
+
     }
 
-    // Copy characters after the insertion position
+    if (startOffset > 0) {
+        newStr.push_back(
+                newStr.patchList->nodes[startIndex - 1].patch.get() + newStr.patchList->nodes[startIndex - 1].len,
+                newLength);
+    }
+
     for (size_t i = startIndex; i < patchList->size; ++i) {
-        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset,
-                         patchList->nodes[i].len);
+        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset, patchList->nodes[i].len);
     }
 
-    // Assign the modified string back to this object
     *this = newStr;
     return *this;
 }
 
 
-
 CPatchStr &CPatchStr::remove(size_t from, size_t len) {
-    if (from + len > patchList->size) {
+    if (from + len > patchList->strLen) {
         throw std::out_of_range("4");
     }
 
-    size_t totalLength = 0;
-    size_t startOffset = 0;
-    size_t startIndex = 0;
+    CPatchStr firstHalf = subStr(0, from);
+    CPatchStr secondHalf = subStr(len + from, patchList->strLen - len - from);
 
-    CPatchStr newStr;
-
-    for (int i = 0; i < patchList->size; ++i) {
-        totalLength += patchList->nodes[i].len - patchList->nodes[i].offset;
-        newStr.push_back(patchList->nodes[i].patch.get(), strlen(patchList->nodes[i].patch.get()));
-        if (from < totalLength) {
-            startIndex = i;
-            startOffset = from - (totalLength - patchList->nodes[i].len + patchList->nodes[i].offset);
-            newStr.patchList->nodes[newStr.patchList->size - 1].len = startOffset;
-            break;
-        }
+    for (int i = 0; i < secondHalf.patchList->size; ++i) {
+        firstHalf.push_back(secondHalf.patchList->nodes[i].patch.get() + secondHalf.patchList->nodes[i].offset,
+                            secondHalf.patchList->nodes[i].len);
     }
 
-    size_t endIndex = startIndex;
-    size_t remainingLength = len;
-    while (remainingLength > 0 && endIndex < patchList->size) {
-        size_t nodeLength = patchList->nodes[endIndex].len - patchList->nodes[endIndex].offset;
-        if (nodeLength > remainingLength) {
-            patchList->nodes[endIndex].offset += remainingLength;
-            break;
-        } else {
-            ++endIndex;
-            remainingLength -= nodeLength;
-        }
-    }
-    for (size_t i = endIndex; i < patchList->size; ++i) {
-        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset,
-                         patchList->nodes[i].len - patchList->nodes[i].offset);
-    }
-
-    *this = newStr;
-
+    *this = firstHalf;
     return *this;
 }
 
@@ -208,7 +197,7 @@ CPatchStr::Node &CPatchStr::Node::operator=(const CPatchStr::Node &rhs) {
         offset = rhs.offset;
         if (rhs.patch) {
             char *newPatch = new char[len + 1];
-            strcpy(newPatch, rhs.patch.get());
+            std::memcpy(newPatch, rhs.patch.get(), rhs.len);
             patch.reset(newPatch);
         } else {
             patch.reset();

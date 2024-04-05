@@ -50,14 +50,8 @@ int main() {
     assert (stringMatch(c.toStr(), "test datat datfoo text tex"));
     c.append(c);
     assert (stringMatch(c.toStr(), "test datat datfoo text textest datat datfoo text tex"));
-    std::cout << d.toStr() << std::endl;
 
-    std::cout << c.toStr() << std::endl;
-
-    std::cout << c.subStr(6, 9).toStr() << std::endl;
-    d.insert(2, c.subStr(6, 9));
-
-    std::cout << d.toStr() << std::endl;
+   d.insert(2, c.subStr(6, 9));
 
 
     assert (stringMatch(d.toStr(), "t atat datfdatfoo text tex"));
@@ -75,7 +69,10 @@ int main() {
     catch (...) {
         assert ("Invalid exception thrown" == nullptr);
     }
+   // std::cout << a.toStr() << std::endl;
+
     a.remove(3, 5);
+   // std::cout << a.toStr() << std::endl;
     assert (stringMatch(a.toStr(), "tesa"));
     return EXIT_SUCCESS;
 }
