@@ -12,6 +12,7 @@ add_subdirectory(cv/cv_01)
 add_subdirectory(cv/cv_02)
 add_subdirectory(cv/cv_03/complex)
 add_subdirectory(cv/cv_04)
+add_subdirectory(cv/cv_06)
 
 add_subdirectory(hw/hw_01)
 add_subdirectory(hw/hw_02)

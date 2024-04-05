@@ -8,29 +8,46 @@
 #include <memory>
 #include <stdexcept>
 
-// subStr(2, 5) = stfoo
-// testfoobar
-// tstfooestfoobar
 class CPatchStr {
-    size_t size;
-    char *data;
-
 public:
+    struct Node {
 
+        std::shared_ptr<char[]> patch;
+        size_t offset;
+        size_t len;
+
+        Node();
+
+        Node(const Node &node);
+
+        Node &operator=(const Node &rhs);
+    };
+
+    struct PatchList {
+        std::unique_ptr<Node[]> nodes;
+        size_t capacity;
+        size_t size;
+        size_t strLen;
+
+        PatchList();
+    };
+
+
+    std::shared_ptr<PatchList> patchList;
 
     CPatchStr();
 
     CPatchStr(const char *str);
 
-    // copy constructor
     CPatchStr(const CPatchStr &other);
 
-    // destructor
     ~CPatchStr();
 
-    // operator =
-    CPatchStr &operator=(const CPatchStr &rhs);
+    CPatchStr &operator=(CPatchStr &rhs);
 
+    // copy constructor
+    // destructor
+    // operator =
     CPatchStr subStr(size_t from,
                      size_t len) const;
 
@@ -44,6 +61,6 @@ public:
 
     char *toStr() const;
 
-    void push(char * str);
-
+private:
+    void push_back(const char *str, size_t length);
 };

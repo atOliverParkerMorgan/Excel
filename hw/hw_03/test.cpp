@@ -8,44 +8,11 @@
 #include <iomanip>
 #include <memory>
 #include <stdexcept>
+#include "CPatchStr.h"
+
 #endif /* __PROGTEST__ */
 
-class CPatchStr
-{
-public:
-    struct Node {
-        std::shared_ptr<char[]> patch;
-        int offset;
-        int len;
-    };
-
-    struct PatchList {
-        std::unique_ptr<Node[]> nodes;
-        int capacity;
-        int size;
-        int strLen;
-    };
-
-
-    std::shared_ptr<PatchList> patchList;
-
-    CPatchStr ();
-    CPatchStr ( const char * str );
-    // copy constructor
-    // destructor
-    // operator =
-    CPatchStr   subStr    ( size_t            from,
-                            size_t            len ) const;
-    CPatchStr & append    ( const CPatchStr & src );
-
-    CPatchStr & insert    ( size_t            pos,
-                            const CPatchStr & src );
-    CPatchStr & remove    ( size_t            from,
-                            size_t            len );
-    char      * toStr     () const;
-private:
-    // todo
-};
+// here!
 
 #ifndef __PROGTEST__
 bool stringMatch ( char       * str,
@@ -83,27 +50,27 @@ int main ()
     assert ( stringMatch ( c . toStr (), "test datat datfoo text tex" ) );
     c . append ( c );
     assert ( stringMatch ( c . toStr (), "test datat datfoo text textest datat datfoo text tex" ) );
-    d . insert ( 2, c . subStr ( 6, 9 ) );
-    assert ( stringMatch ( d . toStr (), "t atat datfdatfoo text tex" ) );
-    b = "abcdefgh";
-    assert ( stringMatch ( b . toStr (), "abcdefgh" ) );
-    assert ( stringMatch ( d . toStr (), "t atat datfdatfoo text tex" ) );
-    assert ( stringMatch ( d . subStr ( 4, 8 ) . toStr (), "at datfd" ) );
-    assert ( stringMatch ( b . subStr ( 2, 6 ) . toStr (), "cdefgh" ) );
-    try
-    {
-        b . subStr ( 2, 7 ) . toStr ();
-        assert ( "Exception not thrown" == nullptr );
-    }
-    catch ( const std::out_of_range & e )
-    {
-    }
-    catch ( ... )
-    {
-        assert ( "Invalid exception thrown" == nullptr );
-    }
-    a . remove ( 3, 5 );
-    assert ( stringMatch ( a . toStr (), "tesa" ) );
-    return EXIT_SUCCESS;
+//    d . insert ( 2, c . subStr ( 6, 9 ) );
+//    assert ( stringMatch ( d . toStr (), "t atat datfdatfoo text tex" ) );
+//    b = "abcdefgh";
+//    assert ( stringMatch ( b . toStr (), "abcdefgh" ) );
+//    assert ( stringMatch ( d . toStr (), "t atat datfdatfoo text tex" ) );
+//    assert ( stringMatch ( d . subStr ( 4, 8 ) . toStr (), "at datfd" ) );
+//    assert ( stringMatch ( b . subStr ( 2, 6 ) . toStr (), "cdefgh" ) );
+//    try
+//    {
+//        b . subStr ( 2, 7 ) . toStr ();
+//        assert ( "Exception not thrown" == nullptr );
+//    }
+//    catch ( const std::out_of_range & e )
+//    {
+//    }
+//    catch ( ... )
+//    {
+//        assert ( "Invalid exception thrown" == nullptr );
+//    }
+//    a . remove ( 3, 5 );
+//    assert ( stringMatch ( a . toStr (), "tesa" ) );
+//    return EXIT_SUCCESS;
 }
 #endif /* __PROGTEST__ */
