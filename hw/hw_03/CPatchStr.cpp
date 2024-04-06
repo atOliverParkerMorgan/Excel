@@ -15,17 +15,16 @@ CPatchStr::~CPatchStr() {};
 
 CPatchStr &CPatchStr::operator=(const CPatchStr &rhs) {
     if (this != &rhs) {
+        patchList->size = rhs.patchList->size;
+        patchList->capacity = rhs.patchList->capacity;
+        patchList->strLen = rhs.patchList->strLen;
         if (rhs.patchList->nodes) {
-            patchList->size = rhs.patchList->size;
-            patchList->capacity = rhs.patchList->capacity;
-            patchList->strLen = rhs.patchList->strLen;
-
             patchList->nodes = std::make_unique<Node[]>(patchList->capacity);
-
-
             for (size_t i = 0; i < patchList->size; ++i) {
                 patchList->nodes[i] = rhs.patchList->nodes[i];
             }
+        } else {
+            patchList->nodes = nullptr;
         }
     }
     return *this;
@@ -68,7 +67,7 @@ CPatchStr &CPatchStr::append(const CPatchStr &src) {
     const char *str = src.toStr();
     push_back(str, strlen(str));
     delete[] str;
-
+    return *this;
 }
 
 CPatchStr &CPatchStr::insert(size_t pos, const CPatchStr &src) {
@@ -76,54 +75,13 @@ CPatchStr &CPatchStr::insert(size_t pos, const CPatchStr &src) {
         throw std::out_of_range("Out of range error");
     }
 
-    CPatchStr newStr;
+    CPatchStr firstHalf = subStr(0, pos);
+    CPatchStr secondHalf = subStr(pos, patchList->strLen - pos);
+    firstHalf.append(src);
+    firstHalf.append(secondHalf);
 
-    size_t totalLength = 0;
-    size_t startIndex = 0;
-    size_t startOffset = 0;
 
-    for (size_t i = 0; i < patchList->size; ++i) {
-        totalLength += patchList->nodes[i].len - patchList->nodes[i].offset;
-
-        if (totalLength >= pos) {
-            startIndex = i;
-            startOffset = pos - (totalLength - patchList->nodes[i].len + patchList->nodes[i].offset);
-            break;
-        }
-    }
-
-    if (startOffset > 0) {
-        startIndex++;
-    }
-
-    for (size_t i = 0; i < startIndex; ++i) {
-        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset, patchList->nodes[i].len);
-    }
-
-    size_t newLength = 0;
-    if (startOffset > 0) {
-        newLength = patchList->nodes[startIndex - 1].len - startOffset;
-
-        newStr.patchList->nodes[startIndex - 1].len = startOffset;
-    }
-
-    for (size_t i = 0; i < src.patchList->size; ++i) {
-        newStr.push_back(src.patchList->nodes[i].patch.get() + src.patchList->nodes[i].offset,
-                         src.patchList->nodes[i].len);
-
-    }
-
-    if (startOffset > 0) {
-        newStr.push_back(
-                newStr.patchList->nodes[startIndex - 1].patch.get() + newStr.patchList->nodes[startIndex - 1].len,
-                newLength);
-    }
-
-    for (size_t i = startIndex; i < patchList->size; ++i) {
-        newStr.push_back(patchList->nodes[i].patch.get() + patchList->nodes[i].offset, patchList->nodes[i].len);
-    }
-
-    *this = newStr;
+    *this = firstHalf;
     return *this;
 }
 
@@ -148,7 +106,10 @@ CPatchStr &CPatchStr::remove(size_t from, size_t len) {
 char *CPatchStr::toStr() const {
     char *newStr = new char[patchList->strLen + 1]();
     for (int i = 0; i < patchList->size; ++i) {
-        strncat(newStr, patchList->nodes[i].patch.get() + patchList->nodes[i].offset, patchList->nodes[i].len);
+        const char *string = patchList->nodes[i].patch.get();
+        if (string != nullptr) {
+            strncat(newStr, string + patchList->nodes[i].offset, patchList->nodes[i].len);
+        }
     }
     return newStr;
 }
