@@ -1,3 +1,4 @@
+
 #include <cstring>
 #include <cstdlib>
 #include <cstdio>
@@ -8,61 +9,41 @@
 #include <memory>
 #include <stdexcept>
 
-// subStr(2, 5) = stfoo
-// testfoobar
-// tstfooestfoobar
 class CPatchStr {
-
-
-    struct SharedPtr {
-        size_t ref_count;
-        char *data;
-
-        void incRef();
-
-        void decRef();
-
-        SharedPtr();
-
-        SharedPtr(const char *str);
-
-        ~SharedPtr();
-    };
-
-    struct Str {
-        size_t ofs;
-        size_t len;
-        SharedPtr *sharedPtr;
-
-        Str();
-
-        Str(const char *str);
-
-        Str(const Str &other);
-
-        ~Str();
-
-    };
-
-    size_t total_len = 0;
-    size_t size;
-    size_t cap;
-    Str **data;
-
 public:
+    struct Node {
+        std::shared_ptr<char[]> patch;
+        size_t offset;
+        size_t len;
 
+        Node();
+
+        Node(const Node &node);
+
+        Node &operator=(const Node &rhs);
+    };
+
+    struct PatchList {
+        std::unique_ptr<Node[]> nodes;
+        size_t capacity = 0;
+        size_t size = 0;
+        size_t strLen = 0;
+
+        PatchList();
+
+        PatchList(const PatchList &patchList);
+    };
+
+    std::shared_ptr<PatchList> patchList;
 
     CPatchStr();
 
     CPatchStr(const char *str);
 
-    // copy constructor
     CPatchStr(const CPatchStr &other);
 
-    // destructor
     ~CPatchStr();
 
-    // operator =
     CPatchStr &operator=(const CPatchStr &rhs);
 
     CPatchStr subStr(size_t from,
@@ -74,10 +55,10 @@ public:
                       const CPatchStr &src);
 
     CPatchStr &remove(size_t from,
-                      size_t length);
+                      size_t len);
 
     char *toStr() const;
 
-    void push(Str *str);
-
+private:
+    void push_back(std::shared_ptr<char[]> str, size_t offset, size_t length);
 };
