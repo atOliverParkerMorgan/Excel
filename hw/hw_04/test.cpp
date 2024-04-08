@@ -64,7 +64,7 @@ public:
 
     CStudent(const std::string &name,
              const CDate &born,
-             int enrolled) : name(name), born(born), enrolled(enrolled) {
+             int enrolled, int id) : name(name), born(born), enrolled(enrolled), id(id) {
 
     }
 
@@ -192,9 +192,8 @@ public:
 
 
     bool match(const CStudent &student) const {
-        return
-
-        *startBornDate < student.getBorn() && student.getBorn() < *endBornDate;
+        return startEnrolled < student.getEnrolled() && student.getEnrolled() < endEnrolled &&
+               *startBornDate < student.getBorn() && student.getBorn() < *endBornDate;
     }
 
     int getStartEnrolled() const {
@@ -242,6 +241,25 @@ public:
     CSort &addKey(ESortKey key,
                   bool ascending) {
         allCriteria.push_back(new Criteria(ascending, key));
+    }
+
+    bool cmp(const CStudent &a, const CStudent &b) const {
+        for (const Criteria *criteria: allCriteria) {
+            if (criteria->key == ESortKey::NAME) {
+                if (a.getName() == b.getName()) continue;
+                if (criteria->ascending) return a.getName() < b.getName();
+                return a.getName() > b.getName();
+            } else if (criteria->key == ESortKey::BIRTH_DATE) {
+                if (a.getBorn() == b.getBorn()) continue;
+                if (criteria->ascending) return a.getBorn() < b.getBorn();
+                return a.getBorn() > b.getBorn();
+            } else if (criteria->key == ESortKey::ENROLL_YEAR) {
+                if (a.getEnrolled() == b.getEnrolled()) continue;
+                if (criteria->ascending) return a.getEnrolled() < b.getEnrolled();
+                return a.getEnrolled() > b.getEnrolled();
+            }
+        }
+        return a.
     }
 
 private:
@@ -350,6 +368,10 @@ public:
                 }
             }
         }
+
+        output.sort([& sortOpt](const CStudent &a, const CStudent &b) {
+            return sortOpt.cmp(a, b);
+        });
 
         return output;
 
