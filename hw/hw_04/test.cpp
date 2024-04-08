@@ -24,6 +24,7 @@
 
 class CDate {
 public:
+
     CDate(int y, int m, int d) : m_Y(y), m_M(m), m_D(d) {
     }
 
@@ -32,6 +33,16 @@ public:
     friend std::ostream &operator<<(std::ostream &os,
                                     const CDate &d) {
         return os << d.m_Y << '-' << d.m_M << '-' << d.m_D;
+    }
+
+    CDate &operator=(const CDate &rhs) = default;
+
+    bool isStartOfTime() const {
+        return m_Y == INT16_MIN && m_M == 1 && m_D == 1;
+    }
+
+    bool isEndOfTime() const {
+        return m_Y == INT16_MAX && m_M == 12 && m_D == 31;
     }
 
 private:
@@ -49,22 +60,91 @@ enum class ESortKey {
 
 class CStudent {
 public:
+
+
     CStudent(const std::string &name,
              const CDate &born,
-             int enrolled) {
+             int enrolled) : name(name), born(born), enrolled(enrolled) {
 
     }
 
-    bool operator==(const CStudent &other) const {
 
+    bool operator==(const CStudent &other) const {
+        return name == other.name && born == other.born && enrolled == other.enrolled;
     }
 
     bool operator!=(const CStudent &other) const {
-
+        return !(*this == other);
     }
+
+    std::string getName() const {
+        return name;
+    }
+
+    CDate getBorn() const {
+        return born;
+    }
+
+    int getEnrolled() const {
+        return enrolled;
+    }
+
+    struct ComparatorByName {
+        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
+            if (lhs->getName() == rhs->getName()) {
+                if (lhs->getBorn() == rhs->getBorn()) {
+                    return lhs->getEnrolled() < rhs->getEnrolled();
+                }
+                return lhs->getBorn() < rhs->getBorn();
+            }
+            return lhs->getName() < rhs->getName();
+        }
+    };
+
+    struct ComparatorByBorn {
+        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
+            if (lhs->getBorn() == rhs->getBorn()) {
+                if (lhs->getName() == rhs->getName()) {
+                    return lhs->getEnrolled() < rhs->getEnrolled();
+                }
+                return lhs->getName() < rhs->getName();
+            }
+            return lhs->getBorn() < rhs->getBorn();
+        }
+    };
+
+    struct ComparatorByEnrolled {
+        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
+            if (lhs->getEnrolled() == rhs->getEnrolled()) {
+                if (lhs->getName() == rhs->getName()) {
+                    return lhs->getBorn() < rhs->getBorn();
+                }
+                return lhs->getName() < rhs->getName();
+            }
+            return lhs->getEnrolled() < rhs->getEnrolled();
+        }
+    };
+
+    struct ComparatorByNormalizedName {
+        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
+            if (lhs->normalizeName == rhs->normalizeName) {
+                if (lhs->getName() == rhs->getName()) {
+                    if (lhs->getBorn() == rhs->getBorn()) {
+                        return lhs->getEnrolled() < rhs->getEnrolled();
+                    }
+                    return lhs->getBorn() < rhs->getBorn();
+                }
+                return lhs->getName() < rhs->getName();
+            }
+            return lhs->normalizeName < rhs->normalizeName;
+        }
+    };
+
 
 private:
     // todo
+    int id;
+    const std::string normalizeName;
     const std::string name;
     const CDate born;
     int enrolled;
@@ -73,79 +153,251 @@ private:
 
 class CFilter {
 public:
-    CFilter() {
-
-    }
+    CFilter() : notInit(true), startEnrolled(INT16_MIN), endEnrolled(INT16_MAX),
+                startBornDate(std::make_unique<CDate>(CDate(INT16_MIN, 1, 1))),
+                endBornDate(std::make_unique<CDate>(CDate(INT16_MAX, 12, 31))) {}
 
     CFilter &name(const std::string &name) {
+        notInit = false;
+        allNames.insert(name);
+        notInit = false;
+        return *this;
     }
 
     CFilter &bornBefore(const CDate &date) {
+        *endBornDate = date;
+        notInit = false;
+        return *this;
 
     }
 
     CFilter &bornAfter(const CDate &date) {
+        *startBornDate = date;
+        notInit = false;
+        return *this;
 
     }
 
     CFilter &enrolledBefore(int year) {
-
+        endEnrolled = year;
+        notInit = false;
+        return *this;
     }
 
     CFilter &enrolledAfter(int year) {
+        startEnrolled = year;
+        notInit = false;
+        return *this;
+    }
 
+
+    bool match(const CStudent &student) const {
+        return
+
+        *startBornDate < student.getBorn() && student.getBorn() < *endBornDate;
+    }
+
+    int getStartEnrolled() const {
+        return startEnrolled;
+    }
+
+    int getEndEnrolled() const {
+        return endEnrolled;
+    }
+
+    const CDate &getStartBornDate() const {
+        return *startBornDate;
+    }
+
+    const CDate &getEndBornDate() const {
+        return *endBornDate;
+    }
+
+    const std::set<std::string> &getAllName() const {
+        return allNames;
     }
 
 private:
-    // todo
+    bool notInit = true;
+    std::set<std::string> allNames;
+    std::unique_ptr<CDate> startBornDate;
+    std::unique_ptr<CDate> endBornDate;
+    int startEnrolled;
+    int endEnrolled;
 };
 
 
 class CSort {
-public:
-    CSort() {
 
-    }
+public:
+    struct Criteria {
+        bool ascending;
+        ESortKey key;
+
+        Criteria(bool acending, ESortKey key) : ascending(acending), key(key) {};
+    };
+
+    CSort() {};
 
     CSort &addKey(ESortKey key,
                   bool ascending) {
+        allCriteria.push_back(new Criteria(ascending, key));
     }
 
 private:
-    // todo
+    std::vector<Criteria *> allCriteria;
 };
 
 
 class CStudyDept {
 public:
-    CStudyDept() {
-
-    }
+    CStudyDept() {}
 
     bool addStudent(const CStudent &x) {
+        std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
+
+        if (!studentsName[x.getName()].insert(sharedPtr).second) {
+            return false;
+        }
+        // studentNormalizedName[x.ge]
+        studentsBorn[x.getBorn()].insert(sharedPtr);
+        studentsEnrolled[x.getEnrolled()].insert(sharedPtr);
+        return true;
     }
 
     bool delStudent(const CStudent &x) {
-        return false;
+        std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
+
+        if (studentsName[x.getName()].erase(sharedPtr) == 0) {
+            return false;
+        }
+        studentsBorn[x.getBorn()].erase(sharedPtr);
+        studentsEnrolled[x.getEnrolled()].erase(sharedPtr);
+        return true;
     }
 
     std::list<CStudent> search(const CFilter &flt,
                                const CSort &sortOpt) const {
 
+        std::list<CStudent> output;
+        const auto &allNames = flt.getAllName();
+
+
+        if (allNames.empty()) {
+            const int startEnrolled = flt.getStartEnrolled();
+            const int endEnrolled = flt.getEndEnrolled();
+            const CDate &startBornDate = flt.getStartBornDate();
+            const CDate &endBornDate = flt.getEndBornDate();
+
+
+            if (startEnrolled != INT16_MIN) {
+                const auto studentsLowerBound = studentsEnrolled.lower_bound(startEnrolled);
+                const auto studentsUpperBound = studentsEnrolled.upper_bound(endEnrolled);
+                for (auto it = studentsLowerBound; it != studentsUpperBound; it++) {
+                    for (const auto &studentPtr: it->second) {
+                        if (flt.match(*studentPtr)) {
+                            output.push_back(*studentPtr);
+                        }
+                    }
+                }
+            } else if (!startBornDate.isStartOfTime()) {
+                const auto studentsLowerBound = studentsBorn.lower_bound(startBornDate);
+                const auto studentsUpperBound = studentsBorn.upper_bound(endBornDate);
+                for (auto it = studentsLowerBound; it != studentsUpperBound; it++) {
+                    for (const auto &studentPtr: it->second) {
+                        if (flt.match(*studentPtr)) {
+                            output.push_back(*studentPtr);
+                        }
+                    }
+                }
+            } else if (!endBornDate.isEndOfTime()) {
+                const auto studentsLowerBound = studentsBorn.lower_bound(endBornDate);
+                for (auto it = studentsLowerBound; it != studentsBorn.end(); it++) {
+                    for (const auto &studentPtr: it->second) {
+                        if (flt.match(*studentPtr)) {
+                            output.push_back(*studentPtr);
+                        }
+                    }
+                }
+            } else if (endEnrolled != INT16_MAX) {
+                const auto studentsLowerBound = studentsEnrolled.lower_bound(endEnrolled);
+                for (auto it = studentsLowerBound; it != studentsEnrolled.end(); it++) {
+                    for (const auto &studentPtr: it->second) {
+                        if (flt.match(*studentPtr)) {
+                            output.push_back(*studentPtr);
+                        }
+                    }
+                }
+            } else {
+                for (const auto &it: studentsEnrolled) {
+                    for (const auto &studentPtr: it.second) {
+                        if (flt.match(*studentPtr)) {
+                            output.push_back(*studentPtr);
+                        }
+                    }
+                }
+            }
+
+        } else {
+            for (const auto &name: allNames) {
+                const auto &students = studentsName.find(name);
+                if (students != studentsName.end()) {
+                    for (const auto &studentPtr: students->second) {
+                        if (flt.match(*studentPtr)) {
+                            output.push_back(*studentPtr);
+                        }
+                    }
+                }
+            }
+        }
+
+        return output;
+
     }
 
     std::set<std::string> suggest(const std::string &name) const {
-        return std::set<std::string>();
+
     }
 
+    void print() const {
+        std::cout << "Students in the department:" << std::endl;
+        std::cout << "--- Name ---" << std::endl;
+        for (const auto &pair: studentsName) {
+            std::cout << "Key: " << pair.first << std::endl;
+            for (const auto &studentPtr: pair.second) {
+                const CStudent &student = *studentPtr;
+                std::cout << "Name: " << student.getName() << ", Born: " << student.getBorn() << ", Enrolled: "
+                          << student.getEnrolled() << std::endl;
+            }
+        }
+        std::cout << "--- Born ---" << std::endl;
+        for (const auto &pair: studentsBorn) {
+            std::cout << "Key: " << pair.first << std::endl;
+            for (const auto &studentPtr: pair.second) {
+                const CStudent &student = *studentPtr;
+                std::cout << "Name: " << student.getName() << ", Born: " << student.getBorn() << ", Enrolled: "
+                          << student.getEnrolled() << std::endl;
+            }
+        }
+        std::cout << "--- Enrolled ---" << std::endl;
+        for (const auto &pair: studentsEnrolled) {
+            std::cout << "Key: " << pair.first << std::endl;
+            for (const auto &studentPtr: pair.second) {
+                const CStudent &student = *studentPtr;
+                std::cout << "Name: " << student.getName() << ", Born: " << student.getBorn() << ", Enrolled: "
+                          << student.getEnrolled() << std::endl;
+            }
+        }
+    }
+
+
 private:
-    // todo
+    std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentsName;
+    std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentNormalizedName;
+    std::map<CDate, std::set<std::shared_ptr<CStudent>>> studentsBorn;
+    std::map<int, std::set<std::shared_ptr<CStudent>>> studentsEnrolled;
 };
 
-
-std::list<CStudent> CStudyDept::search(const CFilter &flt, const CSort &sortOpt) const {
-    return std::list<CStudent>();
-}
 
 #ifndef __PROGTEST__
 
@@ -181,6 +433,8 @@ int main(void) {
     assert (x0.addStudent(CStudent("James Bond", CDate(1981, 7, 17), 2013)));
     assert (x0.addStudent(CStudent("James Bond", CDate(1981, 7, 16), 2012)));
     assert (x0.addStudent(CStudent("Bond James", CDate(1981, 7, 16), 2013)));
+    x0.print();
+    x0.search(CFilter(), CSort());
     assert (x0.search(CFilter(), CSort()) == (std::list<CStudent>
             {
                     CStudent("John Peter Taylor", CDate(1983, 7, 13), 2014),
