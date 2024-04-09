@@ -84,10 +84,17 @@ public:
     static bool contains(const std::string &keyString, const std::set<std::string> &subSet) {
         std::istringstream iss(keyString);
         std::string word;
-        while (iss >> word) {
-            if (subSet.find(word) != subSet.end()) return true;
+        std::set<std::string> normalizedKeySet;
+
+        while ((iss >> word)) {
+            std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+            normalizedKeySet.insert(word);
         }
-        return false;
+
+        for (const auto &element: subSet) {
+            if (normalizedKeySet.find(element) == normalizedKeySet.end()) return false;
+        }
+        return true;
     }
 
 
@@ -227,6 +234,12 @@ public:
 
     CSort() = default;
 
+    ~CSort() {
+        for (auto criteria: allCriteria) {
+            delete criteria;
+        }
+    }
+
     CSort &addKey(ESortKey key,
                   bool ascending) {
         allCriteria.push_back(new Criteria(ascending, key));
@@ -261,25 +274,38 @@ class CStudyDept {
 public:
     CStudyDept() {}
 
+    bool studentExists(const CStudent &x) {
+        for (const auto &entry: studentsName[x.getName()]) {
+            if (entry->getBorn() == x.getBorn() && entry->getEnrolled() == x.getEnrolled()) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     bool addStudent(const CStudent &x) {
+
+        if (studentExists(x)) return false;
         std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
 
         sharedPtr->setId(id_counter++);
-        if (!studentsBorn[x.getBorn()].insert(sharedPtr).second) {
-            return false;
-        }
-        normalizedStudentsName[x.getNameNormalized()].insert(sharedPtr);
+
+        studentsBorn[x.getBorn()].insert(sharedPtr);
+        studentNormalizedName[x.getNameNormalized()].insert(sharedPtr);
+        studentsName[x.getName()].insert(sharedPtr);
         studentsEnrolled[x.getEnrolled()].insert(sharedPtr);
         return true;
     }
 
     bool delStudent(const CStudent &x) {
-        std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
 
-        if (studentsBorn[x.getBorn()].erase(sharedPtr) == 0) {
-            return false;
-        }
+        std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
+        if (!eraseElement(studentsBorn, x.getBorn(), sharedPtr)) return false;
+        eraseElement(studentNormalizedName, x.getNameNormalized(), sharedPtr);
+        eraseElement(studentsName, x.getName(), sharedPtr);
+        eraseElement(studentsEnrolled, x.getEnrolled(), sharedPtr);
         studentNormalizedName[x.getNameNormalized()].erase(sharedPtr);
+        studentsName[x.getName()].erase(sharedPtr);
         studentsEnrolled[x.getEnrolled()].erase(sharedPtr);
         return true;
     }
@@ -348,8 +374,8 @@ public:
 
         } else {
             for (const auto &name: allNames) {
-                const auto &students = normalizedStudentsName.find(name);
-                if (students != normalizedStudentsName.end()) {
+                const auto &students = studentNormalizedName.find(name);
+                if (students != studentNormalizedName.end()) {
                     for (const auto &studentPtr: students->second) {
                         if (flt.match(*studentPtr)) {
                             output.push_back(*studentPtr);
@@ -389,9 +415,9 @@ public:
         }
 
         std::cout << "Suggest" << std::endl;
-        for (const auto & it : normalizedStudentsName) {
+        for (const auto &it: studentsName) {
             if (CStudent::contains(it.first, subSet)) {
-                output.insert(it.second.begin()->get()->getName());
+                output.insert(it.first);
                 std::cout << it.second.begin()->get()->getName() << std::endl;
             }
         }
@@ -402,7 +428,7 @@ public:
     void print() const {
         std::cout << "Students in the department:" << std::endl;
         std::cout << "--- Name ---" << std::endl;
-        for (const auto &pair: normalizedStudentsName) {
+        for (const auto &pair: studentNormalizedName) {
             std::cout << "Key: " << pair.first << std::endl;
             for (const auto &studentPtr: pair.second) {
                 const CStudent &student = *studentPtr;
@@ -432,7 +458,25 @@ public:
 
 
 private:
-    std::map<std::string, std::set<std::shared_ptr<CStudent>>> normalizedStudentsName;
+
+    template<class KeyType>
+    bool eraseElement(std::map<KeyType, std::set<std::shared_ptr<CStudent>>> &mapSet, const KeyType &key,
+                      const std::shared_ptr<CStudent> &studentPtr) {
+        const auto it = mapSet.find(key);
+        if (it != mapSet.end()) {
+            auto &studentSet = it->second;
+            for (auto studentIt = studentSet.begin(); studentIt != studentSet.end(); studentIt++) {
+                if (*studentPtr == **studentIt) {
+                    studentSet.erase(studentIt);
+                    return true;
+                }
+
+            }
+        }
+        return false;
+    }
+
+    std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentsName;
     std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentNormalizedName;
     std::map<CDate, std::set<std::shared_ptr<CStudent>>> studentsBorn;
     std::map<int, std::set<std::shared_ptr<CStudent>>> studentsEnrolled;
