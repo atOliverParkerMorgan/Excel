@@ -60,14 +60,42 @@ enum class ESortKey {
 
 class CStudent {
 public:
+    static std::string normalize(const std::string &name) {
+        std::vector<std::string> words;
+        std::istringstream iss(name);
+        std::string word;
+        std::string output;
+
+        while ((iss >> word)) {
+            std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+            words.push_back(word);
+        }
+        std::sort(words.begin(), words.end());
+        for (const auto &w: words) {
+            output += w + " ";
+        }
+        if (!output.empty()) {
+            output.pop_back();
+        }
+
+        return output;
+    }
+
+    static bool contains(const std::string &keyString, const std::set<std::string> &subSet) {
+        std::istringstream iss(keyString);
+        std::string word;
+        while (iss >> word) {
+            if (subSet.find(word) != subSet.end()) return true;
+        }
+        return false;
+    }
 
 
     CStudent(const std::string &name,
              const CDate &born,
-             int enrolled, int id) : name(name), born(born), enrolled(enrolled), id(id) {
+             int enrolled) : name(name), born(born), enrolled(enrolled), normalizeName(CStudent::normalize(name)) {
 
     }
-
 
     bool operator==(const CStudent &other) const {
         return name == other.name && born == other.born && enrolled == other.enrolled;
@@ -77,11 +105,15 @@ public:
         return !(*this == other);
     }
 
-    std::string getName() const {
+    const std::string &getName() const {
         return name;
     }
 
-    CDate getBorn() const {
+    const std::string &getNameNormalized() const {
+        return normalizeName;
+    }
+
+    const CDate &getBorn() const {
         return born;
     }
 
@@ -89,62 +121,19 @@ public:
         return enrolled;
     }
 
-    struct ComparatorByName {
-        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
-            if (lhs->getName() == rhs->getName()) {
-                if (lhs->getBorn() == rhs->getBorn()) {
-                    return lhs->getEnrolled() < rhs->getEnrolled();
-                }
-                return lhs->getBorn() < rhs->getBorn();
-            }
-            return lhs->getName() < rhs->getName();
-        }
-    };
+    size_t getId() const {
+        return id;
+    }
 
-    struct ComparatorByBorn {
-        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
-            if (lhs->getBorn() == rhs->getBorn()) {
-                if (lhs->getName() == rhs->getName()) {
-                    return lhs->getEnrolled() < rhs->getEnrolled();
-                }
-                return lhs->getName() < rhs->getName();
-            }
-            return lhs->getBorn() < rhs->getBorn();
-        }
-    };
-
-    struct ComparatorByEnrolled {
-        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
-            if (lhs->getEnrolled() == rhs->getEnrolled()) {
-                if (lhs->getName() == rhs->getName()) {
-                    return lhs->getBorn() < rhs->getBorn();
-                }
-                return lhs->getName() < rhs->getName();
-            }
-            return lhs->getEnrolled() < rhs->getEnrolled();
-        }
-    };
-
-    struct ComparatorByNormalizedName {
-        bool operator()(const std::shared_ptr<CStudent> &lhs, const std::shared_ptr<CStudent> &rhs) const {
-            if (lhs->normalizeName == rhs->normalizeName) {
-                if (lhs->getName() == rhs->getName()) {
-                    if (lhs->getBorn() == rhs->getBorn()) {
-                        return lhs->getEnrolled() < rhs->getEnrolled();
-                    }
-                    return lhs->getBorn() < rhs->getBorn();
-                }
-                return lhs->getName() < rhs->getName();
-            }
-            return lhs->normalizeName < rhs->normalizeName;
-        }
-    };
+    void setId(size_t newId) {
+        id = newId;
+    }
 
 
 private:
     // todo
-    int id;
-    const std::string normalizeName;
+    size_t id;
+    std::string normalizeName;
     const std::string name;
     const CDate born;
     int enrolled;
@@ -159,7 +148,7 @@ public:
 
     CFilter &name(const std::string &name) {
         notInit = false;
-        allNames.insert(name);
+        allNames.insert(CStudent::normalize(name));
         notInit = false;
         return *this;
     }
@@ -236,11 +225,12 @@ public:
         Criteria(bool acending, ESortKey key) : ascending(acending), key(key) {};
     };
 
-    CSort() {};
+    CSort() = default;
 
     CSort &addKey(ESortKey key,
                   bool ascending) {
         allCriteria.push_back(new Criteria(ascending, key));
+        return *this;
     }
 
     bool cmp(const CStudent &a, const CStudent &b) const {
@@ -259,7 +249,7 @@ public:
                 return a.getEnrolled() > b.getEnrolled();
             }
         }
-        return a.
+        return a.getId() < b.getId();
     }
 
 private:
@@ -274,11 +264,11 @@ public:
     bool addStudent(const CStudent &x) {
         std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
 
-        if (!studentsName[x.getName()].insert(sharedPtr).second) {
+        sharedPtr->setId(id_counter++);
+        if (!studentsBorn[x.getBorn()].insert(sharedPtr).second) {
             return false;
         }
-        // studentNormalizedName[x.ge]
-        studentsBorn[x.getBorn()].insert(sharedPtr);
+        normalizedStudentsName[x.getNameNormalized()].insert(sharedPtr);
         studentsEnrolled[x.getEnrolled()].insert(sharedPtr);
         return true;
     }
@@ -286,10 +276,10 @@ public:
     bool delStudent(const CStudent &x) {
         std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
 
-        if (studentsName[x.getName()].erase(sharedPtr) == 0) {
+        if (studentsBorn[x.getBorn()].erase(sharedPtr) == 0) {
             return false;
         }
-        studentsBorn[x.getBorn()].erase(sharedPtr);
+        studentNormalizedName[x.getNameNormalized()].erase(sharedPtr);
         studentsEnrolled[x.getEnrolled()].erase(sharedPtr);
         return true;
     }
@@ -358,8 +348,8 @@ public:
 
         } else {
             for (const auto &name: allNames) {
-                const auto &students = studentsName.find(name);
-                if (students != studentsName.end()) {
+                const auto &students = normalizedStudentsName.find(name);
+                if (students != normalizedStudentsName.end()) {
                     for (const auto &studentPtr: students->second) {
                         if (flt.match(*studentPtr)) {
                             output.push_back(*studentPtr);
@@ -373,18 +363,46 @@ public:
             return sortOpt.cmp(a, b);
         });
 
+        // print
+        std::cout << "\n\n---" << std::endl;
+        for (const CStudent &s: output) {
+            std::cout << "Norm: " << s.getNameNormalized() << "; Name: " << s.getName() << "; Born: "
+                      << s.getBorn()
+                      << "; Enrolled: " << s.getEnrolled() << std::endl;
+
+        }
+
         return output;
 
     }
 
     std::set<std::string> suggest(const std::string &name) const {
+        std::set<std::string> subSet;
+        std::set<std::string> output;
+        std::istringstream iss(name);
+        std::string word;
+        std::string suggestName;
 
+        while ((iss >> word)) {
+            std::transform(word.begin(), word.end(), word.begin(), ::tolower);
+            subSet.insert(word);
+        }
+
+        std::cout << "Suggest" << std::endl;
+        for (const auto & it : normalizedStudentsName) {
+            if (CStudent::contains(it.first, subSet)) {
+                output.insert(it.second.begin()->get()->getName());
+                std::cout << it.second.begin()->get()->getName() << std::endl;
+            }
+        }
+
+        return output;
     }
 
     void print() const {
         std::cout << "Students in the department:" << std::endl;
         std::cout << "--- Name ---" << std::endl;
-        for (const auto &pair: studentsName) {
+        for (const auto &pair: normalizedStudentsName) {
             std::cout << "Key: " << pair.first << std::endl;
             for (const auto &studentPtr: pair.second) {
                 const CStudent &student = *studentPtr;
@@ -414,10 +432,12 @@ public:
 
 
 private:
-    std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentsName;
+    std::map<std::string, std::set<std::shared_ptr<CStudent>>> normalizedStudentsName;
     std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentNormalizedName;
     std::map<CDate, std::set<std::shared_ptr<CStudent>>> studentsBorn;
     std::map<int, std::set<std::shared_ptr<CStudent>>> studentsEnrolled;
+    size_t id_counter = 0;
+
 };
 
 
@@ -455,8 +475,7 @@ int main(void) {
     assert (x0.addStudent(CStudent("James Bond", CDate(1981, 7, 17), 2013)));
     assert (x0.addStudent(CStudent("James Bond", CDate(1981, 7, 16), 2012)));
     assert (x0.addStudent(CStudent("Bond James", CDate(1981, 7, 16), 2013)));
-    x0.print();
-    x0.search(CFilter(), CSort());
+
     assert (x0.search(CFilter(), CSort()) == (std::list<CStudent>
             {
                     CStudent("John Peter Taylor", CDate(1983, 7, 13), 2014),
@@ -511,6 +530,9 @@ int main(void) {
                     CStudent("John Taylor", CDate(1981, 6, 30), 2012),
                     CStudent("Peter Taylor", CDate(1982, 2, 23), 2011)
             }));
+
+
+    x0.search(CFilter(), CSort());
     assert (x0.search(CFilter().name("james bond"),
                       CSort().addKey(ESortKey::ENROLL_YEAR, false).addKey(ESortKey::BIRTH_DATE, false).addKey(
                               ESortKey::NAME, true)) == (std::list<CStudent>
