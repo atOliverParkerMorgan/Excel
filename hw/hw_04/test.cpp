@@ -24,8 +24,12 @@
 
 class CDate {
 public:
-
-    CDate(int y, int m, int d) : m_Y(y), m_M(m), m_D(d) {
+    CDate(int y,
+          int m,
+          int d)
+            : m_Y(y),
+              m_M(m),
+              m_D(d) {
     }
 
     std::strong_ordering operator<=>(const CDate &other) const = default;
@@ -33,16 +37,6 @@ public:
     friend std::ostream &operator<<(std::ostream &os,
                                     const CDate &d) {
         return os << d.m_Y << '-' << d.m_M << '-' << d.m_D;
-    }
-
-    CDate &operator=(const CDate &rhs) = default;
-
-    bool isStartOfTime() const {
-        return m_Y == INT16_MIN && m_M == 1 && m_D == 1;
-    }
-
-    bool isEndOfTime() const {
-        return m_Y == INT16_MAX && m_M == 12 && m_D == 31;
     }
 
 private:
@@ -56,6 +50,8 @@ enum class ESortKey {
     BIRTH_DATE,
     ENROLL_YEAR
 };
+
+
 #endif /* __PROGTEST__ */
 
 class CStudent {
@@ -74,10 +70,6 @@ public:
         for (const auto &w: words) {
             output += w + " ";
         }
-        if (!output.empty()) {
-            output.pop_back();
-        }
-
         return output;
     }
 
@@ -100,8 +92,12 @@ public:
 
     CStudent(const std::string &name,
              const CDate &born,
-             int enrolled) : name(name), born(born), enrolled(enrolled), normalizeName(CStudent::normalize(name)) {
+             int enrolled) : normalizeName(CStudent::normalize(name)), name(name), born(born), enrolled(enrolled) {
 
+    }
+
+    friend bool operator<(const CStudent &lhs, const CStudent &rhs) {
+        return std::tie(lhs.enrolled, lhs.born, lhs.name) < std::tie(rhs.enrolled, rhs.born, rhs.name);
     }
 
     bool operator==(const CStudent &other) const {
@@ -139,7 +135,7 @@ public:
 
 private:
     // todo
-    size_t id;
+    size_t id = 0;
     std::string normalizeName;
     const std::string name;
     const CDate born;
@@ -149,47 +145,42 @@ private:
 
 class CFilter {
 public:
-    CFilter() : notInit(true), startEnrolled(INT16_MIN), endEnrolled(INT16_MAX),
-                startBornDate(std::make_unique<CDate>(CDate(INT16_MIN, 1, 1))),
-                endBornDate(std::make_unique<CDate>(CDate(INT16_MAX, 12, 31))) {}
+    CFilter() :
+            startBornDate(CDate(INT16_MIN, 1, 1)),
+            endBornDate(CDate(INT16_MAX, 12, 31)),
+            startEnrolled(INT16_MIN), endEnrolled(INT16_MAX) {}
 
     CFilter &name(const std::string &name) {
-        notInit = false;
         allNames.insert(CStudent::normalize(name));
-        notInit = false;
         return *this;
     }
 
     CFilter &bornBefore(const CDate &date) {
-        *endBornDate = date;
-        notInit = false;
+        endBornDate = date;
         return *this;
 
     }
 
     CFilter &bornAfter(const CDate &date) {
-        *startBornDate = date;
-        notInit = false;
+        startBornDate = date;
         return *this;
 
     }
 
     CFilter &enrolledBefore(int year) {
         endEnrolled = year;
-        notInit = false;
         return *this;
     }
 
     CFilter &enrolledAfter(int year) {
         startEnrolled = year;
-        notInit = false;
         return *this;
     }
 
 
     bool match(const CStudent &student) const {
         return startEnrolled < student.getEnrolled() && student.getEnrolled() < endEnrolled &&
-               *startBornDate < student.getBorn() && student.getBorn() < *endBornDate;
+               startBornDate <=> student.getBorn() < 0 && student.getBorn() <=> endBornDate < 0;
     }
 
     int getStartEnrolled() const {
@@ -201,11 +192,11 @@ public:
     }
 
     const CDate &getStartBornDate() const {
-        return *startBornDate;
+        return startBornDate;
     }
 
     const CDate &getEndBornDate() const {
-        return *endBornDate;
+        return endBornDate;
     }
 
     const std::set<std::string> &getAllName() const {
@@ -213,10 +204,9 @@ public:
     }
 
 private:
-    bool notInit = true;
     std::set<std::string> allNames;
-    std::unique_ptr<CDate> startBornDate;
-    std::unique_ptr<CDate> endBornDate;
+    CDate startBornDate;
+    CDate endBornDate;
     int startEnrolled;
     int endEnrolled;
 };
@@ -234,31 +224,27 @@ public:
 
     CSort() = default;
 
-    ~CSort() {
-        for (auto criteria: allCriteria) {
-            delete criteria;
-        }
-    }
 
     CSort &addKey(ESortKey key,
                   bool ascending) {
-        allCriteria.push_back(new Criteria(ascending, key));
+        allCriteria.emplace_back(ascending, key);
         return *this;
     }
 
     bool cmp(const CStudent &a, const CStudent &b) const {
-        for (const Criteria *criteria: allCriteria) {
-            if (criteria->key == ESortKey::NAME) {
+        for (const Criteria criteria: allCriteria) {
+            if (criteria.key == ESortKey::NAME) {
                 if (a.getName() == b.getName()) continue;
-                if (criteria->ascending) return a.getName() < b.getName();
+                if (criteria.ascending) return a.getName() < b.getName();
                 return a.getName() > b.getName();
-            } else if (criteria->key == ESortKey::BIRTH_DATE) {
-                if (a.getBorn() == b.getBorn()) continue;
-                if (criteria->ascending) return a.getBorn() < b.getBorn();
-                return a.getBorn() > b.getBorn();
-            } else if (criteria->key == ESortKey::ENROLL_YEAR) {
+            } else if (criteria.key == ESortKey::BIRTH_DATE) {
+                auto birthDateComparison = a.getBorn() <=> b.getBorn();
+                if (birthDateComparison == 0) continue;
+                if (criteria.ascending) return birthDateComparison < 0;
+                return birthDateComparison > 0;
+            } else if (criteria.key == ESortKey::ENROLL_YEAR) {
                 if (a.getEnrolled() == b.getEnrolled()) continue;
-                if (criteria->ascending) return a.getEnrolled() < b.getEnrolled();
+                if (criteria.ascending) return a.getEnrolled() < b.getEnrolled();
                 return a.getEnrolled() > b.getEnrolled();
             }
         }
@@ -266,48 +252,22 @@ public:
     }
 
 private:
-    std::vector<Criteria *> allCriteria;
+    std::vector<Criteria > allCriteria;
 };
 
 
 class CStudyDept {
 public:
-    CStudyDept() {}
-
-    bool studentExists(const CStudent &x) {
-        for (const auto &entry: studentsName[x.getName()]) {
-            if (entry->getBorn() == x.getBorn() && entry->getEnrolled() == x.getEnrolled()) {
-                return true;
-            }
-        }
-        return false;
-    }
+    CStudyDept() = default;
 
     bool addStudent(const CStudent &x) {
-
-        if (studentExists(x)) return false;
-        std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
-
-        sharedPtr->setId(id_counter++);
-
-        studentsBorn[x.getBorn()].insert(sharedPtr);
-        studentNormalizedName[x.getNameNormalized()].insert(sharedPtr);
-        studentsName[x.getName()].insert(sharedPtr);
-        studentsEnrolled[x.getEnrolled()].insert(sharedPtr);
-        return true;
+        CStudent s = x;
+        s.setId(id_counter++);
+        return students.insert(s).second;
     }
 
     bool delStudent(const CStudent &x) {
-
-        std::shared_ptr<CStudent> sharedPtr = std::make_shared<CStudent>(x);
-        if (!eraseElement(studentsBorn, x.getBorn(), sharedPtr)) return false;
-        eraseElement(studentNormalizedName, x.getNameNormalized(), sharedPtr);
-        eraseElement(studentsName, x.getName(), sharedPtr);
-        eraseElement(studentsEnrolled, x.getEnrolled(), sharedPtr);
-        studentNormalizedName[x.getNameNormalized()].erase(sharedPtr);
-        studentsName[x.getName()].erase(sharedPtr);
-        studentsEnrolled[x.getEnrolled()].erase(sharedPtr);
-        return true;
+        return students.erase(x) == 1;
     }
 
     std::list<CStudent> search(const CFilter &flt,
@@ -316,172 +276,62 @@ public:
         std::list<CStudent> output;
         const auto &allNames = flt.getAllName();
 
-
-        if (allNames.empty()) {
-            const int startEnrolled = flt.getStartEnrolled();
-            const int endEnrolled = flt.getEndEnrolled();
-            const CDate &startBornDate = flt.getStartBornDate();
-            const CDate &endBornDate = flt.getEndBornDate();
-
-
-            if (startEnrolled != INT16_MIN) {
-                const auto studentsLowerBound = studentsEnrolled.lower_bound(startEnrolled);
-                const auto studentsUpperBound = studentsEnrolled.upper_bound(endEnrolled);
-                for (auto it = studentsLowerBound; it != studentsUpperBound; it++) {
-                    for (const auto &studentPtr: it->second) {
-                        if (flt.match(*studentPtr)) {
-                            output.push_back(*studentPtr);
-                        }
-                    }
+        for (const auto &student: students) {
+            if (flt.match(student)) {
+                if (allNames.empty()) {
+                    output.push_back(student);
+                    continue;
                 }
-            } else if (!startBornDate.isStartOfTime()) {
-                const auto studentsLowerBound = studentsBorn.lower_bound(startBornDate);
-                const auto studentsUpperBound = studentsBorn.upper_bound(endBornDate);
-                for (auto it = studentsLowerBound; it != studentsUpperBound; it++) {
-                    for (const auto &studentPtr: it->second) {
-                        if (flt.match(*studentPtr)) {
-                            output.push_back(*studentPtr);
-                        }
-                    }
-                }
-            } else if (!endBornDate.isEndOfTime()) {
-                const auto studentsLowerBound = studentsBorn.lower_bound(endBornDate);
-                for (auto it = studentsLowerBound; it != studentsBorn.end(); it++) {
-                    for (const auto &studentPtr: it->second) {
-                        if (flt.match(*studentPtr)) {
-                            output.push_back(*studentPtr);
-                        }
-                    }
-                }
-            } else if (endEnrolled != INT16_MAX) {
-                const auto studentsLowerBound = studentsEnrolled.lower_bound(endEnrolled);
-                for (auto it = studentsLowerBound; it != studentsEnrolled.end(); it++) {
-                    for (const auto &studentPtr: it->second) {
-                        if (flt.match(*studentPtr)) {
-                            output.push_back(*studentPtr);
-                        }
-                    }
-                }
-            } else {
-                for (const auto &it: studentsEnrolled) {
-                    for (const auto &studentPtr: it.second) {
-                        if (flt.match(*studentPtr)) {
-                            output.push_back(*studentPtr);
-                        }
-                    }
-                }
-            }
-
-        } else {
-            for (const auto &name: allNames) {
-                const auto &students = studentNormalizedName.find(name);
-                if (students != studentNormalizedName.end()) {
-                    for (const auto &studentPtr: students->second) {
-                        if (flt.match(*studentPtr)) {
-                            output.push_back(*studentPtr);
-                        }
+                for (const auto &name: allNames) {
+                    if (name == student.getNameNormalized()) {
+                        output.push_back(student);;
+                        break;
                     }
                 }
             }
         }
+
 
         output.sort([& sortOpt](const CStudent &a, const CStudent &b) {
             return sortOpt.cmp(a, b);
         });
-
-        // print
-        std::cout << "\n\n---" << std::endl;
-        for (const CStudent &s: output) {
-            std::cout << "Norm: " << s.getNameNormalized() << "; Name: " << s.getName() << "; Born: "
-                      << s.getBorn()
-                      << "; Enrolled: " << s.getEnrolled() << std::endl;
-
-        }
 
         return output;
 
     }
 
     std::set<std::string> suggest(const std::string &name) const {
-        std::set<std::string> subSet;
+        std::vector<std::string> tmp;
         std::set<std::string> output;
         std::istringstream iss(name);
-        std::string word;
-        std::string suggestName;
 
+        std::string word;
         while ((iss >> word)) {
             std::transform(word.begin(), word.end(), word.begin(), ::tolower);
-            subSet.insert(word);
+            word = word.append(" ");
+            tmp.push_back(word);
         }
 
-        std::cout << "Suggest" << std::endl;
-        for (const auto &it: studentsName) {
-            if (CStudent::contains(it.first, subSet)) {
-                output.insert(it.first);
-                std::cout << it.second.begin()->get()->getName() << std::endl;
+        for (const auto &student: students) {
+            bool found = true;
+            for (const std::string &element: tmp) {
+                if (student.getNameNormalized().find(element) == std::string::npos) {
+                    found = false;
+                    break;
+                }
+            }
+            if (found) {
+                output.insert(student.getName());
             }
         }
 
         return output;
     }
 
-    void print() const {
-        std::cout << "Students in the department:" << std::endl;
-        std::cout << "--- Name ---" << std::endl;
-        for (const auto &pair: studentNormalizedName) {
-            std::cout << "Key: " << pair.first << std::endl;
-            for (const auto &studentPtr: pair.second) {
-                const CStudent &student = *studentPtr;
-                std::cout << "Name: " << student.getName() << ", Born: " << student.getBorn() << ", Enrolled: "
-                          << student.getEnrolled() << std::endl;
-            }
-        }
-        std::cout << "--- Born ---" << std::endl;
-        for (const auto &pair: studentsBorn) {
-            std::cout << "Key: " << pair.first << std::endl;
-            for (const auto &studentPtr: pair.second) {
-                const CStudent &student = *studentPtr;
-                std::cout << "Name: " << student.getName() << ", Born: " << student.getBorn() << ", Enrolled: "
-                          << student.getEnrolled() << std::endl;
-            }
-        }
-        std::cout << "--- Enrolled ---" << std::endl;
-        for (const auto &pair: studentsEnrolled) {
-            std::cout << "Key: " << pair.first << std::endl;
-            for (const auto &studentPtr: pair.second) {
-                const CStudent &student = *studentPtr;
-                std::cout << "Name: " << student.getName() << ", Born: " << student.getBorn() << ", Enrolled: "
-                          << student.getEnrolled() << std::endl;
-            }
-        }
-    }
-
 
 private:
-
-    template<class KeyType>
-    bool eraseElement(std::map<KeyType, std::set<std::shared_ptr<CStudent>>> &mapSet, const KeyType &key,
-                      const std::shared_ptr<CStudent> &studentPtr) {
-        const auto it = mapSet.find(key);
-        if (it != mapSet.end()) {
-            auto &studentSet = it->second;
-            for (auto studentIt = studentSet.begin(); studentIt != studentSet.end(); studentIt++) {
-                if (*studentPtr == **studentIt) {
-                    studentSet.erase(studentIt);
-                    return true;
-                }
-
-            }
-        }
-        return false;
-    }
-
-    std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentsName;
-    std::map<std::string, std::set<std::shared_ptr<CStudent>>> studentNormalizedName;
-    std::map<CDate, std::set<std::shared_ptr<CStudent>>> studentsBorn;
-    std::map<int, std::set<std::shared_ptr<CStudent>>> studentsEnrolled;
+    std::set<CStudent> students;
     size_t id_counter = 0;
-
 };
 
 
@@ -490,23 +340,31 @@ private:
 int main(void) {
     CStudyDept x0;
     assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) == CStudent("James Bond", CDate(1980, 4, 11), 2010));
-    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("James Bond", CDate(1980, 4, 11), 2010)));
-    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("Peter Peterson", CDate(1980, 4, 11), 2010));
+    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) !=
+              CStudent("James Bond", CDate(1980, 4, 11), 2010)));
+    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) !=
+            CStudent("Peter Peterson", CDate(1980, 4, 11), 2010));
     assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
               CStudent("Peter Peterson", CDate(1980, 4, 11), 2010)));
     assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("James Bond", CDate(1997, 6, 17), 2010));
-    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) == CStudent("James Bond", CDate(1997, 6, 17), 2010)));
+    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
+              CStudent("James Bond", CDate(1997, 6, 17), 2010)));
     assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("James Bond", CDate(1980, 4, 11), 2016));
-    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) == CStudent("James Bond", CDate(1980, 4, 11), 2016)));
-    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("Peter Peterson", CDate(1980, 4, 11), 2016));
+    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
+              CStudent("James Bond", CDate(1980, 4, 11), 2016)));
+    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) !=
+            CStudent("Peter Peterson", CDate(1980, 4, 11), 2016));
     assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
               CStudent("Peter Peterson", CDate(1980, 4, 11), 2016)));
-    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("Peter Peterson", CDate(1997, 6, 17), 2010));
+    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) !=
+            CStudent("Peter Peterson", CDate(1997, 6, 17), 2010));
     assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
               CStudent("Peter Peterson", CDate(1997, 6, 17), 2010)));
     assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("James Bond", CDate(1997, 6, 17), 2016));
-    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) == CStudent("James Bond", CDate(1997, 6, 17), 2016)));
-    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) != CStudent("Peter Peterson", CDate(1997, 6, 17), 2016));
+    assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
+              CStudent("James Bond", CDate(1997, 6, 17), 2016)));
+    assert (CStudent("James Bond", CDate(1980, 4, 11), 2010) !=
+            CStudent("Peter Peterson", CDate(1997, 6, 17), 2016));
     assert (!(CStudent("James Bond", CDate(1980, 4, 11), 2010) ==
               CStudent("Peter Peterson", CDate(1997, 6, 17), 2016)));
     assert (x0.addStudent(CStudent("John Peter Taylor", CDate(1983, 7, 13), 2014)));
@@ -588,9 +446,11 @@ int main(void) {
                     CStudent("James Bond", CDate(1981, 7, 16), 2013),
                     CStudent("James Bond", CDate(1981, 7, 16), 2012)
             }));
-    assert (x0.search(CFilter().bornAfter(CDate(1980, 4, 11)).bornBefore(CDate(1983, 7, 13)).name("John Taylor").name(
-            "james BOND"), CSort().addKey(ESortKey::ENROLL_YEAR, false).addKey(ESortKey::BIRTH_DATE, false).addKey(
-            ESortKey::NAME, true)) == (std::list<CStudent>
+    assert (x0.search(
+            CFilter().bornAfter(CDate(1980, 4, 11)).bornBefore(CDate(1983, 7, 13)).name("John Taylor").name(
+                    "james BOND"),
+            CSort().addKey(ESortKey::ENROLL_YEAR, false).addKey(ESortKey::BIRTH_DATE, false).addKey(
+                    ESortKey::NAME, true)) == (std::list<CStudent>
             {
                     CStudent("James Bond", CDate(1982, 7, 16), 2013),
                     CStudent("James Bond", CDate(1981, 8, 16), 2013),
@@ -632,9 +492,11 @@ int main(void) {
             }));
     assert (!x0.addStudent(CStudent("James Bond", CDate(1981, 7, 16), 2013)));
     assert (x0.delStudent(CStudent("James Bond", CDate(1981, 7, 16), 2013)));
-    assert (x0.search(CFilter().bornAfter(CDate(1980, 4, 11)).bornBefore(CDate(1983, 7, 13)).name("John Taylor").name(
-            "james BOND"), CSort().addKey(ESortKey::ENROLL_YEAR, false).addKey(ESortKey::BIRTH_DATE, false).addKey(
-            ESortKey::NAME, true)) == (std::list<CStudent>
+    assert (x0.search(
+            CFilter().bornAfter(CDate(1980, 4, 11)).bornBefore(CDate(1983, 7, 13)).name("John Taylor").name(
+                    "james BOND"),
+            CSort().addKey(ESortKey::ENROLL_YEAR, false).addKey(ESortKey::BIRTH_DATE, false).addKey(
+                    ESortKey::NAME, true)) == (std::list<CStudent>
             {
                     CStudent("James Bond", CDate(1982, 7, 16), 2013),
                     CStudent("James Bond", CDate(1981, 8, 16), 2013),
