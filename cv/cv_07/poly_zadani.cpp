@@ -62,7 +62,7 @@ public:
     }
 
     std::shared_ptr<Thing> clone() const override {
-        return std::shared_ptr<Thing>(new Item(*this));
+        return std::make_shared<Item>(*this);
     }
 };
 

@@ -82,7 +82,7 @@ int main() {
     ostringstream oss;
     oss.str("");
     assert(isPhoneValid("776100661"));
-    assert (report("/home/olixandr/CLionProjects/Pa2/hw_cv/cv_3/tests//test0_in.txt", oss) == true);
+    assert (report("/home/olixandr/CLionProjects/Pa2/hw_cv/cv_03/tests//test0_in.txt", oss) == true);
     assert (oss.str() ==
             "John Christescu 258452362\n"
             "John Harmson 861647702\n"
