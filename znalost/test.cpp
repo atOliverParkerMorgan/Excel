@@ -10,34 +10,48 @@
 #include <cassert>
 
 using namespace std;
+class CPos {
+public:
+    CPos(std::string_view str) {
+        size_t index = 0;
+        m_Column = 0;
 
+        for (; !isdigit(str[index]); ++index) {
+            bool isUpper = std::isupper(str[index]);
+            if ((!isUpper && !std::islower(str[index]) || index + 1 >= str.size())) {
+                throw std::invalid_argument("CPos argument is not valid");
+            }
+            const char baseChar = isUpper ? 'A' : 'a';
+            m_Column *= systemValue;
+            m_Column += (str[index] - baseChar + 1);
+        }
+
+        if (index == 0) {
+            throw std::invalid_argument("CPos argument is not valid");
+        }
+
+        m_Row = std::stoul(std::string(str.substr(index)));
+    }
+
+
+    size_t getRow() const {
+        return m_Row;
+    }
+
+    size_t getColumn() const {
+        return m_Column;
+    }
+
+
+private:
+    size_t m_Row;
+    size_t m_Column;
+    inline static int systemValue = 26;
+};
 int main ( void )
 {
-    string x =   "Network: FIT network\n"
-                 "+-Host: progtest.fit.cvut.cz\n"
-                 "| +-147.32.232.142\n"
-                 "| +-CPU, 8 cores @ 2400MHz\n"
-                 "| +-CPU, 8 cores @ 1200MHz\n"
-                 "| +-HDD, 1500 GiB\n"
-                 "| | +-[0]: 50 GiB, /\n"
-                 "| | +-[1]: 5 GiB, /boot\n"
-                 "| | \\-[2]: 1000 GiB, /var\n"
-                 "| +-SSD, 60 GiB\n"
-                 "| | \\-[0]: 60 GiB, /data\n"
-                 "| +-Memory, 2000 MiB\n"
-                 "| \\-Memory, 2000 MiB\n"
-                 "+-Host: courses.fit.cvut.cz\n"
-                 "| +-147.32.232.213\n"
-                 "| +-CPU, 4 cores @ 1600MHz\n"
-                 "| +-Memory, 4000 MiB\n"
-                 "| \\-HDD, 2000 GiB\n"
-                 "|   +-[0]: 100 GiB, /\n"
-                 "|   \\-[1]: 1900 GiB, /data\n"
-                 "\\-Host: imap.fit.cvut.cz\n"
-                 "  +-147.32.232.238\n"
-                 "  +-2001:718:2:2901::238\n"
-                 "  +-CPU, 4 cores @ 2500MHz\n"
-                 "  \\-Memory, 8000 MiB\n";
-    std::cout << x << std::endl;
+    CPos("A1");
+    CPos c = CPos("BA154");
+    CPos("AA");
     return 0;
 }

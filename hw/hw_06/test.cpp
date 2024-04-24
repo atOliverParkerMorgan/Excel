@@ -55,35 +55,31 @@ public:
     template<typename Iterator>
     CSelfMatch(Iterator begin, Iterator end) : m_Data(begin, end) {}
 
+    // ababa
     // optionally: push_back
     size_t sequenceLen(size_t n) const {
-        size_t longest = 0;
+        size_t cnt = 1;
+
         std::vector<T_> sub;
-        for (int i = 0; i < m_Data.size(); ++i) {
-            sub.push_back(m_Data[i]);
-            size_t current = 0;
-            // optimize
-            int index = 0;
-            bool found = false;
-            std::vector<T_> current_sub;
-
-            for (int j = 0; j < m_Data.size(); ++j) {
-                if(found) current_sub.erase(current_sub.begin());
-
-                current_sub.push_back(m_Data[j]);
-                if (current_sub == sub) {
-                    if (++current >= n && sub.size() > longest) {
-                        longest = sub.size();
-                        break;
-                    }
-                    found = true;
-                } else {
-                    current_sub.clear();
-                    found = false;
+        std::vector<std::vector<T_>> all_sub;
+        for (int i = m_Data.size() - n; i >= 0; i--) {
+            sub.clear();
+            for (int k = 0; k < m_Data.size(); ++k) {
+                sub.clear();
+                for (int j = k; j < i; ++j) {
+                    sub.push_back(m_Data[j]);
                 }
+                auto it = std::find(all_sub.begin(), all_sub.end(), sub);
+                if (it != all_sub.end()) {
+                    all_sub.erase(it);
+                    if (cnt++ >= n) {
+                        return sub.size();
+                    }
+                }
+                all_sub.push_back(sub);
             }
         }
-        return longest;
+        return 0;
     }
 
     template<size_t N_>
@@ -107,12 +103,15 @@ bool positionMatch(std::vector<std::array<size_t, N_>> a,
 }
 
 int main() {
+    CSelfMatch<char> x1("abababababa"s);
+    assert (x1.sequenceLen(2) == 9);
+
     CSelfMatch<char> x0("aaaaaaaaaaa"s);
 
     assert (x0.sequenceLen(2) == 10);
 //    assert (positionMatch(x0.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 1}}));
-    CSelfMatch<char> x1("abababababa"s);
-    assert (x1.sequenceLen(2) == 9);
+    // CSelfMatch<char> x1("abababababa"s);
+    //   assert (x1.sequenceLen(2) == 9);
     //  assert (positionMatch(x1.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 2}}));
     CSelfMatch<char> x2("abababababab"s);
     assert (x2.sequenceLen(2) == 10);

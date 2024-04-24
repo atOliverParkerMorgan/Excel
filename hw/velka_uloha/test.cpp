@@ -1,5 +1,5 @@
 #ifndef __PROGTEST__
-
+// g++ -std=c++20 -Wall -pedantic -g -o excel test.cpp AST.cpp ASTBuilder.cpp -fsanitize=address -L./x86_64-linux-gnu -lexpression_parser
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
@@ -37,7 +37,6 @@
 #include "expression.h"
 
 using namespace std::literals;
-using CValue = std::variant<std::monostate, double, std::string>;
 
 constexpr unsigned SPREADSHEET_CYCLIC_DEPS = 0x01;
 constexpr unsigned SPREADSHEET_FUNCTIONS = 0x02;
@@ -46,30 +45,54 @@ constexpr unsigned SPREADSHEET_SPEED = 0x08;
 constexpr unsigned SPREADSHEET_PARSER = 0x10;
 #endif /* __PROGTEST__ */
 
+#include "AST.h"
+#include "ASTBuilder.h"
+
+namespace std {
+    template<>
+    // https://www.geeksforgeeks.org/
+    struct hash<pair<size_t, size_t>> {
+        size_t operator()(const pair<size_t, size_t> &p) const {
+            // return (p.first << 32) | (p.second);
+            // option for not 64-bit
+            return std::hash<size_t>{}(p.first) ^ std::hash<size_t>{}(p.second);
+        }
+    };
+}
+
 
 class CPos {
 public:
     CPos(std::string_view str) {
-        std::vector<int> columnData;
         size_t index = 0;
+        m_Column = 0;
+
         for (; !isdigit(str[index]); ++index) {
-            columnData.push_back(str[index] - 'A');
+            bool isUpper = std::isupper(str[index]);
+            if ((!isUpper && !std::islower(str[index])) || index + 1 >= str.size()) {
+                throw std::invalid_argument("CPos argument is not valid");
+            }
+            const char baseChar = isUpper ? 'A' : 'a';
+            m_Column *= systemValue;
+            m_Column += (str[index] - baseChar + 1);
         }
 
-        for (size_t i = columnData.size() - 1; i >= 0; --i) {
-            m_Column += (size_t) (columnData[i] * pow(systemValue, (double) (columnData.size() - 1 - i)));
+        if (index == 0) {
+            throw std::invalid_argument("CPos argument is not valid");
         }
 
         m_Row = std::stoul(std::string(str.substr(index)));
     }
 
-    size_t getRow() {
+
+    size_t getRow() const {
         return m_Row;
     }
 
-    size_t getColumn() {
+    size_t getColumn() const {
         return m_Column;
     }
+
 
 private:
     size_t m_Row;
@@ -77,48 +100,62 @@ private:
     inline static int systemValue = 26;
 };
 
-class ASTNode {
-public:
-private:
-};
 
 class CCell {
 public:
-    CCell(std::string content) : value(std::move(content)) {};
+    CCell() = default;
+
+    CCell(std::string content) : value(std::move(content)) {
+
+
+    };
 
 private:
     std::string value;
     std::shared_ptr<ASTNode> m_Root;
 };
 
+
 class CSpreadsheet {
 public:
     static unsigned capabilities() {
-        return SPREADSHEET_CYCLIC_DEPS | SPREADSHEET_FUNCTIONS | SPREADSHEET_FILE_IO | SPREADSHEET_SPEED |
-               SPREADSHEET_PARSER;
+        return SPREADSHEET_CYCLIC_DEPS | SPREADSHEET_FUNCTIONS | SPREADSHEET_FILE_IO | SPREADSHEET_SPEED;
     }
 
-    CSpreadsheet();
+    CSpreadsheet() {};
 
-    bool load(std::istream &is);
+    bool load(std::istream &is) { return false; };
 
-    bool save(std::ostream &os) const;
+    bool save(std::ostream &os) const { return false; };
 
-    bool setCell(CPos pos,
-                 std::string contents) {
+    bool setCell(CPos pos, std::string contents) {
+        parseExpression(contents, m_Builder);
+
         std::pair<size_t, size_t> key = {pos.getRow(), pos.getColumn()};
-        m_SheetData.insert({key, CCell(std::move(contents))});
+        CCell cCell = CCell(std::move(contents));
 
+        auto it = m_SheetData.find(key);
+
+        if (it != m_SheetData.end()) {
+            m_SheetData.insert({key, std::move(cCell)});
+        } else {
+            m_SheetData[key] = std::move(cCell);
+        }
+
+        return true;
     }
 
-    CValue getValue(CPos pos);
+    CValue getValue(CPos pos) {
+        return std::monostate();
+    }
 
     void copyRect(CPos dst,
                   CPos src,
                   int w = 1,
-                  int h = 1);
+                  int h = 1) {};
 
 private:
+    ASTBuilder m_Builder;
     std::unordered_map<std::pair<size_t, size_t>, CCell> m_SheetData;
 };
 
@@ -145,7 +182,7 @@ int main() {
     std::ostringstream oss;
     std::istringstream iss;
     std::string data;
-    assert (x0.setCell(CPos("A1"), "10"));
+    assert (x0.setCell(CPos("A1"), "=10+3*6"));
     assert (x0.setCell(CPos("A2"), "20.5"));
     assert (x0.setCell(CPos("A3"), "3e1"));
     assert (x0.setCell(CPos("A4"), "=40"));
