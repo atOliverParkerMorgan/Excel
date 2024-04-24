@@ -1,1 +1,2 @@
-add_executable(znalost test.cpp)
+add_executable(znalost test.cpp
+)

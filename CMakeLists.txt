@@ -14,6 +14,7 @@ add_subdirectory(cv/cv_03/complex)
 add_subdirectory(cv/cv_04)
 add_subdirectory(cv/cv_06)
 add_subdirectory(cv/cv_07)
+add_subdirectory(cv/cv_10)
 
 add_subdirectory(znalost)
 
@@ -23,6 +24,10 @@ add_subdirectory(hw/hw_02)
 add_subdirectory(hw/hw_03)
 add_subdirectory(hw/hw_04)
 add_subdirectory(hw/hw_05)
+add_subdirectory(hw/hw_06)
+
+add_subdirectory(hw/velka_uloha)
+
 
 
 add_subdirectory(hw_cv/cv_03)
