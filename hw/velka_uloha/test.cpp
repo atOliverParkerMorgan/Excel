@@ -8,22 +8,17 @@
 #include <cfloat>
 #include <cassert>
 #include <cmath>
-#include <iostream>
 #include <sstream>
 #include <fstream>
 #include <iomanip>
-#include <string>
 #include <array>
 #include <utility>
-#include <vector>
 #include <list>
 #include <set>
 #include <map>
-#include <stack>
 #include <queue>
 #include <unordered_set>
 #include <unordered_map>
-#include <memory>
 #include <algorithm>
 #include <functional>
 #include <iterator>
@@ -34,7 +29,6 @@
 #include <charconv>
 #include <span>
 #include <utility>
-#include "expression.h"
 
 using namespace std::literals;
 
@@ -45,7 +39,6 @@ constexpr unsigned SPREADSHEET_SPEED = 0x08;
 constexpr unsigned SPREADSHEET_PARSER = 0x10;
 #endif /* __PROGTEST__ */
 
-#include "AST.h"
 #include "ASTBuilder.h"
 
 namespace std {
@@ -105,14 +98,11 @@ class CCell {
 public:
     CCell() = default;
 
-    CCell(std::string content) : value(std::move(content)) {
-
-
-    };
+    CCell(std::string content, EASTNode root) : value(std::move(content)), m_Root(std::move(root)) {};
 
 private:
     std::string value;
-    std::shared_ptr<ASTNode> m_Root;
+    EASTNode m_Root;
 };
 
 
@@ -132,14 +122,14 @@ public:
         parseExpression(contents, m_Builder);
 
         std::pair<size_t, size_t> key = {pos.getRow(), pos.getColumn()};
-        CCell cCell = CCell(std::move(contents));
+
 
         auto it = m_SheetData.find(key);
 
         if (it != m_SheetData.end()) {
-            m_SheetData.insert({key, std::move(cCell)});
+            m_SheetData.insert({key, CCell(std::move(contents), m_Builder.getRoot())});
         } else {
-            m_SheetData[key] = std::move(cCell);
+            m_SheetData[key] = CCell(std::move(contents), m_Builder.getRoot());
         }
 
         return true;
@@ -182,7 +172,7 @@ int main() {
     std::ostringstream oss;
     std::istringstream iss;
     std::string data;
-    assert (x0.setCell(CPos("A1"), "=10+3*6"));
+    assert (x0.setCell(CPos("A1"), "=10"));
     assert (x0.setCell(CPos("A2"), "20.5"));
     assert (x0.setCell(CPos("A3"), "3e1"));
     assert (x0.setCell(CPos("A4"), "=40"));

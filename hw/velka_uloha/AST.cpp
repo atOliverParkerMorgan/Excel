@@ -1,107 +1,79 @@
-// AST.h
+#include "AST.h"
 
-#ifndef AST_H
-#define AST_H
-
-#include <memory> // Include necessary header
 #include <utility>
-#include <variant>
 
-using CValue = std::variant<std::monostate, double, std::string>;
+ASTNodeDouble::ASTNodeDouble(double val) : m_Value(val) {}
 
+ASTNodeDouble::ASTNodeDouble(const ASTNodeDouble &other) : m_Value(other.m_Value) {}
 
-class ASTNode {
-public:
-    virtual ~ASTNode() = default;
-
-    virtual CValue eval() const = 0;
-
-
-};
-
-using EASTNode = std::shared_ptr<ASTNode>;
-
-class ASTRelative : public ASTNode {
-};
-
-class ASTNodeDouble : public ASTNode {
-public:
-    ASTNodeDouble(double val) : m_Value(val) {};
-
-    CValue eval() const override {
-        return std::monostate(); // Example, replace with actual logic
+ASTNodeDouble &ASTNodeDouble::operator=(const ASTNodeDouble &other) {
+    if (this != &other) {
+        m_Value = other.m_Value;
     }
+    return *this;
+}
 
-private:
-    double m_Value;
-};
+CValue ASTNodeDouble::eval() const {
+    return m_Value;
+}
 
-class ASTNodeString : public ASTNode {
-public:
-    ASTNodeString(std::string val) : m_Value(std::move(val)) {};
+ASTType ASTNodeDouble::getType() const {
+    return LITERAL;
+}
 
-    CValue eval() const override {
-        return std::monostate(); // Example, replace with actual logic
-    }
+ASTNodeString::ASTNodeString(std::string val) : m_Value(std::move(val)) {}
 
-private:
-    std::string m_Value;
-};
+ASTNodeString::ASTNodeString(const ASTNodeString &other) : m_Value(other.m_Value) {}
 
-class ASTAddition : public ASTNode {
-public:
-    ASTAddition(EASTNode left, EASTNode right) : m_Left(std::move(left)), m_Right(std::move(right)) {};
+CValue ASTNodeString::eval() const {
+    return m_Value;
+}
 
-    CValue eval() const override {
-        return std::monostate(); // Example, replace with actual logic
-    }
+ASTType ASTNodeString::getType() const {
+    return LITERAL;
+}
 
+ASTNodeOperand::ASTNodeOperand(EASTNode left, EASTNode right) : m_Left(std::move(left)), m_Right(std::move(right)) {}
 
-private:
-    EASTNode m_Left;
-    EASTNode m_Right;
-};
+ASTType ASTNodeOperand::getType() const {
+    return BINARY_OPERAND;
+}
 
-class ASTMultiply : public ASTNode {
-public:
-    ASTMultiply(EASTNode left, EASTNode right) : m_Left(std::move(left)), m_Right(std::move(right)) {};
+void ASTNodeOperand::setChildren(const EASTNode &left, const EASTNode &right) {
+    m_Left = left;
+    m_Right = right;
+}
 
-    CValue eval() const override {
-        // Add implementation or remove override specifier
-        return std::monostate(); // Example, replace with actual logic
-    }
+ASTAddition::ASTAddition(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
 
-private:
-    EASTNode m_Left;
-    EASTNode m_Right;
-};
+CValue ASTAddition::eval() const {
+    return std::monostate();
+}
 
-class ASTDivide : public ASTNode {
-public:
-    ASTDivide(EASTNode left, EASTNode right) : m_Left(std::move(left)), m_Right(std::move(right)) {};
+ASTMultiply::ASTMultiply(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
 
-    CValue eval() const override {
-        return std::monostate(); // Example, replace with actual logic
-    }
+CValue ASTMultiply::eval() const {
+    return std::monostate();
+}
 
-private:
-    EASTNode m_Left;
-    EASTNode m_Right;
-};
+ASTDivide::ASTDivide(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
 
+CValue ASTDivide::eval() const {
+    return std::monostate();
+}
 
-class ASTSubtract : public ASTNode {
-public:
-    ASTSubtract(EASTNode left, EASTNode right) : m_Left(std::move(left)), m_Right(std::move(right)) {};
+ASTSubtract::ASTSubtract(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
 
-    CValue eval() const override {
-        // Add implementation or remove override specifier
-        return std::monostate(); // Example, replace with actual logic
-    }
+CValue ASTSubtract::eval() const {
+    return std::monostate();
+}
 
-private:
-    EASTNode m_Left;
-    EASTNode m_Right;
-};
+CValue ASTRelative::eval() const {
+    return std::monostate();
+}
 
-#endif // AST_H
+ASTType ASTRelative::getType() const {
+    return LITERAL;
+}
+
+void ASTNode::setChildren(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) {}

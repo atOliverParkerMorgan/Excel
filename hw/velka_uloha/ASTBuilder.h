@@ -1,8 +1,9 @@
-#include <stack>
 #include "expression.h"
-#include "AST.h"
-#include <iostream>
 
+#include "AST.h"
+#include <stack>
+#include "memory"
+#include "iostream"
 
 class ASTBuilder : public CExprBuilder {
 public:
@@ -41,7 +42,8 @@ public:
     void funcCall(std::string fnName,
                   int paramCount) override;
 
+    std::shared_ptr<ASTNode> getRoot();
 private:
-    std::stack<ASTNode> m_BuilderStack;
+    std::stack<std::shared_ptr<ASTNode>> m_BuilderStack;
 };
 

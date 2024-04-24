@@ -1,114 +1,113 @@
-//
-// Created by olixandr on 24.4.24.
-//
-
-#ifndef AST_H
-#define AST_H
-
-#include <memory> // Include necessary header
-#include <utility>// For std::shared_ptr
+#include <memory>
+#include <utility>
 #include <variant>
+
 using CValue = std::variant<std::monostate, double, std::string>;
+
+enum ASTType {
+    UNARY_OPERAND,
+    BINARY_OPERAND,
+    LITERAL
+};
 
 class ASTNode {
 public:
     virtual ~ASTNode() = default;
 
     virtual CValue eval() const = 0;
+
+    virtual ASTType getType() const = 0;
+
+    virtual void setChildren(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right);
 };
+
 using EASTNode = std::shared_ptr<ASTNode>;
 
 class ASTRelative : public ASTNode {
+public:
+    virtual ~ASTRelative() = default;
+
+    CValue eval() const override;
+
+    ASTType getType() const override;
 };
 
-class ASTNodeDouble : public ASTNode {
+class ASTNodeLiteral : public ASTNode {
 public:
-    ASTNodeDouble(CValue value) : m_Value(value) {}
+    virtual ~ASTNodeLiteral() = default;
+};
 
-    CValue eval() const override {
-        return m_Value;
-    }
+class ASTNodeDouble : public ASTNodeLiteral {
+public:
+    ASTNodeDouble(double val);
+
+    ASTNodeDouble(const ASTNodeDouble &other);
+
+    ASTNodeDouble &operator=(const ASTNodeDouble &other);
+
+    CValue eval() const override;
+
+    ASTType getType() const override;
+
 
 private:
-    CValue m_Value;
+    double m_Value;
 };
 
-class ASTNodeString : public ASTNode {
+class ASTNodeString : public ASTNodeLiteral {
 public:
-    ASTNodeString(const std::string &value) : m_Value(value) {}
+    ASTNodeString(std::string val);
 
-    CValue eval() const override {
+    ASTNodeString(const ASTNodeString &other);
 
-        return std::monostate();
-    }
+    CValue eval() const override;
+
+    ASTType getType() const override;
+
 
 private:
     std::string m_Value;
 };
 
-class ASTAddition : public ASTNode {
+class ASTNodeOperand : public ASTNode {
 public:
-    ASTAddition(std::shared_ptr<ASTNode> left, std::shared_ptr<ASTNode> right)
-            : m_Left(std::move(left)), m_Right(std::move(right)) {}
+    void setChildren(const EASTNode &left, const EASTNode &right) override;
 
-    CValue eval() const override {
-        // return m_Left->eval() + m_Right->eval();
-        return std::monostate();
+protected:
+    ASTNodeOperand(EASTNode left, EASTNode right);
 
-    }
+    ASTType getType() const override;
 
-private:
-    std::shared_ptr<ASTNode> m_Left;
-    std::shared_ptr<ASTNode> m_Right;
+    EASTNode m_Left;
+    EASTNode m_Right;
 };
 
-class ASTMultiply : public ASTNode {
+class ASTAddition : public ASTNodeOperand {
 public:
-    ASTMultiply(std::shared_ptr<ASTNode> left, std::shared_ptr<ASTNode> right)
-            : m_Left(std::move(left)), m_Right(std::move(right)) {}
+    ASTAddition(EASTNode left, EASTNode right);
 
-    CValue eval() const override {
-        // return m_Left->eval() * m_Right->eval();
-        return std::monostate();
+    CValue eval() const override;
 
-    }
-
-private:
-    std::shared_ptr<ASTNode> m_Left;
-    std::shared_ptr<ASTNode> m_Right;
 };
 
-class ASTDivide : public ASTNode {
+class ASTMultiply : public ASTNodeOperand {
 public:
-    ASTDivide(std::shared_ptr<ASTNode> left, std::shared_ptr<ASTNode> right)
-            : m_Left(std::move(left)), m_Right(std::move(right)) {}
+    ASTMultiply(EASTNode left, EASTNode right);
 
-    CValue eval() const override {
-        // Add check for division by zero
-        return std::monostate();
+    CValue eval() const override;
 
-    }
-
-private:
-    std::shared_ptr<ASTNode> m_Left;
-    std::shared_ptr<ASTNode> m_Right;
 };
 
-class ASTSubtract : public ASTNode {
+class ASTDivide : public ASTNodeOperand {
 public:
-    ASTSubtract(std::shared_ptr<ASTNode> left, std::shared_ptr<ASTNode> right)
-            : m_Left(std::move(left)), m_Right(right) {}
+    ASTDivide(EASTNode left, EASTNode right);
 
-    CValue eval() const override {
-        // return m_Left->eval() - m_Right->eval();
-        return std::monostate();
-
-    }
-
-private:
-    std::shared_ptr<ASTNode> m_Left;
-    std::shared_ptr<ASTNode> m_Right;
+    CValue eval() const override;
 };
 
-#endif // AST_H
+class ASTSubtract : public ASTNodeOperand {
+public:
+    ASTSubtract(EASTNode left, EASTNode right);
 
+    CValue eval() const override;
+};
