@@ -98,10 +98,14 @@ class CCell {
 public:
     CCell() = default;
 
-    CCell(std::string content, EASTNode root) : value(std::move(content)), m_Root(std::move(root)) {};
+    CCell(std::string content, EASTNode root) : m_Value(std::move(content)), m_Root(std::move(root)) {};
+
+    EASTNode getRoot() {
+        return m_Root;
+    }
 
 private:
-    std::string value;
+    std::string m_Value;
     EASTNode m_Root;
 };
 
@@ -123,10 +127,9 @@ public:
 
         std::pair<size_t, size_t> key = {pos.getRow(), pos.getColumn()};
 
-
         auto it = m_SheetData.find(key);
 
-        if (it != m_SheetData.end()) {
+        if (it == m_SheetData.end()) {
             m_SheetData.insert({key, CCell(std::move(contents), m_Builder.getRoot())});
         } else {
             m_SheetData[key] = CCell(std::move(contents), m_Builder.getRoot());
@@ -136,6 +139,13 @@ public:
     }
 
     CValue getValue(CPos pos) {
+        std::pair<size_t, size_t> key = {pos.getRow(), pos.getColumn()};
+
+        auto it = m_SheetData.find(key);
+
+        if (it != m_SheetData.end()) {
+            return m_SheetData[key].getRoot()->eval();
+        }
         return std::monostate();
     }
 
@@ -180,6 +190,7 @@ int main() {
     assert (x0.setCell(CPos("A6"), "raw text with any characters, including a quote \" or a newline\n"));
     assert (x0.setCell(CPos("A7"),
                        "=\"quoted string, quotes must be doubled: \"\". Moreover, backslashes are needed for C++.\""));
+    CValue v = x0.getValue(CPos("A1"));
     assert (valueMatch(x0.getValue(CPos("A1")), CValue(10.0)));
     assert (valueMatch(x0.getValue(CPos("A2")), CValue(20.5)));
     assert (valueMatch(x0.getValue(CPos("A3")), CValue(30.0)));

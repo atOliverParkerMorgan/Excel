@@ -1,79 +1,159 @@
 #include "AST.h"
+#include <variant>
+#include "cmath"
 
-#include <utility>
+CValue ASTPow::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
 
-ASTNodeDouble::ASTNodeDouble(double val) : m_Value(val) {}
-
-ASTNodeDouble::ASTNodeDouble(const ASTNodeDouble &other) : m_Value(other.m_Value) {}
-
-ASTNodeDouble &ASTNodeDouble::operator=(const ASTNodeDouble &other) {
-    if (this != &other) {
-        m_Value = other.m_Value;
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::pow(std::get<double>(leftValue), std::get<double>(rightValue));
     }
-    return *this;
+
+    return std::monostate();
 }
 
-CValue ASTNodeDouble::eval() const {
-    return m_Value;
+CValue ASTNeg::eval() const {
+    CValue childValue = m_Child->eval();
+    if (std::holds_alternative<double>(childValue)) {
+        return -std::get<double>(childValue);
+    }
+
+    return std::monostate();
 }
 
-ASTType ASTNodeDouble::getType() const {
-    return LITERAL;
-}
-
-ASTNodeString::ASTNodeString(std::string val) : m_Value(std::move(val)) {}
-
-ASTNodeString::ASTNodeString(const ASTNodeString &other) : m_Value(other.m_Value) {}
-
-CValue ASTNodeString::eval() const {
-    return m_Value;
-}
-
-ASTType ASTNodeString::getType() const {
-    return LITERAL;
-}
-
-ASTNodeOperand::ASTNodeOperand(EASTNode left, EASTNode right) : m_Left(std::move(left)), m_Right(std::move(right)) {}
-
-ASTType ASTNodeOperand::getType() const {
-    return BINARY_OPERAND;
-}
-
-void ASTNodeOperand::setChildren(const EASTNode &left, const EASTNode &right) {
-    m_Left = left;
-    m_Right = right;
-}
-
-ASTAddition::ASTAddition(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
 
 CValue ASTAddition::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) + std::get<double>(rightValue);
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue).append(std::get<std::string>(rightValue));
+    }
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::to_string(std::get<double>(leftValue)).append(std::get<std::string>(rightValue));
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<std::string>(leftValue).append(std::to_string(std::get<double>(rightValue)));
+    }
+
     return std::monostate();
 }
-
-ASTMultiply::ASTMultiply(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
-
-CValue ASTMultiply::eval() const {
-    return std::monostate();
-}
-
-ASTDivide::ASTDivide(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
-
-CValue ASTDivide::eval() const {
-    return std::monostate();
-}
-
-ASTSubtract::ASTSubtract(EASTNode left, EASTNode right) : ASTNodeOperand(std::move(left), std::move(right)) {}
 
 CValue ASTSubtract::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) - std::get<double>(rightValue);
+    }
     return std::monostate();
 }
 
-CValue ASTRelative::eval() const {
+CValue ASTMultiply::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) * std::get<double>(rightValue);
+    }
     return std::monostate();
 }
 
-ASTType ASTRelative::getType() const {
-    return LITERAL;
+CValue ASTDivide::eval() const {
+    CValue rightValue = m_Right->eval();
+    CValue leftValue = m_Left->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) / std::get<double>(rightValue);
+    }
+    return std::monostate();
 }
 
-void ASTNode::setChildren(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) {}
+
+CValue ASTEquals::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) == std::get<double>(rightValue) ? 1.0 : 0.0;
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue) == std::get<std::string>(rightValue) ? 1.0 : 0.0;
+    }
+    return std::monostate();
+}
+
+CValue ASTNotEqual::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) != std::get<double>(rightValue) ? 1.0 : 0.0;
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue) != std::get<std::string>(rightValue) ? 1.0 : 0.0;
+    }
+    return std::monostate();
+}
+
+
+CValue ASTLessThan::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) < std::get<double>(rightValue) ? 1.0 : 0.0;
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue) < std::get<std::string>(rightValue) ? 1.0 : 0.0;
+    }
+    return std::monostate();
+}
+
+CValue ASTGreaterThan::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) < std::get<double>(rightValue) ? 1.0 : 0.0;
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue) < std::get<std::string>(rightValue) ? 1.0 : 0.0;
+    }
+    return std::monostate();
+}
+
+CValue ASTLessEqualThan::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) <= std::get<double>(rightValue) ? 1.0 : 0.0;
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue) <= std::get<std::string>(rightValue) ? 1.0 : 0.0;
+    }
+    return std::monostate();
+}
+
+
+CValue ASTGreaterEqualThan::eval() const {
+    CValue leftValue = m_Left->eval();
+    CValue rightValue = m_Right->eval();
+
+    if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
+        return std::get<double>(leftValue) >= std::get<double>(rightValue) ? 1.0 : 0.0;
+    }
+    if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
+        return std::get<std::string>(leftValue) >= std::get<std::string>(rightValue) ? 1.0 : 0.0;
+    }
+    return std::monostate();
+}
+
+CValue ASTReference::eval() const {
+    return std::monostate();
+}

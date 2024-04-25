@@ -1,6 +1,9 @@
+#include <iostream>
 #include <memory>
 #include <utility>
 #include <variant>
+
+using namespace std;
 
 using CValue = std::variant<std::monostate, double, std::string>;
 
@@ -18,37 +21,40 @@ public:
 
     virtual ASTType getType() const = 0;
 
-    virtual void setChildren(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right);
+    virtual void setChildrenBinary(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) {}
+
+    virtual void setChildrenUnary(const std::shared_ptr<ASTNode> &child) {}
 };
 
 using EASTNode = std::shared_ptr<ASTNode>;
 
-class ASTRelative : public ASTNode {
-public:
-    virtual ~ASTRelative() = default;
-
-    CValue eval() const override;
-
-    ASTType getType() const override;
-};
-
 class ASTNodeLiteral : public ASTNode {
 public:
     virtual ~ASTNodeLiteral() = default;
+
+    ASTType getType() const override {
+        return LITERAL;
+    }
+};
+
+class ASTReference : public ASTNodeLiteral {
+public:
+    virtual ~ASTReference() = default;
+
+    CValue eval() const override;
+
 };
 
 class ASTNodeDouble : public ASTNodeLiteral {
 public:
-    ASTNodeDouble(double val);
+    ASTNodeDouble(double val) : m_Value(val) {}
 
-    ASTNodeDouble(const ASTNodeDouble &other);
+    ASTNodeDouble(const ASTNodeDouble &other) : m_Value(other.m_Value) {}
 
-    ASTNodeDouble &operator=(const ASTNodeDouble &other);
 
-    CValue eval() const override;
-
-    ASTType getType() const override;
-
+    CValue eval() const override {
+        return m_Value;
+    }
 
 private:
     double m_Value;
@@ -56,58 +62,150 @@ private:
 
 class ASTNodeString : public ASTNodeLiteral {
 public:
-    ASTNodeString(std::string val);
+    ASTNodeString(std::string val) : m_Value(std::move(val)) {}
 
-    ASTNodeString(const ASTNodeString &other);
+    ASTNodeString(const ASTNodeString &other) : m_Value(other.m_Value) {}
 
-    CValue eval() const override;
+    CValue eval() const override {
+        return m_Value;
+    }
 
-    ASTType getType() const override;
-
+    ASTType getType() const override {
+        return LITERAL;
+    }
 
 private:
     std::string m_Value;
 };
 
-class ASTNodeOperand : public ASTNode {
+class ASTNodeUnaryOperand : public ASTNode {
 public:
-    void setChildren(const EASTNode &left, const EASTNode &right) override;
+    void setChildrenUnary(const std::shared_ptr<ASTNode> &child) override {
+        m_Child = child;
+    }
 
 protected:
-    ASTNodeOperand(EASTNode left, EASTNode right);
+    ASTNodeUnaryOperand() = default;
 
-    ASTType getType() const override;
+    ASTNodeUnaryOperand(EASTNode child) : m_Child(std::move(child)) {}
 
-    EASTNode m_Left;
-    EASTNode m_Right;
+    ASTType getType() const override {
+        return UNARY_OPERAND;
+    }
+
+    EASTNode m_Child;
 };
 
-class ASTAddition : public ASTNodeOperand {
+
+class ASTNeg : public ASTNodeUnaryOperand {
 public:
-    ASTAddition(EASTNode left, EASTNode right);
+    using ASTNodeUnaryOperand::ASTNodeUnaryOperand;
 
     CValue eval() const override;
 
 };
 
-class ASTMultiply : public ASTNodeOperand {
+class ASTNodeBinaryOperand : public ASTNode {
 public:
-    ASTMultiply(EASTNode left, EASTNode right);
+    void setChildrenBinary(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) override {
+        m_Left = left;
+        m_Right = right;
+    }
+
+protected:
+    ASTNodeBinaryOperand() = default;
+
+    ASTType getType() const override {
+        return BINARY_OPERAND;
+    }
+
+    EASTNode m_Left = nullptr;
+    EASTNode m_Right = nullptr;
+};
+
+class ASTAddition : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
     CValue eval() const override;
 
 };
 
-class ASTDivide : public ASTNodeOperand {
+class ASTMultiply : public ASTNodeBinaryOperand {
 public:
-    ASTDivide(EASTNode left, EASTNode right);
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
     CValue eval() const override;
+
 };
 
-class ASTSubtract : public ASTNodeOperand {
+class ASTDivide : public ASTNodeBinaryOperand {
 public:
-    ASTSubtract(EASTNode left, EASTNode right);
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTSubtract : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTPow : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTEquals : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTNotEqual : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTLessThan : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTGreaterThan : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTLessEqualThan : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+
+    CValue eval() const override;
+
+};
+
+class ASTGreaterEqualThan : public ASTNodeBinaryOperand {
+public:
+    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
     CValue eval() const override;
 };

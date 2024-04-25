@@ -44,6 +44,6 @@ public:
 
     std::shared_ptr<ASTNode> getRoot();
 private:
-    std::stack<std::shared_ptr<ASTNode>> m_BuilderStack;
+    std::deque<std::shared_ptr<ASTNode>> m_BuilderStack;
 };
 

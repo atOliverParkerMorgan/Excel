@@ -1,58 +1,65 @@
 #include "ASTBuilder.h"
 
 void ASTBuilder::opAdd() {
-    m_BuilderStack.push(std::make_shared<ASTAddition>(nullptr, nullptr));
+    m_BuilderStack.push_back(std::make_shared<ASTAddition>());
 }
 
 void ASTBuilder::opSub() {
-    m_BuilderStack.push(std::make_shared<ASTSubtract>(nullptr, nullptr));
+    m_BuilderStack.push_back(std::make_shared<ASTSubtract>());
 }
 
 void ASTBuilder::opMul() {
-    m_BuilderStack.push(std::make_shared<ASTMultiply>(nullptr, nullptr));
+    m_BuilderStack.push_back(std::make_shared<ASTMultiply>());
 }
 
 void ASTBuilder::opDiv() {
-    m_BuilderStack.push(std::make_shared<ASTDivide>(nullptr, nullptr));
+    m_BuilderStack.push_back(std::make_shared<ASTDivide>());
 }
 
-void ASTBuilder::opPow() {}
+void ASTBuilder::opPow() {
+    m_BuilderStack.push_back(std::make_shared<ASTPow>());
+}
 
-void ASTBuilder::opNeg() {}
+void ASTBuilder::opNeg() {
+    m_BuilderStack.push_back(std::make_shared<ASTNeg>());
+}
 
 void ASTBuilder::opEq() {
-    std::cout << '=';
+    m_BuilderStack.push_back(std::make_shared<ASTEquals>());
 }
 
 void ASTBuilder::opNe() {
-    std::cout << '!';
+    m_BuilderStack.push_back(std::make_shared<ASTNotEqual>());
 }
 
 void ASTBuilder::opLt() {
-    std::cout << '<';
+    m_BuilderStack.push_back(std::make_shared<ASTLessThan>());
 }
 
 void ASTBuilder::opLe() {
-    std::cout << "<=";
+    m_BuilderStack.push_back(std::make_shared<ASTLessEqualThan>());
 }
 
 void ASTBuilder::opGt() {
-    std::cout << ">";
+    m_BuilderStack.push_back(std::make_shared<ASTGreaterThan>());
 }
 
 void ASTBuilder::opGe() {
-    std::cout << ">=";
+    m_BuilderStack.push_back(std::make_shared<ASTGreaterEqualThan>());
 }
 
 void ASTBuilder::valNumber(double val) {
-    m_BuilderStack.emplace(std::make_shared<ASTNodeDouble>(val));
+    m_BuilderStack.push_back(std::make_shared<ASTNodeDouble>(val));
 }
 
 void ASTBuilder::valString(std::string val) {
-    m_BuilderStack.emplace(std::make_shared<ASTNodeString>(val));
+    m_BuilderStack.push_back(std::make_shared<ASTNodeString>(val));
 }
 
-void ASTBuilder::valReference(std::string val) {}
+void ASTBuilder::valReference(std::string val) {
+
+    m_BuilderStack.push_back(std::make_shared<ASTReference>(val));
+}
 
 void ASTBuilder::valRange(std::string val) {}
 
@@ -62,21 +69,23 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
 
     std::stack<EASTNode> helperStack;
     while (!m_BuilderStack.empty()) {
-        EASTNode current = m_BuilderStack.top();
-        m_BuilderStack.pop();
+        EASTNode current = m_BuilderStack.front();
+        m_BuilderStack.pop_front();
 
         if (current->getType() == BINARY_OPERAND) {
-            EASTNode left = helperStack.top();
-            helperStack.pop();
             EASTNode right = helperStack.top();
             helperStack.pop();
-            current->setChildren(left, right);
+
+            EASTNode left = helperStack.top();
+            helperStack.pop();
+
+            current->setChildrenBinary(left, right);
             helperStack.push(current);
 
         } else if (current->getType() == UNARY_OPERAND) {
             EASTNode left = helperStack.top();
             helperStack.pop();
-            current->setChildren(left, nullptr);
+            current->setChildrenBinary(left, nullptr);
             helperStack.push(current);
 
         } else if (current->getType() == LITERAL) {
