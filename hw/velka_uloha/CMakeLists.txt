@@ -3,6 +3,8 @@ set(SOURCES
         test.cpp
         AST.cpp
         ASTBuilder.cpp
+        CPos.cpp
+        CPos.h
 )
 
 # Add executable target

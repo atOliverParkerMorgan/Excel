@@ -1,9 +1,24 @@
+#include "CPos.h"
+
 #include <iostream>
 #include <memory>
 #include <utility>
 #include <variant>
+#include <unordered_map>
 
 using namespace std;
+
+namespace std {
+    template<>
+    // https://www.geeksforgeeks.org/
+    struct hash<pair<size_t, size_t>> {
+        size_t operator()(const pair<size_t, size_t> &p) const {
+            // return (p.first << 32) | (p.second);
+            // option for not 64-bit
+            return std::hash<size_t>{}(p.first) ^ std::hash<size_t>{}(p.second);
+        }
+    };
+}
 
 using CValue = std::variant<std::monostate, double, std::string>;
 
@@ -17,9 +32,12 @@ class ASTNode {
 public:
     virtual ~ASTNode() = default;
 
-    virtual CValue eval() const = 0;
+    virtual CValue
+    eval(const std::unordered_map<std::pair<size_t, size_t>, std::shared_ptr<ASTNode> > &sheetNodeData) const = 0;
 
     virtual ASTType getType() const = 0;
+
+    virtual void moveRelative(size_t columnOffset, size_t rowOffset) = 0;
 
     virtual void setChildrenBinary(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) {}
 
@@ -35,14 +53,45 @@ public:
     ASTType getType() const override {
         return LITERAL;
     }
+
+    void moveRelative(size_t columnOffset, size_t rowOffset) override {};
+
 };
+
 
 class ASTReference : public ASTNodeLiteral {
 public:
-    virtual ~ASTReference() = default;
+    ASTReference(const std::string &str);
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
+    size_t getRow() const {
+        return m_Row;
+    }
+
+    size_t getColumn() const {
+        return m_Column;
+    }
+
+    void moveRelative(size_t columnOffset, size_t rowOffset) override {
+        ASTReference tmp = *this;
+
+        if (tmp.m_IsColumnRelative) {
+            tmp.m_Column += columnOffset;
+        }
+        if (tmp.m_IsRowRelative) {
+            tmp.m_Row += rowOffset;
+        }
+
+        *this = tmp;
+    }
+
+
+private:
+    size_t m_Row;
+    bool m_IsRowRelative;
+    size_t m_Column;
+    bool m_IsColumnRelative;
 };
 
 class ASTNodeDouble : public ASTNodeLiteral {
@@ -52,7 +101,7 @@ public:
     ASTNodeDouble(const ASTNodeDouble &other) : m_Value(other.m_Value) {}
 
 
-    CValue eval() const override {
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override {
         return m_Value;
     }
 
@@ -66,7 +115,7 @@ public:
 
     ASTNodeString(const ASTNodeString &other) : m_Value(other.m_Value) {}
 
-    CValue eval() const override {
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override {
         return m_Value;
     }
 
@@ -93,6 +142,10 @@ protected:
         return UNARY_OPERAND;
     }
 
+    void moveRelative(size_t columnOffset, size_t rowOffset) override {
+        m_Child->moveRelative(columnOffset, rowOffset);
+    };
+
     EASTNode m_Child;
 };
 
@@ -101,7 +154,7 @@ class ASTNeg : public ASTNodeUnaryOperand {
 public:
     using ASTNodeUnaryOperand::ASTNodeUnaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -119,6 +172,11 @@ protected:
         return BINARY_OPERAND;
     }
 
+    void moveRelative(size_t columnOffset, size_t rowOffset) override {
+        m_Left->moveRelative(columnOffset, rowOffset);
+        m_Right->moveRelative(columnOffset, rowOffset);
+    };
+
     EASTNode m_Left = nullptr;
     EASTNode m_Right = nullptr;
 };
@@ -127,7 +185,7 @@ class ASTAddition : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -135,7 +193,7 @@ class ASTMultiply : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -143,7 +201,7 @@ class ASTDivide : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -151,7 +209,7 @@ class ASTSubtract : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -159,7 +217,7 @@ class ASTPow : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -167,7 +225,7 @@ class ASTEquals : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -175,7 +233,7 @@ class ASTNotEqual : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -183,7 +241,7 @@ class ASTLessThan : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -191,7 +249,7 @@ class ASTGreaterThan : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -199,7 +257,7 @@ class ASTLessEqualThan : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 
 };
 
@@ -207,5 +265,5 @@ class ASTGreaterEqualThan : public ASTNodeBinaryOperand {
 public:
     using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
 
-    CValue eval() const override;
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const override;
 };

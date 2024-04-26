@@ -22,7 +22,7 @@ public:
                 throw std::invalid_argument("CPos argument is not valid");
             }
             const char baseChar = isUpper ? 'A' : 'a';
-            m_Column *= systemValue;
+            m_Column *= SYSTEM_VALUE;
             m_Column += (str[index] - baseChar + 1);
         }
 
@@ -46,7 +46,7 @@ public:
 private:
     size_t m_Row;
     size_t m_Column;
-    inline static int systemValue = 26;
+    inline static int SYSTEM_VALUE = 26;
 };
 int main ( void )
 {

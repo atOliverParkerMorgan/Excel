@@ -57,7 +57,6 @@ void ASTBuilder::valString(std::string val) {
 }
 
 void ASTBuilder::valReference(std::string val) {
-
     m_BuilderStack.push_back(std::make_shared<ASTReference>(val));
 }
 
@@ -83,9 +82,10 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
             helperStack.push(current);
 
         } else if (current->getType() == UNARY_OPERAND) {
-            EASTNode left = helperStack.top();
+            EASTNode child = helperStack.top();
             helperStack.pop();
-            current->setChildrenBinary(left, nullptr);
+
+            current->setChildrenUnary(child);
             helperStack.push(current);
 
         } else if (current->getType() == LITERAL) {
