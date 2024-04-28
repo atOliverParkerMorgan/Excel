@@ -49,15 +49,69 @@ public:
 
     CSpreadsheet() {};
 
-    bool load(std::istream &is) { return false; };
+    bool load(std::istream &is) {
+        bool isAtCPosFirst = true;
+        bool isAtCPosSecond = false;
 
-    bool save(std::ostream &os) const { return false; };
+        std::string baseString;
+        std::string currentString;
+
+        is >> baseString;
+        std::pair<size_t, size_t> currentPair;
+
+        for (int i = 0; i < baseString.length(); ++i) {
+            const char c = baseString[i];
+            const size_t nextPosOfDelimiter = baseString.find_first_of(',', i);
+            if (nextPosOfDelimiter == i && isAtCPosFirst) {
+                currentPair.first = std::stoul(currentString);
+                isAtCPosFirst = false;
+                isAtCPosSecond = true;
+            } else if (c == ASTNode::DELIMITER && isAtCPosSecond) {
+                currentPair.second = std::stoul(currentString);
+                isAtCPosSecond = false;
+            } else {
+                std::s
+                if (c == ASTNode::DELIMITER) {
+
+                } else if (isupper(c) || islower(c)) {
+                    m_Builder.valReference(baseString.substr(i, nextPosOfDelimiter - i));
+                }else if(isdigit(c)){
+                    m_Builder.valNumber(std::stod(baseString.substr(i, nextPosOfDelimiter - i)));
+                } else if(c=='+'){
+                   m_Builder.opAdd();
+                } else if(c=='*'){
+                    m_Builder.opAdd();
+                } else if(c=='-'){
+                    m_Builder.opAdd();
+                } else if(c=='/'){
+                    m_Builder.opAdd();
+                } else if(c=='^'){
+                    m_Builder.opAdd();
+                } else if(c=='='){
+                    m_Builder.opAdd();
+                } else if(c=='<'){
+                    m_Builder.opAdd();
+                } else if(c=='>'){
+                    m_Builder.opAdd();
+                } else if(c=='='){
+                    m_Builder.opAdd();
+                }
+            }
+        }
+
+    };
+
+    bool save(std::ostream &os) const {
+        for (auto &[key, node]: m_SheetNodeData) {
+            os << key.first << ASTNode::DELIMITER << key.second << ASTNode::DELIMITER << *node;
+        }
+        return true;
+    };
 
     bool setCell(CPos pos, const std::string &contents) {
         parseExpression(contents, m_Builder);
 
         std::pair<size_t, size_t> key = {pos.getColumn(), pos.getRow()};
-
         auto it = m_SheetNodeData.find(key);
 
         if (it == m_SheetNodeData.end()) {
@@ -88,17 +142,25 @@ public:
                 std::pair<size_t, size_t> keyDest = {dst.getColumn() + x, dst.getRow() + y};
 
                 auto it = m_SheetNodeData.find(keySrc);
-                if (it != m_SheetNodeData.end()) {
-                    tmpCopy[keyDest] = it->second;
+                if (keyDest.first >= src.getColumn() && keyDest.first < w + src.getColumn() &&
+                    keyDest.second >= src.getRow() && keyDest.second < h + src.getRow() &&
+                    it != m_SheetNodeData.end()) {
+
+                    tmpCopy[keyDest] = m_SheetNodeData[keySrc]->clone();
+                } else if (it != m_SheetNodeData.end()) {
+                    EASTNode node = m_SheetNodeData[keySrc]->clone();
+                    node->moveRelative(dst.getColumn() - src.getColumn(),
+                                       dst.getRow() - src.getRow());
+                    m_SheetNodeData[keyDest] = node;
                 }
             }
         }
         for (auto &[keyDest, node]: tmpCopy) {
-            tmpCopy.at(keyDest)->moveRelative(dst.getColumn() - src.getColumn(),
-                                                   dst.getRow() - src.getRow());
-            m_SheetNodeData[keyDest] = tmpCopy.at(keyDest);
-//            m_SheetNodeData[keyDest]->moveRelative(dst.getColumn() - src.getColumn(),
-//                                                   dst.getRow() - src.getRow());
+
+            node->moveRelative(dst.getColumn() - src.getColumn(),
+                               dst.getRow() - src.getRow());
+
+            m_SheetNodeData[keyDest] = node;
         }
     };
 
@@ -130,65 +192,66 @@ int main() {
     std::ostringstream oss;
     std::istringstream iss;
     std::string data;
-//    assert (x0.setCell(CPos("A1"), "=10"));
-//    assert (x0.setCell(CPos("A2"), "20.5"));
-//    assert (x0.setCell(CPos("A3"), "3e1"));
-//    assert (x0.setCell(CPos("A4"), "=40"));
-//    assert (x0.setCell(CPos("A5"), "=5e+1"));
-//    assert (x0.setCell(CPos("A6"), "raw text with any characters, including a quote \" or a newline\n"));
-//    assert (x0.setCell(CPos("A7"),
-//                       "=\"quoted string, quotes must be doubled: \"\". Moreover, backslashes are needed for C++.\""));
-//    assert (valueMatch(x0.getValue(CPos("A1")), CValue(10.0)));
-//    assert (valueMatch(x0.getValue(CPos("A2")), CValue(20.5)));
-//    assert (valueMatch(x0.getValue(CPos("A3")), CValue(30.0)));
-//    assert (valueMatch(x0.getValue(CPos("A4")), CValue(40.0)));
-//    assert (valueMatch(x0.getValue(CPos("A5")), CValue(50.0)));
-//    assert (valueMatch(x0.getValue(CPos("A6")),
-//                       CValue("raw text with any characters, including a quote \" or a newline\n")));
-//    assert (valueMatch(x0.getValue(CPos("A7")),
-//                       CValue("quoted string, quotes must be doubled: \". Moreover, backslashes are needed for C++.")));
-//    assert (valueMatch(x0.getValue(CPos("A8")), CValue()));
-//    assert (valueMatch(x0.getValue(CPos("AAAA9999")), CValue()));
-//    assert (x0.setCell(CPos("B1"), "=A1+A2*A3"));
-//    assert (x0.setCell(CPos("B2"), "= -A1 ^ 2 - A2 / 2   "));
-//    assert (x0.setCell(CPos("B3"), "= 2 ^ $A$1"));
-//    assert (x0.setCell(CPos("B4"), "=($A1+A$2)^2"));
-//    assert (x0.setCell(CPos("B5"), "=B1+B2+B3+B4"));
-//    assert (x0.setCell(CPos("B6"), "=B1+B2+B3+B4+B5"));
-//
-//    CValue value = x0.getValue(CPos("B2"));
-//    assert (valueMatch(x0.getValue(CPos("B1")), CValue(625.0)));
-//    assert (valueMatch(x0.getValue(CPos("B2")), CValue(-110.25)));
-//    assert (valueMatch(x0.getValue(CPos("B3")), CValue(1024.0)));
-//    assert (valueMatch(x0.getValue(CPos("B4")), CValue(930.25)));
-//    assert (valueMatch(x0.getValue(CPos("B5")), CValue(2469.0)));
-//    assert (valueMatch(x0.getValue(CPos("B6")), CValue(4938.0)));
-//    assert (x0.setCell(CPos("A1"), "12"));
-//    assert (valueMatch(x0.getValue(CPos("B1")), CValue(627.0)));
-//    assert (valueMatch(x0.getValue(CPos("B2")), CValue(-154.25)));
-//    assert (valueMatch(x0.getValue(CPos("B3")), CValue(4096.0)));
-//    assert (valueMatch(x0.getValue(CPos("B4")), CValue(1056.25)));
-//    assert (valueMatch(x0.getValue(CPos("B5")), CValue(5625.0)));
-//    assert (valueMatch(x0.getValue(CPos("B6")), CValue(11250.0)));
-//    x1 = x0;
-//    assert (x0.setCell(CPos("A2"), "100"));
-//    assert (x1.setCell(CPos("A2"), "=A3+A5+A4"));
-//    assert (valueMatch(x0.getValue(CPos("B1")), CValue(3012.0)));
-//    assert (valueMatch(x0.getValue(CPos("B2")), CValue(-194.0)));
-//    assert (valueMatch(x0.getValue(CPos("B3")), CValue(4096.0)));
-//    assert (valueMatch(x0.getValue(CPos("B4")), CValue(12544.0)));
-//    assert (valueMatch(x0.getValue(CPos("B5")), CValue(19458.0)));
-//    assert (valueMatch(x0.getValue(CPos("B6")), CValue(38916.0)));
-//    assert (valueMatch(x1.getValue(CPos("B1")), CValue(3612.0)));
-//    assert (valueMatch(x1.getValue(CPos("B2")), CValue(-204.0)));
-//    assert (valueMatch(x1.getValue(CPos("B3")), CValue(4096.0)));
-//    assert (valueMatch(x1.getValue(CPos("B4")), CValue(17424.0)));
-//    assert (valueMatch(x1.getValue(CPos("B5")), CValue(24928.0)));
-//    assert (valueMatch(x1.getValue(CPos("B6")), CValue(49856.0)));
+
+    assert (x0.setCell(CPos("A1"), "=10"));
+    assert (x0.setCell(CPos("A2"), "20.5"));
+    assert (x0.setCell(CPos("A3"), "3e1"));
+    assert (x0.setCell(CPos("A4"), "=40"));
+    assert (x0.setCell(CPos("A5"), "=5e+1"));
+    assert (x0.setCell(CPos("A6"), "raw text with any characters, including a quote \" or a newline\n"));
+    assert (x0.setCell(CPos("A7"),
+                       "=\"quoted string, quotes must be doubled: \"\". Moreover, backslashes are needed for C++.\""));
+    assert (valueMatch(x0.getValue(CPos("A1")), CValue(10.0)));
+    assert (valueMatch(x0.getValue(CPos("A2")), CValue(20.5)));
+    assert (valueMatch(x0.getValue(CPos("A3")), CValue(30.0)));
+    assert (valueMatch(x0.getValue(CPos("A4")), CValue(40.0)));
+    assert (valueMatch(x0.getValue(CPos("A5")), CValue(50.0)));
+    assert (valueMatch(x0.getValue(CPos("A6")),
+                       CValue("raw text with any characters, including a quote \" or a newline\n")));
+    assert (valueMatch(x0.getValue(CPos("A7")),
+                       CValue("quoted string, quotes must be doubled: \". Moreover, backslashes are needed for C++.")));
+    assert (valueMatch(x0.getValue(CPos("A8")), CValue()));
+    assert (valueMatch(x0.getValue(CPos("AAAA9999")), CValue()));
+    assert (x0.setCell(CPos("B1"), "=A1+A2*A3"));
+    assert (x0.setCell(CPos("B2"), "= -A1 ^ 2 - A2 / 2   "));
+    assert (x0.setCell(CPos("B3"), "= 2 ^ $A$1"));
+    assert (x0.setCell(CPos("B4"), "=($A1+A$2)^2"));
+    assert (x0.setCell(CPos("B5"), "=B1+B2+B3+B4"));
+    assert (x0.setCell(CPos("B6"), "=B1+B2+B3+B4+B5"));
+
+    assert (valueMatch(x0.getValue(CPos("B1")), CValue(625.0)));
+    assert (valueMatch(x0.getValue(CPos("B2")), CValue(-110.25)));
+    assert (valueMatch(x0.getValue(CPos("B3")), CValue(1024.0)));
+    assert (valueMatch(x0.getValue(CPos("B4")), CValue(930.25)));
+    assert (valueMatch(x0.getValue(CPos("B5")), CValue(2469.0)));
+    assert (valueMatch(x0.getValue(CPos("B6")), CValue(4938.0)));
+    assert (x0.setCell(CPos("A1"), "12"));
+    assert (valueMatch(x0.getValue(CPos("B1")), CValue(627.0)));
+    assert (valueMatch(x0.getValue(CPos("B2")), CValue(-154.25)));
+    assert (valueMatch(x0.getValue(CPos("B3")), CValue(4096.0)));
+    assert (valueMatch(x0.getValue(CPos("B4")), CValue(1056.25)));
+    assert (valueMatch(x0.getValue(CPos("B5")), CValue(5625.0)));
+    assert (valueMatch(x0.getValue(CPos("B6")), CValue(11250.0)));
+    x1 = x0;
+    assert (x0.setCell(CPos("A2"), "100"));
+    assert (x1.setCell(CPos("A2"), "=A3+A5+A4"));
+    assert (valueMatch(x0.getValue(CPos("B1")), CValue(3012.0)));
+    assert (valueMatch(x0.getValue(CPos("B2")), CValue(-194.0)));
+    assert (valueMatch(x0.getValue(CPos("B3")), CValue(4096.0)));
+    assert (valueMatch(x0.getValue(CPos("B4")), CValue(12544.0)));
+    assert (valueMatch(x0.getValue(CPos("B5")), CValue(19458.0)));
+    assert (valueMatch(x0.getValue(CPos("B6")), CValue(38916.0)));
+    assert (valueMatch(x1.getValue(CPos("B1")), CValue(3612.0)));
+    assert (valueMatch(x1.getValue(CPos("B2")), CValue(-204.0)));
+    assert (valueMatch(x1.getValue(CPos("B3")), CValue(4096.0)));
+    assert (valueMatch(x1.getValue(CPos("B4")), CValue(17424.0)));
+    assert (valueMatch(x1.getValue(CPos("B5")), CValue(24928.0)));
+    assert (valueMatch(x1.getValue(CPos("B6")), CValue(49856.0)));
     oss.clear();
     oss.str("");
-/*    assert (x0.save(oss));
+    assert (x0.save(oss));
     data = oss.str();
+    std::cout << data << std::endl;
     iss.clear();
     iss.str(data);
     assert (x1.load(iss));
@@ -214,7 +277,6 @@ int main() {
     iss.clear();
     iss.str(data);
     assert (!x1.load(iss));
-    */
     assert (x0.setCell(CPos("D0"), "10"));
     assert (x0.setCell(CPos("D1"), "20"));
     assert (x0.setCell(CPos("D2"), "30"));
@@ -229,8 +291,7 @@ int main() {
     assert (x0.setCell(CPos("F11"), "=$D0+5"));
     assert (x0.setCell(CPos("F12"), "=D$0+5"));
     assert (x0.setCell(CPos("F13"), "=$D$0+5"));
-    x0.copyRect(CPos("G11"), CPos("F10"), 1, 1);
-    CValue v = x0.getValue(CPos("F10"));
+    x0.copyRect(CPos("G11"), CPos("F10"), 1, 4);
 
     assert (valueMatch(x0.getValue(CPos("F10")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("F11")), CValue(15.0)));
@@ -242,6 +303,8 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("G12")), CValue(25.0)));
     assert (valueMatch(x0.getValue(CPos("G13")), CValue(65.0)));
     assert (valueMatch(x0.getValue(CPos("G14")), CValue(15.0)));
+
+
     x0.copyRect(CPos("G11"), CPos("F10"), 2, 4);
     assert (valueMatch(x0.getValue(CPos("F10")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("F11")), CValue(15.0)));
@@ -255,6 +318,8 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("G14")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("H10")), CValue()));
     assert (valueMatch(x0.getValue(CPos("H11")), CValue()));
+    CValue h12 = x0.getValue(CPos("H12"));
+
     assert (valueMatch(x0.getValue(CPos("H12")), CValue()));
     assert (valueMatch(x0.getValue(CPos("H13")), CValue(35.0)));
     assert (valueMatch(x0.getValue(CPos("H14")), CValue()));

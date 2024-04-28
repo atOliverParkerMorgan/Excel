@@ -50,8 +50,5 @@ private:
 };
 int main ( void )
 {
-    CPos("A1");
-    CPos c = CPos("BA154");
-    CPos("AA");
-    return 0;
+    std::cout << sizeof(size_t) << std::endl;
 }

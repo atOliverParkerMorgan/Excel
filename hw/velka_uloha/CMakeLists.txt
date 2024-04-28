@@ -1,6 +1,6 @@
 # Add source files
 set(SOURCES
-        test.cpp
+        main.cpp
         AST.cpp
         ASTBuilder.cpp
         CPos.cpp
