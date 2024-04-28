@@ -47,58 +47,143 @@ public:
         return SPREADSHEET_CYCLIC_DEPS | SPREADSHEET_FUNCTIONS | SPREADSHEET_FILE_IO | SPREADSHEET_SPEED;
     }
 
-    CSpreadsheet() {};
+    CSpreadsheet() = default;
+
+    CSpreadsheet(const CSpreadsheet &other) {
+        for (auto &[key, node]: other.m_SheetNodeData) {
+            m_SheetNodeData[key] = node->clone();
+        }
+    }
+
+    CSpreadsheet &operator=(const CSpreadsheet &rhs) {
+        if (this != &rhs) {
+            for (auto &[key, node]: rhs.m_SheetNodeData) {
+                m_SheetNodeData[key] = node->clone();
+            }
+        }
+        return *this;
+    }
+
+    static std::string getDataUntilDelimiter(std::istream &is) {
+        std::string outputString;
+        char ch;
+        while (is.get(ch) && ch != ASTNode::DELIMITER) {
+            // ignore STRING_DELIMITER logic for string literals is solved within load()
+            outputString += ch;
+            if (ch == ASTNode::STRING_DELIMITER) return outputString;
+
+        }
+        return outputString;
+    }
+
+    friend std::ostream &operator<<(std::ostream &os, const CSpreadsheet &cSpreadsheet) {
+        for (auto &[key, node]: cSpreadsheet.m_SheetNodeData) {
+            os << (char) ('A' + key.first - 1) << key.second << ": " << *node << "\n";
+        }
+        return os;
+    }
 
     bool load(std::istream &is) {
+        m_SheetNodeData.clear();
+
         bool isAtCPosFirst = true;
         bool isAtCPosSecond = false;
 
-        std::string baseString;
-        std::string currentString;
+        std::string stringUntilDelimiter;
 
-        is >> baseString;
-        std::pair<size_t, size_t> currentPair;
+        std::pair<size_t, size_t> currentKey;
+        try {
+            while (true) {
 
-        for (int i = 0; i < baseString.length(); ++i) {
-            const char c = baseString[i];
-            const size_t nextPosOfDelimiter = baseString.find_first_of(',', i);
-            if (nextPosOfDelimiter == i && isAtCPosFirst) {
-                currentPair.first = std::stoul(currentString);
-                isAtCPosFirst = false;
-                isAtCPosSecond = true;
-            } else if (c == ASTNode::DELIMITER && isAtCPosSecond) {
-                currentPair.second = std::stoul(currentString);
-                isAtCPosSecond = false;
-            } else {
-                std::s
-                if (c == ASTNode::DELIMITER) {
+                stringUntilDelimiter = getDataUntilDelimiter(is);
+                if (is.eof()) {
+                    break;
+                }
 
-                } else if (isupper(c) || islower(c)) {
-                    m_Builder.valReference(baseString.substr(i, nextPosOfDelimiter - i));
-                }else if(isdigit(c)){
-                    m_Builder.valNumber(std::stod(baseString.substr(i, nextPosOfDelimiter - i)));
-                } else if(c=='+'){
-                   m_Builder.opAdd();
-                } else if(c=='*'){
-                    m_Builder.opAdd();
-                } else if(c=='-'){
-                    m_Builder.opAdd();
-                } else if(c=='/'){
-                    m_Builder.opAdd();
-                } else if(c=='^'){
-                    m_Builder.opAdd();
-                } else if(c=='='){
-                    m_Builder.opAdd();
-                } else if(c=='<'){
-                    m_Builder.opAdd();
-                } else if(c=='>'){
-                    m_Builder.opAdd();
-                } else if(c=='='){
-                    m_Builder.opAdd();
+                if (stringUntilDelimiter.empty()) {
+                    isAtCPosFirst = true;
+
+                    auto it = m_SheetNodeData.find(currentKey);
+                    if (it == m_SheetNodeData.end()) {
+                        m_SheetNodeData.insert({currentKey, m_Builder.getRoot()});
+                    } else {
+                        m_SheetNodeData[currentKey] = m_Builder.getRoot();
+                    }
+                    continue;
+                }
+                if (isAtCPosFirst) {
+                    currentKey.first = std::stoul(stringUntilDelimiter);
+                    isAtCPosFirst = false;
+                    isAtCPosSecond = true;
+                } else if (isAtCPosSecond) {
+                    currentKey.second = std::stoul(stringUntilDelimiter);
+                    isAtCPosSecond = false;
+                } else {
+                    if (stringUntilDelimiter[0] == ASTNode::STRING_DELIMITER) {
+                        // ignore STRING_DELIMITER before string
+                        char currentChar;
+                        char nextChar;
+
+                        is.get(currentChar);
+                        is.get(nextChar);
+
+                        std::string stringData;
+                        bool foundDelimiterOffset = false;
+                        while (currentChar == ASTNode::DELIMITER_OFFSET ||
+                               nextChar != ASTNode::DELIMITER) {
+
+                            // ignore first DELIMITER_OFFSET
+                            if (foundDelimiterOffset || currentChar != ASTNode::DELIMITER_OFFSET) {
+                                stringData += currentChar;
+                            }
+
+                            foundDelimiterOffset = currentChar == ASTNode::DELIMITER_OFFSET;
+                            currentChar = nextChar;
+                            is.get(nextChar);
+                        }
+                        stringData += currentChar;
+                        m_Builder.valString(stringData);
+
+
+                    } else if (isupper(stringUntilDelimiter[0]) || islower(stringUntilDelimiter[0])) {
+                        m_Builder.valReference(stringUntilDelimiter);
+                    } else if (isdigit(stringUntilDelimiter[0])) {
+                        m_Builder.valNumber(std::stod(stringUntilDelimiter));
+                    } else if (stringUntilDelimiter == "+") {
+                        m_Builder.opAdd();
+                    } else if (stringUntilDelimiter == "*") {
+                        m_Builder.opMul();
+                    } else if (stringUntilDelimiter == "-") {
+                        m_Builder.opSub();
+                    } else if (stringUntilDelimiter == "/") {
+                        m_Builder.opDiv();
+                    } else if (stringUntilDelimiter == "^") {
+                        m_Builder.opPow();
+                    } else if (stringUntilDelimiter == "=") {
+                        m_Builder.opEq();
+                    } else if (stringUntilDelimiter == "<") {
+                        m_Builder.opLt();
+                    } else if (stringUntilDelimiter == ">") {
+                        m_Builder.opGt();
+                    } else if (stringUntilDelimiter == "<=") {
+                        m_Builder.opLe();
+                    } else if (stringUntilDelimiter == ">=") {
+                        m_Builder.opGe();
+                    } else if (stringUntilDelimiter == "<>") {
+                        m_Builder.opNe();
+                    } else if (stringUntilDelimiter == "—") {
+                        m_Builder.opNeg();
+                    } else {
+                        return false;
+                    }
                 }
             }
+        } catch (const std::invalid_argument &e) {
+            std::cout << e.what() << std::endl;
+            return false;
         }
 
+        return true;
     };
 
     bool save(std::ostream &os) const {
@@ -192,8 +277,7 @@ int main() {
     std::ostringstream oss;
     std::istringstream iss;
     std::string data;
-
-    assert (x0.setCell(CPos("A1"), "=10"));
+    assert (x0.setCell(CPos("A1"), "10"));
     assert (x0.setCell(CPos("A2"), "20.5"));
     assert (x0.setCell(CPos("A3"), "3e1"));
     assert (x0.setCell(CPos("A4"), "=40"));
@@ -218,7 +302,6 @@ int main() {
     assert (x0.setCell(CPos("B4"), "=($A1+A$2)^2"));
     assert (x0.setCell(CPos("B5"), "=B1+B2+B3+B4"));
     assert (x0.setCell(CPos("B6"), "=B1+B2+B3+B4+B5"));
-
     assert (valueMatch(x0.getValue(CPos("B1")), CValue(625.0)));
     assert (valueMatch(x0.getValue(CPos("B2")), CValue(-110.25)));
     assert (valueMatch(x0.getValue(CPos("B3")), CValue(1024.0)));
@@ -251,10 +334,13 @@ int main() {
     oss.str("");
     assert (x0.save(oss));
     data = oss.str();
-    std::cout << data << std::endl;
     iss.clear();
     iss.str(data);
     assert (x1.load(iss));
+    std::cout << x1 << std::endl;
+    CValue x = x1.getValue(CPos("B1"));
+    CValue x2 = x1.getValue(CPos("B2"));
+    CValue x3 = x1.getValue(CPos("B3"));
     assert (valueMatch(x1.getValue(CPos("B1")), CValue(3012.0)));
     assert (valueMatch(x1.getValue(CPos("B2")), CValue(-194.0)));
     assert (valueMatch(x1.getValue(CPos("B3")), CValue(4096.0)));
@@ -292,7 +378,6 @@ int main() {
     assert (x0.setCell(CPos("F12"), "=D$0+5"));
     assert (x0.setCell(CPos("F13"), "=$D$0+5"));
     x0.copyRect(CPos("G11"), CPos("F10"), 1, 4);
-
     assert (valueMatch(x0.getValue(CPos("F10")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("F11")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("F12")), CValue(15.0)));
@@ -303,8 +388,6 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("G12")), CValue(25.0)));
     assert (valueMatch(x0.getValue(CPos("G13")), CValue(65.0)));
     assert (valueMatch(x0.getValue(CPos("G14")), CValue(15.0)));
-
-
     x0.copyRect(CPos("G11"), CPos("F10"), 2, 4);
     assert (valueMatch(x0.getValue(CPos("F10")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("F11")), CValue(15.0)));
@@ -318,8 +401,6 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("G14")), CValue(15.0)));
     assert (valueMatch(x0.getValue(CPos("H10")), CValue()));
     assert (valueMatch(x0.getValue(CPos("H11")), CValue()));
-    CValue h12 = x0.getValue(CPos("H12"));
-
     assert (valueMatch(x0.getValue(CPos("H12")), CValue()));
     assert (valueMatch(x0.getValue(CPos("H13")), CValue(35.0)));
     assert (valueMatch(x0.getValue(CPos("H14")), CValue()));

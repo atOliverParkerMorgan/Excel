@@ -72,9 +72,15 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
         m_BuilderStack.pop_front();
 
         if (current->getType() == BINARY_OPERAND) {
+            if(helperStack.empty()){
+                throw std::invalid_argument("Can't get root of invalid expression");
+            }
             EASTNode right = helperStack.top();
             helperStack.pop();
 
+            if(helperStack.empty()){
+                throw std::invalid_argument("Can't get root of invalid expression");
+            }
             EASTNode left = helperStack.top();
             helperStack.pop();
 
@@ -82,6 +88,9 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
             helperStack.push(current);
 
         } else if (current->getType() == UNARY_OPERAND) {
+            if(helperStack.empty()){
+                throw std::invalid_argument("Can't get root of invalid expression");
+            }
             EASTNode child = helperStack.top();
             helperStack.pop();
 
@@ -92,5 +101,14 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
             helperStack.push(current);
         }
     }
-    return helperStack.top();
+    if(helperStack.empty()){
+        throw std::invalid_argument("Can't get root of invalid expression");
+    }
+    EASTNode output = helperStack.top();
+    helperStack.pop();
+    if(!helperStack.empty()){
+        throw std::invalid_argument("Can't get root of invalid expression");
+    }
+
+    return output;
 }

@@ -30,7 +30,7 @@ class ASTNode {
 public:
     virtual ~ASTNode() = default;
 
-    ASTNode() {}
+    ASTNode() = default;
 
     virtual CValue
     eval(const std::unordered_map<std::pair<size_t, size_t>, std::shared_ptr<ASTNode> > &sheetNodeData) const = 0;
@@ -47,13 +47,14 @@ public:
 
     friend std::ostream &operator<<(std::ostream &os, const ASTNode &astNode) {
         astNode.print(os);
-        return os;
+        return os << DELIMITER;
     }
 
     virtual std::shared_ptr<ASTNode> clone() const = 0;
 
     inline const static char DELIMITER = ',';
     inline const static char DELIMITER_OFFSET = '\\';
+    inline const static char STRING_DELIMITER = '~';
 
 };
 
@@ -154,10 +155,12 @@ private:
 class ASTNodeString : public ASTNodeLiteral {
 public:
     ASTNodeString(const std::string &val) : m_Value(val) {
-        for (int i = 0; i < val.length(); ++i) {
+        m_ValueDelimiterOffset = STRING_DELIMITER;
+        for (size_t i = 0; i < val.length(); ++i) {
             if (val[i] == DELIMITER || val[i] == DELIMITER_OFFSET) {
                 m_ValueDelimiterOffset += DELIMITER_OFFSET;
             }
+
             m_ValueDelimiterOffset += val[i];
         }
     }
@@ -218,7 +221,7 @@ public:
 
     void print(std::ostream &os) const override {
         m_Child->print(os);
-        os << "-" << ASTNode::DELIMITER;
+        os << "—" << ASTNode::DELIMITER;
     };
 
     EASTNode clone() const override {
