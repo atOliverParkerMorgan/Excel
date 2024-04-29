@@ -1,7 +1,5 @@
 #include "expression.h"
 #include "AST.h"
-#include <stack>
-
 
 class ASTBuilder : public CExprBuilder {
 public:

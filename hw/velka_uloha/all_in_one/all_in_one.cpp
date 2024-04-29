@@ -1,5 +1,4 @@
 #ifndef __PROGTEST__
-
 #include <cstdlib>
 #include <cstdio>
 #include <cstring>
@@ -85,13 +84,12 @@ public:
         return m_Column;
     }
 
-    inline const static size_t SYSTEM_VALUE = 26;
+    const static size_t SYSTEM_VALUE = 26;
 
 private:
     size_t m_Row;
     size_t m_Column;
 };
-
 
 using namespace std;
 
@@ -139,9 +137,9 @@ public:
 
     virtual std::shared_ptr<ASTNode> clone() const = 0;
 
-    inline const static char DELIMITER = ',';
-    inline const static char DELIMITER_OFFSET = '\\';
-    inline const static char STRING_DELIMITER = '~';
+    const static char DELIMITER = ',';
+    const static char DELIMITER_OFFSET = '\\';
+    const static char STRING_DELIMITER = '~';
 
 };
 
@@ -257,7 +255,7 @@ public:
     ASTNodeString(const ASTNodeString &other) = default;
 
     CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                std::set<std::pair<size_t, size_t>> &visitedReferences) const override {
+                std::set<std::pair<size_t, size_t>>& visitedReferences) const override {
         return m_Value;
     }
 
@@ -584,7 +582,6 @@ public:
                   int paramCount) override;
 
     std::shared_ptr<ASTNode> getRoot();
-
 private:
     std::deque<std::shared_ptr<ASTNode>> m_BuilderStack;
 };
@@ -659,6 +656,12 @@ CValue ASTMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
 CValue ASTDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
                        std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
+    bool isRightDouble = std::holds_alternative<double>(rightValue);
+
+    if (isRightDouble && std::get<double>(rightValue) == 0) {
+        return std::monostate();
+    }
+
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
@@ -717,10 +720,10 @@ CValue ASTGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, 
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
-        return std::get<double>(leftValue) < std::get<double>(rightValue) ? 1.0 : 0.0;
+        return std::get<double>(leftValue) > std::get<double>(rightValue) ? 1.0 : 0.0;
     }
     if (std::holds_alternative<std::string>(leftValue) && std::holds_alternative<std::string>(rightValue)) {
-        return std::get<std::string>(leftValue) < std::get<std::string>(rightValue) ? 1.0 : 0.0;
+        return std::get<std::string>(leftValue) > std::get<std::string>(rightValue) ? 1.0 : 0.0;
     }
     return std::monostate();
 }
@@ -868,13 +871,13 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
         m_BuilderStack.pop_front();
 
         if (current->getType() == BINARY_OPERAND) {
-            if (helperStack.empty()) {
+            if(helperStack.empty()){
                 throw std::invalid_argument("Can't get root of invalid expression");
             }
             EASTNode right = helperStack.top();
             helperStack.pop();
 
-            if (helperStack.empty()) {
+            if(helperStack.empty()){
                 throw std::invalid_argument("Can't get root of invalid expression");
             }
             EASTNode left = helperStack.top();
@@ -884,7 +887,7 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
             helperStack.push(current);
 
         } else if (current->getType() == UNARY_OPERAND) {
-            if (helperStack.empty()) {
+            if(helperStack.empty()){
                 throw std::invalid_argument("Can't get root of invalid expression");
             }
             EASTNode child = helperStack.top();
@@ -897,12 +900,12 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
             helperStack.push(current);
         }
     }
-    if (helperStack.empty()) {
+    if(helperStack.empty()){
         throw std::invalid_argument("Can't get root of invalid expression");
     }
     EASTNode output = helperStack.top();
     helperStack.pop();
-    if (!helperStack.empty()) {
+    if(!helperStack.empty()){
         throw std::invalid_argument("Can't get root of invalid expression");
     }
 
@@ -913,7 +916,7 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
 class CSpreadsheet {
 public:
     static unsigned capabilities() {
-        return SPREADSHEET_CYCLIC_DEPS | SPREADSHEET_FILE_IO | SPREADSHEET_SPEED;
+        return SPREADSHEET_CYCLIC_DEPS | SPREADSHEET_FUNCTIONS | SPREADSHEET_FILE_IO | SPREADSHEET_SPEED;
     }
 
     CSpreadsheet() = default;
@@ -1128,6 +1131,7 @@ private:
     std::unordered_map<std::pair<size_t, size_t>, EASTNode> m_SheetNodeData;
 };
 
+#ifndef __PROGTEST__
 
 bool valueMatch(const CValue &r,
                 const CValue &s) {
@@ -1145,9 +1149,8 @@ bool valueMatch(const CValue &r,
     return fabs(std::get<double>(r) - std::get<double>(s)) <= 1e8 * DBL_EPSILON * fabs(std::get<double>(r));
 }
 
-#ifndef __PROGTEST__
-
 int main() {
+
     CSpreadsheet x0, x1;
     std::ostringstream oss;
     std::istringstream iss;
@@ -1160,6 +1163,8 @@ int main() {
     assert (x0.setCell(CPos("A6"), "raw text with any characters, including a quote \" or a newline\n"));
     assert (x0.setCell(CPos("A7"),
                        "=\"quoted string, quotes must be doubled: \"\". Moreover, backslashes are needed for C++.\""));
+
+
     assert (valueMatch(x0.getValue(CPos("A1")), CValue(10.0)));
     assert (valueMatch(x0.getValue(CPos("A2")), CValue(20.5)));
     assert (valueMatch(x0.getValue(CPos("A3")), CValue(30.0)));
@@ -1285,7 +1290,15 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("H13")), CValue(-22.0)));
     assert (valueMatch(x0.getValue(CPos("H14")), CValue(-22.0)));
 
-    return EXIT_SUCCESS;
+
+    assert (x0.setCell(CPos("A1"), "-10"));
+    assert (x0.setCell(CPos("A2"), "-20.0"));
+    assert (valueMatch(x0.getValue(CPos("A1")), CValue(-10.0)));
+    assert (valueMatch(x0.getValue(CPos("A2")), CValue(-20.0)));
+    assert (x0.setCell(CPos("A3"), "=(A1>A2)"));
+    assert (valueMatch(x0.getValue(CPos("A3")), CValue(1.0)));
+
+
 }
 
 #endif /* __PROGTEST__ */

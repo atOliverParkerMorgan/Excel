@@ -1,13 +1,5 @@
 #include "CPos.h"
 
-#include <iostream>
-#include <memory>
-#include <utility>
-#include <variant>
-#include <unordered_map>
-#include <cmath>
-#include <set>
-
 using namespace std;
 
 namespace std {
@@ -54,9 +46,9 @@ public:
 
     virtual std::shared_ptr<ASTNode> clone() const = 0;
 
-    inline const static char DELIMITER = ',';
-    inline const static char DELIMITER_OFFSET = '\\';
-    inline const static char STRING_DELIMITER = '~';
+    const static char DELIMITER = ',';
+    const static char DELIMITER_OFFSET = '\\';
+    const static char STRING_DELIMITER = '~';
 
 };
 

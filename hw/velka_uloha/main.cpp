@@ -1,43 +1,3 @@
-#ifndef __PROGTEST__
-// g++ -std=c++20 -Wall -pedantic -g -o excel test.cpp AST.cpp ASTBuilder.cpp -fsanitize=address -L./x86_64-linux-gnu -lexpression_parser
-#include <cstdlib>
-#include <cstdio>
-#include <cstring>
-#include <cctype>
-#include <climits>
-#include <cfloat>
-#include <cassert>
-#include <cmath>
-#include <sstream>
-#include <fstream>
-#include <iomanip>
-#include <array>
-#include <utility>
-#include <list>
-#include <set>
-#include <map>
-#include <queue>
-#include <unordered_set>
-#include <algorithm>
-#include <functional>
-#include <iterator>
-#include <stdexcept>
-#include <variant>
-#include <optional>
-#include <compare>
-#include <charconv>
-#include <span>
-#include <utility>
-
-using namespace std::literals;
-
-constexpr unsigned SPREADSHEET_CYCLIC_DEPS = 0x01;
-constexpr unsigned SPREADSHEET_FUNCTIONS = 0x02;
-constexpr unsigned SPREADSHEET_FILE_IO = 0x04;
-constexpr unsigned SPREADSHEET_SPEED = 0x08;
-constexpr unsigned SPREADSHEET_PARSER = 0x10;
-#endif /* __PROGTEST__ */
-
 #include "ASTBuilder.h"
 
 
@@ -291,6 +251,8 @@ int main() {
     assert (x0.setCell(CPos("A6"), "raw text with any characters, including a quote \" or a newline\n"));
     assert (x0.setCell(CPos("A7"),
                        "=\"quoted string, quotes must be doubled: \"\". Moreover, backslashes are needed for C++.\""));
+
+
     assert (valueMatch(x0.getValue(CPos("A1")), CValue(10.0)));
     assert (valueMatch(x0.getValue(CPos("A2")), CValue(20.5)));
     assert (valueMatch(x0.getValue(CPos("A3")), CValue(30.0)));
@@ -415,6 +377,16 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("H12")), CValue(25.0)));
     assert (valueMatch(x0.getValue(CPos("H13")), CValue(-22.0)));
     assert (valueMatch(x0.getValue(CPos("H14")), CValue(-22.0)));
+
+
+    assert (x0.setCell(CPos("A1"), "-10"));
+    assert (x0.setCell(CPos("A2"), "-20.0"));
+    assert (valueMatch(x0.getValue(CPos("A1")), CValue(-10.0)));
+    assert (valueMatch(x0.getValue(CPos("A2")), CValue(-20.0)));
+    assert (x0.setCell(CPos("A3"), "=(A1>A2)"));
+    assert (valueMatch(x0.getValue(CPos("A3")), CValue(1.0)));
+
+
 }
 
 #endif /* __PROGTEST__ */
