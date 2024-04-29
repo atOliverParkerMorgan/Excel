@@ -64,18 +64,6 @@ public:
         return *this;
     }
 
-    static std::string getDataUntilDelimiter(std::istream &is) {
-        std::string outputString;
-        char ch;
-        while (is.get(ch) && ch != ASTNode::DELIMITER) {
-            // ignore STRING_DELIMITER logic for string literals is solved within load()
-            outputString += ch;
-            if (ch == ASTNode::STRING_DELIMITER) return outputString;
-
-        }
-        return outputString;
-    }
-
     friend std::ostream &operator<<(std::ostream &os, const CSpreadsheet &cSpreadsheet) {
         for (auto &[key, node]: cSpreadsheet.m_SheetNodeData) {
             os << (char) ('A' + key.first - 1) << key.second << ": " << *node << "\n";
@@ -129,8 +117,7 @@ public:
 
                         std::string stringData;
                         bool foundDelimiterOffset = false;
-                        while (currentChar == ASTNode::DELIMITER_OFFSET ||
-                               nextChar != ASTNode::DELIMITER) {
+                        while (currentChar == ASTNode::DELIMITER_OFFSET || nextChar != ASTNode::DELIMITER) {
 
                             // ignore first DELIMITER_OFFSET
                             if (foundDelimiterOffset || currentChar != ASTNode::DELIMITER_OFFSET) {
@@ -179,7 +166,7 @@ public:
                 }
             }
         } catch (const std::invalid_argument &e) {
-            std::cout << e.what() << std::endl;
+//            std::cout << e.what() << std::endl;
             return false;
         }
 
@@ -211,10 +198,16 @@ public:
     CValue getValue(CPos pos) {
         std::pair<size_t, size_t> key = {pos.getColumn(), pos.getRow()};
 
+        std::set<std::pair<size_t, size_t>> visitedReferences = {key};
         auto it = m_SheetNodeData.find(key);
 
         if (it != m_SheetNodeData.end()) {
-            return m_SheetNodeData.at(key)->eval(m_SheetNodeData);
+            try {
+                return m_SheetNodeData.at(key)->eval(m_SheetNodeData, visitedReferences);
+            } catch (std::runtime_error &e) {
+                std::cout << e.what() << std::endl;
+                return std::monostate();
+            }
         }
         return std::monostate();
     }
@@ -250,6 +243,18 @@ public:
     };
 
 private:
+    static std::string getDataUntilDelimiter(std::istream &is) {
+        std::string outputString;
+        char ch;
+        while (is.get(ch) && ch != ASTNode::DELIMITER) {
+            // ignore STRING_DELIMITER logic for string literals is solved within load()
+            outputString += ch;
+            if (ch == ASTNode::STRING_DELIMITER) return outputString;
+
+        }
+        return outputString;
+    }
+
     ASTBuilder m_Builder;
     std::unordered_map<std::pair<size_t, size_t>, EASTNode> m_SheetNodeData;
 };
@@ -273,6 +278,7 @@ bool valueMatch(const CValue &r,
 }
 
 int main() {
+
     CSpreadsheet x0, x1;
     std::ostringstream oss;
     std::istringstream iss;
@@ -337,7 +343,6 @@ int main() {
     iss.clear();
     iss.str(data);
     assert (x1.load(iss));
-    std::cout << x1 << std::endl;
     CValue x = x1.getValue(CPos("B1"));
     CValue x2 = x1.getValue(CPos("B2"));
     CValue x3 = x1.getValue(CPos("B3"));
@@ -410,7 +415,6 @@ int main() {
     assert (valueMatch(x0.getValue(CPos("H12")), CValue(25.0)));
     assert (valueMatch(x0.getValue(CPos("H13")), CValue(-22.0)));
     assert (valueMatch(x0.getValue(CPos("H14")), CValue(-22.0)));
-    return EXIT_SUCCESS;
 }
 
 #endif /* __PROGTEST__ */

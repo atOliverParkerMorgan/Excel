@@ -2,9 +2,10 @@
 #include <variant>
 #include "cmath"
 
-CValue ASTPow::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTPow::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                    std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::pow(std::get<double>(leftValue), std::get<double>(rightValue));
@@ -13,8 +14,9 @@ CValue ASTPow::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode
     return std::monostate();
 }
 
-CValue ASTNeg::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue childValue = m_Child->eval(sheetNodeData);
+CValue ASTNeg::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                    std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue childValue = m_Child->eval(sheetNodeData, visitedReferences);
     if (std::holds_alternative<double>(childValue)) {
         return -std::get<double>(childValue);
     }
@@ -23,9 +25,10 @@ CValue ASTNeg::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode
 }
 
 
-CValue ASTAddition::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTAddition::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) + std::get<double>(rightValue);
@@ -43,9 +46,10 @@ CValue ASTAddition::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTSubtract::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTSubtract::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) - std::get<double>(rightValue);
@@ -53,9 +57,10 @@ CValue ASTSubtract::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) * std::get<double>(rightValue);
@@ -63,9 +68,10 @@ CValue ASTMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue rightValue = m_Right->eval(sheetNodeData);
-    CValue leftValue = m_Left->eval(sheetNodeData);
+CValue ASTDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) / std::get<double>(rightValue);
@@ -74,9 +80,10 @@ CValue ASTDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTN
 }
 
 
-CValue ASTEquals::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTEquals::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) == std::get<double>(rightValue) ? 1.0 : 0.0;
@@ -87,9 +94,10 @@ CValue ASTEquals::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTN
     return std::monostate();
 }
 
-CValue ASTNotEqual::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTNotEqual::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) != std::get<double>(rightValue) ? 1.0 : 0.0;
@@ -101,9 +109,10 @@ CValue ASTNotEqual::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
 }
 
 
-CValue ASTLessThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTLessThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) < std::get<double>(rightValue) ? 1.0 : 0.0;
@@ -114,9 +123,10 @@ CValue ASTLessThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                            std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) < std::get<double>(rightValue) ? 1.0 : 0.0;
@@ -127,9 +137,10 @@ CValue ASTGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, 
     return std::monostate();
 }
 
-CValue ASTLessEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTLessEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                              std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) <= std::get<double>(rightValue) ? 1.0 : 0.0;
@@ -141,9 +152,10 @@ CValue ASTLessEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>
 }
 
 
-CValue ASTGreaterEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
-    CValue leftValue = m_Left->eval(sheetNodeData);
-    CValue rightValue = m_Right->eval(sheetNodeData);
+CValue ASTGreaterEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                                 std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+    CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
+    CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
     if (std::holds_alternative<double>(leftValue) && std::holds_alternative<double>(rightValue)) {
         return std::get<double>(leftValue) >= std::get<double>(rightValue) ? 1.0 : 0.0;
@@ -154,13 +166,22 @@ CValue ASTGreaterEqualThan::eval(const std::unordered_map<std::pair<size_t, size
     return std::monostate();
 }
 
-CValue ASTReference::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData) const {
+CValue ASTReference::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+                          std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     std::pair<size_t, size_t> key = {getColumn(), getRow()};
     auto it = sheetNodeData.find(key);
 
-    if (it != sheetNodeData.end()) {
-        return sheetNodeData.at(key)->eval(sheetNodeData);
+    if (visitedReferences.contains(key)) {
+        throw std::runtime_error("Expression contains a cycle.");
     }
+
+    if (it != sheetNodeData.end()) {
+        visitedReferences.insert(key);
+        CValue output = sheetNodeData.at(key)->eval(sheetNodeData, visitedReferences);
+        visitedReferences.erase(key);
+        return output;
+    }
+
     return std::monostate();
 }
 

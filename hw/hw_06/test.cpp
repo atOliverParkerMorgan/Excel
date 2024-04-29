@@ -108,6 +108,9 @@ int main() {
 
     CSelfMatch<char> x0("aaaaaaaaaaa"s);
 
+    //aa
+    //
+
     assert (x0.sequenceLen(2) == 10);
 //    assert (positionMatch(x0.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 1}}));
     // CSelfMatch<char> x1("abababababa"s);

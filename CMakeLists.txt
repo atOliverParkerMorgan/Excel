@@ -27,6 +27,7 @@ add_subdirectory(hw/hw_05)
 add_subdirectory(hw/hw_06)
 
 add_subdirectory(hw/velka_uloha)
+add_subdirectory(hw/velka_uloha/all_in_one)
 
 
 
