@@ -42,6 +42,12 @@ private:
 #endif /* __PROGTEST__ */
 
 // #define TEST_EXTRA_INTERFACE
+struct Hash {
+    size_t operator()(const std::pair<size_t, size_t> &hash) const {
+        return (hash.first << 32 | hash.second);
+    }
+};
+
 
 template<typename T_>
 class CSelfMatch {
@@ -58,34 +64,124 @@ public:
     // ababa
     // optionally: push_back
     size_t sequenceLen(size_t n) const {
-        size_t cnt = 1;
+        if (n == 0) {
+            throw std::invalid_argument("42");
+        }
 
-        std::vector<T_> sub;
-        std::vector<std::vector<T_>> all_sub;
-        for (int i = m_Data.size() - n; i >= 0; i--) {
-            sub.clear();
-            for (int k = 0; k < m_Data.size(); ++k) {
-                sub.clear();
-                for (int j = k; j < i; ++j) {
-                    sub.push_back(m_Data[j]);
+        if (n == 1) {
+            return m_Data.size();
+        }
+
+        std::unordered_map<std::pair<size_t, size_t>, size_t, Hash> count;
+        for (size_t subSize = m_Data.size() - n + 1; subSize >= 1; subSize--) {
+            //std::cout << subSize << std::endl;
+            for (int j = 0; j < m_Data.size(); ++j) {
+                if (j + subSize > m_Data.size()) break;
+
+                std::vector<T_> tmpFirst;
+                for (size_t i = j; i < subSize + j; ++i) {
+                    tmpFirst.push_back(m_Data[i]);
                 }
-                auto it = std::find(all_sub.begin(), all_sub.end(), sub);
-                if (it != all_sub.end()) {
-                    all_sub.erase(it);
-                    if (cnt++ >= n) {
-                        return sub.size();
+                count[{j, subSize}]++;
+
+                for (size_t i = j + 1; i < m_Data.size(); ++i) {
+                    if (i + subSize > m_Data.size()) break;
+                    std::vector<T_> tmp;
+                    for (size_t l = i; l < subSize + i; l++) {
+                        tmp.push_back(m_Data[l]);
+                    }
+                    if (tmp == tmpFirst) {
+                        std::pair<size_t, size_t> key = {j, subSize};
+                        if (++count[key] >= n) {
+                            return subSize;
+                        }
                     }
                 }
-                all_sub.push_back(sub);
             }
         }
+
         return 0;
     }
 
     template<size_t N_>
     std::vector<std::array<size_t, N_>> findSequences() const {
+        if (N_ == 0) {
+            throw std::invalid_argument("42");
+        }
 
+        std::vector<std::array<size_t, N_>> output;
+        std::set<size_t> helperSet;
+
+
+        if (N_ == 1) {
+            output.push_back({0});
+            return output;
+        }
+
+
+        for (size_t subSize = m_Data.size() - N_ + 1; subSize >= 1; subSize--) {
+            bool found = false;
+
+            for (size_t j = 0; j < m_Data.size(); ++j) {
+                if (helperSet.contains(j)) continue;
+                if (j + subSize > m_Data.size()) break;
+
+                std::vector<T_> tmpFirst;
+                for (size_t i = j; i < subSize + j; ++i) {
+                    tmpFirst.push_back(m_Data[i]);
+                }
+                std::vector<size_t> tmpVector = {j};
+                bool foundCurrent = false;
+
+                for (size_t i = j + 1; i < m_Data.size(); ++i) {
+                    if (i + subSize > m_Data.size()) break;
+                    bool isEqual = true;
+                    size_t cnt = 0;
+                    for (size_t l = i; l < subSize + i; l++) {
+                        if (tmpFirst[cnt++] != m_Data[l]) {
+                            isEqual = false;
+                            break;
+                        }
+                    }
+
+                    if (isEqual) {
+                        helperSet.insert(i);
+                        tmpVector.push_back(i);
+                        if (tmpVector.size() >= N_) {
+                            foundCurrent = true;
+                            found = true;
+                        }
+                    }
+                }
+                if (foundCurrent) {
+                    for (int i = 0; i < tmpVector.size() - 1; ++i) {
+//                        std::cout << "---" << std::endl;
+
+                        for (size_t x = 0; x < tmpVector.size(); ++x) {
+                            std::array<size_t, N_> subStrings{};
+                            if (N_ + x + i > tmpVector.size()) break;
+                            size_t space = 0;
+                            for (size_t y = 0; y < N_; ++y) {
+                                subStrings[y] = tmpVector[x + y + space];
+//                                std::cout << subStrings[y] << " ," << std::endl;
+
+                                space += i;
+                            }
+//                            std::cout << std::endl;
+                            output.push_back(subStrings);
+                        }
+                    }
+
+                }
+
+            }
+            if (found) {
+                return output;
+            }
+        }
+        return output;
     }
+
 
 private:
     std::vector<T_> m_Data;
@@ -103,25 +199,18 @@ bool positionMatch(std::vector<std::array<size_t, N_>> a,
 }
 
 int main() {
+    CSelfMatch<char> x0("aaaaaaaaaaa"s);
+    assert (x0.sequenceLen(2) == 10);
+    assert (positionMatch(x0.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 1}}));
     CSelfMatch<char> x1("abababababa"s);
     assert (x1.sequenceLen(2) == 9);
-
-    CSelfMatch<char> x0("aaaaaaaaaaa"s);
-
-    //aa
-    //
-
-    assert (x0.sequenceLen(2) == 10);
-//    assert (positionMatch(x0.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 1}}));
-    // CSelfMatch<char> x1("abababababa"s);
-    //   assert (x1.sequenceLen(2) == 9);
-    //  assert (positionMatch(x1.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 2}}));
+    assert (positionMatch(x1.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 2}}));
     CSelfMatch<char> x2("abababababab"s);
     assert (x2.sequenceLen(2) == 10);
-    //  assert (positionMatch(x2.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 2}}));
+    assert (positionMatch(x2.findSequences<2>(), std::vector<std::array<size_t, 2> >{{0, 2}}));
     CSelfMatch<char> x3("aaaaaaaaaaa"s);
     assert (x3.sequenceLen(3) == 9);
-    //   assert (positionMatch(x3.findSequences<3>(), std::vector<std::array<size_t, 3> >{{0, 1, 2}}));
+    assert (positionMatch(x3.findSequences<3>(), std::vector<std::array<size_t, 3> >{{0, 1, 2}}));
     CSelfMatch<char> x4("abababababa"s);
     assert (x4.sequenceLen(3) == 7);
     assert (positionMatch(x4.findSequences<3>(), std::vector<std::array<size_t, 3> >{{0, 2, 4}}));
@@ -180,17 +269,17 @@ int main() {
     assert (positionMatch(x15.findSequences<3>(), std::vector<std::array<size_t, 3> >{{3, 8, 25}}));
 #ifdef TEST_EXTRA_INTERFACE
     CSelfMatch y0 ( "aaaaaaaaaaa"s );
-    assert ( y0 . sequenceLen ( 2 ) == 10 );
+  assert ( y0 . sequenceLen ( 2 ) == 10 );
 
-    std::string s1 ( "abcd" );
-    CSelfMatch y1 ( s1 . begin (), s1 . end () );
-    assert ( y1 . sequenceLen ( 2 ) == 0 );
+  std::string s1 ( "abcd" );
+  CSelfMatch y1 ( s1 . begin (), s1 . end () );
+  assert ( y1 . sequenceLen ( 2 ) == 0 );
 
-    CSelfMatch y2 ( ""s );
-    y2 . push_back ( 'a', 'b', 'c', 'X' );
-    y2 . push_back ( 'a' );
-    y2 . push_back ( 'b', 'c' );
-    assert ( y2 . sequenceLen ( 2 ) == 3 );
+  CSelfMatch y2 ( ""s );
+  y2 . push_back ( 'a', 'b', 'c', 'X' );
+  y2 . push_back ( 'a' );
+  y2 . push_back ( 'b', 'c' );
+  assert ( y2 . sequenceLen ( 2 ) == 3 );
 #endif /* TEST_EXTRA_INTERFACE */
     return EXIT_SUCCESS;
 }

@@ -1,1 +1,1 @@
-add_executable(podposloupnosti test.cpp)
+add_executable(hw_06 test.cpp)

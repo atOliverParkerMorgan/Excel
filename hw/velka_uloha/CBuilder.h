@@ -1,7 +1,24 @@
+#pragma once
+#include "CAddition.h"
+#include "CSubtract.h"
+#include "CMultiply.h"
+#include "CDivide.h"
+#include "CPow.h"
+#include "CNeg.h"
+#include "CNotEqual.h"
+#include "CEquals.h"
+#include "CNotEqual.h"
+#include "CLessThan.h"
+#include "CLessEqualThan.h"
+#include "CGreaterThan.h"
+#include "CGreaterEqualThan.h"
+#include "CNodeDouble.h"
+#include "CNodeString.h"
+#include "CReference.h"
 #include "expression.h"
-#include "AST.h"
 
-class ASTBuilder : public CExprBuilder {
+
+class CBuilder : public CExprBuilder {
 public:
     void opAdd() override;
 
@@ -38,8 +55,8 @@ public:
     void funcCall(std::string fnName,
                   int paramCount) override;
 
-    std::shared_ptr<ASTNode> getRoot();
+    ANode getRoot();
 private:
-    std::deque<std::shared_ptr<ASTNode>> m_BuilderStack;
+    std::deque<ANode> m_BuilderStack;
 };
 

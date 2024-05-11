@@ -1,10 +1,48 @@
 # Add source files
 set(SOURCES
         main.cpp
-        AST.cpp
-        ASTBuilder.cpp
+        CNode.cpp
+        CBuilder.cpp
         CPos.cpp
         CPos.h
+        CNodeLiteral.cpp
+        CNodeLiteral.h
+        CReference.cpp
+        CReference.h
+        CNodeDouble.cpp
+        CNodeDouble.h
+        CNodeString.cpp
+        CNodeString.h
+        CNodeUnaryOperand.cpp
+        CNodeUnaryOperand.h
+        CNeg.cpp
+        CNeg.h
+        CNodeBinaryOperand.cpp
+        CNodeBinaryOperand.h
+        CAddition.cpp
+        CAddition.h
+        CMultiply.cpp
+        CMultiply.h
+        CDivide.cpp
+        CDivide.h
+        CSubtract.cpp
+        CSubtract.h
+
+        CEquals.cpp
+        CEquals.h
+        CLessThan.cpp
+        CLessThan.h
+        CGreaterThan.cpp
+        CGreaterThan.h
+        CLessEqualThan.cpp
+        CLessEqualThan.h
+        CGreaterEqualThan.cpp
+        CGreaterEqualThan.h
+        CPow.cpp
+        CPow.h
+        CNotEqual.cpp
+        CSpreadSheet.cpp
+        CSpreadSheet.h
 )
 
 # Add executable target

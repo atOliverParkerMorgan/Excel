@@ -1,4 +1,5 @@
-add_executable(all_in_one all_in_one.cpp)
+add_executable(all_in_one all_in_one.cpp
+)
 
 # Add compiler flags
 target_compile_options(all_in_one PRIVATE -Wall -pedantic -g -fsanitize=address)

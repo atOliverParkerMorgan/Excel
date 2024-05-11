@@ -110,32 +110,32 @@ enum ASTType {
     LITERAL
 };
 
-class ASTNode {
+class CNode {
 public:
-    virtual ~ASTNode() = default;
+    virtual ~CNode() = default;
 
-    ASTNode() = default;
+    CNode() = default;
 
     virtual CValue
-    eval(const std::unordered_map<std::pair<size_t, size_t>, std::shared_ptr<ASTNode> > &sheetNodeData,
+    eval(const std::unordered_map<std::pair<size_t, size_t>, std::shared_ptr<CNode> > &sheetNodeData,
          std::set<std::pair<size_t, size_t>> &visitedReferences) const = 0;
 
     virtual ASTType getType() const = 0;
 
     virtual void moveRelative(size_t columnOffset, size_t rowOffset) = 0;
 
-    virtual void setChildrenBinary(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) {}
+    virtual void setChildrenBinary(const std::shared_ptr<CNode> &left, const std::shared_ptr<CNode> &right) {}
 
-    virtual void setChildrenUnary(const std::shared_ptr<ASTNode> &child) {}
+    virtual void setChildrenUnary(const std::shared_ptr<CNode> &child) {}
 
     virtual void print(std::ostream &os) const = 0;
 
-    friend std::ostream &operator<<(std::ostream &os, const ASTNode &astNode) {
+    friend std::ostream &operator<<(std::ostream &os, const CNode &astNode) {
         astNode.print(os);
         return os << DELIMITER;
     }
 
-    virtual std::shared_ptr<ASTNode> clone() const = 0;
+    virtual std::shared_ptr<CNode> clone() const = 0;
 
     const static char DELIMITER = ',';
     const static char DELIMITER_OFFSET = '\\';
@@ -143,11 +143,11 @@ public:
 
 };
 
-using EASTNode = std::shared_ptr<ASTNode>;
+using ANode = std::shared_ptr<CNode>;
 
-class ASTNodeLiteral : public ASTNode {
+class CNodeLiteral : public CNode {
 public:
-    virtual ~ASTNodeLiteral() = default;
+    virtual ~CNodeLiteral() = default;
 
 
     ASTType getType() const override {
@@ -158,14 +158,14 @@ public:
 };
 
 
-class ASTReference : public ASTNodeLiteral {
+class CReference : public CNodeLiteral {
 public:
-    ASTReference(const std::string &str);
+    CReference(const std::string &str);
 
-    ASTReference(const ASTReference &other) = default;
+    CReference(const CReference &other) = default;
 
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     size_t getRow() const {
@@ -184,11 +184,11 @@ public:
             column /= CPos::SYSTEM_VALUE;
         }
         std::reverse(columnString.begin(), columnString.end());
-        os << columnString.append(std::to_string(m_Row)) << ASTNode::DELIMITER;
+        os << columnString.append(std::to_string(m_Row)) << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTReference>(*this);
+    ANode clone() const override {
+        return std::make_shared<CReference>(*this);
     }
 
 
@@ -209,13 +209,13 @@ private:
     bool m_IsColumnRelative;
 };
 
-class ASTNodeDouble : public ASTNodeLiteral {
+class CNodeDouble : public CNodeLiteral {
 public:
-    ASTNodeDouble(double val) : m_Value(val) {}
+    CNodeDouble(double val) : m_Value(val) {}
 
-    ASTNodeDouble(const ASTNodeDouble &other) = default;
+    CNodeDouble(const CNodeDouble &other) = default;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override {
         return m_Value;
     }
@@ -227,11 +227,11 @@ public:
         if (pos != std::string::npos && pos == stringValue.length() - 1) {
             stringValue.erase(pos);
         }
-        os << stringValue << ASTNode::DELIMITER;
+        os << stringValue << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTNodeDouble>(*this);
+    ANode clone() const override {
+        return std::make_shared<CNodeDouble>(*this);
     }
 
 private:
@@ -239,9 +239,9 @@ private:
 };
 
 
-class ASTNodeString : public ASTNodeLiteral {
+class CNodeString : public CNodeLiteral {
 public:
-    ASTNodeString(const std::string &val) : m_Value(val) {
+    CNodeString(const std::string &val) : m_Value(val) {
         m_ValueDelimiterOffset = STRING_DELIMITER;
         for (size_t i = 0; i < val.length(); ++i) {
             if (val[i] == DELIMITER || val[i] == DELIMITER_OFFSET) {
@@ -252,9 +252,9 @@ public:
         }
     }
 
-    ASTNodeString(const ASTNodeString &other) = default;
+    CNodeString(const CNodeString &other) = default;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>>& visitedReferences) const override {
         return m_Value;
     }
@@ -264,11 +264,11 @@ public:
     }
 
     void print(std::ostream &os) const override {
-        os << m_ValueDelimiterOffset << ASTNode::DELIMITER;
+        os << m_ValueDelimiterOffset << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTNodeString>(*this);
+    ANode clone() const override {
+        return std::make_shared<CNodeString>(*this);
     }
 
 private:
@@ -276,16 +276,16 @@ private:
     std::string m_ValueDelimiterOffset;
 };
 
-class ASTNodeUnaryOperand : public ASTNode {
+class CNodeUnaryOperand : public CNode {
 public:
-    void setChildrenUnary(const std::shared_ptr<ASTNode> &child) override {
+    void setChildrenUnary(const std::shared_ptr<CNode> &child) override {
         m_Child = child;
     }
 
 protected:
-    ASTNodeUnaryOperand() = default;
+    CNodeUnaryOperand() = default;
 
-    ASTNodeUnaryOperand(const ASTNodeUnaryOperand &other) {
+    CNodeUnaryOperand(const CNodeUnaryOperand &other) {
         m_Child = other.m_Child->clone();
     };
 
@@ -297,38 +297,38 @@ protected:
         m_Child->moveRelative(columnOffset, rowOffset);
     };
 
-    EASTNode m_Child;
+    ANode m_Child;
 };
 
 
-class ASTNeg : public ASTNodeUnaryOperand {
+class CNeg : public CNodeUnaryOperand {
 public:
-    using ASTNodeUnaryOperand::ASTNodeUnaryOperand;
+    using CNodeUnaryOperand::CNodeUnaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Child->print(os);
-        os << "—" << ASTNode::DELIMITER;
+        os << "—" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTNeg>(*this);
+    ANode clone() const override {
+        return std::make_shared<CNeg>(*this);
     }
 };
 
-class ASTNodeBinaryOperand : public ASTNode {
+class CNodeBinaryOperand : public CNode {
 public:
-    void setChildrenBinary(const std::shared_ptr<ASTNode> &left, const std::shared_ptr<ASTNode> &right) override {
+    void setChildrenBinary(const std::shared_ptr<CNode> &left, const std::shared_ptr<CNode> &right) override {
         m_Left = left;
         m_Right = right;
     }
 
 protected:
-    ASTNodeBinaryOperand() = default;
+    CNodeBinaryOperand() = default;
 
-    ASTNodeBinaryOperand(const ASTNodeBinaryOperand &other) {
+    CNodeBinaryOperand(const CNodeBinaryOperand &other) {
         m_Left = other.m_Left->clone();
         m_Right = other.m_Right->clone();
     };
@@ -342,209 +342,209 @@ protected:
         m_Right->moveRelative(columnOffset, rowOffset);
     };
 
-    EASTNode m_Left = nullptr;
-    EASTNode m_Right = nullptr;
+    ANode m_Left = nullptr;
+    ANode m_Right = nullptr;
 };
 
-class ASTAddition : public ASTNodeBinaryOperand {
+class CAddition : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "+" << ASTNode::DELIMITER;
+        os << "+" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTAddition>(*this);
+    ANode clone() const override {
+        return std::make_shared<CAddition>(*this);
     }
 };
 
-class ASTMultiply : public ASTNodeBinaryOperand {
+class CMultiply : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "*" << ASTNode::DELIMITER;
+        os << "*" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTMultiply>(*this);
+    ANode clone() const override {
+        return std::make_shared<CMultiply>(*this);
     }
 };
 
-class ASTDivide : public ASTNodeBinaryOperand {
+class CDivide : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "/" << ASTNode::DELIMITER;
+        os << "/" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTDivide>(*this);
+    ANode clone() const override {
+        return std::make_shared<CDivide>(*this);
     }
 };
 
-class ASTSubtract : public ASTNodeBinaryOperand {
+class CSubtract : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "-" << ASTNode::DELIMITER;
+        os << "-" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTSubtract>(*this);
+    ANode clone() const override {
+        return std::make_shared<CSubtract>(*this);
     }
 };
 
-class ASTPow : public ASTNodeBinaryOperand {
+class CPow : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "^" << ASTNode::DELIMITER;
+        os << "^" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTPow>(*this);
+    ANode clone() const override {
+        return std::make_shared<CPow>(*this);
     }
 };
 
-class ASTEquals : public ASTNodeBinaryOperand {
+class CEquals : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "=" << ASTNode::DELIMITER;
+        os << "=" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTEquals>(*this);
+    ANode clone() const override {
+        return std::make_shared<CEquals>(*this);
     }
 };
 
-class ASTNotEqual : public ASTNodeBinaryOperand {
+class ASTNotEqual : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "<>" << ASTNode::DELIMITER;
+        os << "<>" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
+    ANode clone() const override {
         return std::make_shared<ASTNotEqual>(*this);
     }
 };
 
-class ASTLessThan : public ASTNodeBinaryOperand {
+class CLessThan : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "<" << ASTNode::DELIMITER;
+        os << "<" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTLessThan>(*this);
+    ANode clone() const override {
+        return std::make_shared<CLessThan>(*this);
     }
 };
 
-class ASTGreaterThan : public ASTNodeBinaryOperand {
+class CGreaterThan : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << ">" << ASTNode::DELIMITER;
+        os << ">" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTGreaterThan>(*this);
+    ANode clone() const override {
+        return std::make_shared<CGreaterThan>(*this);
     }
 };
 
-class ASTLessEqualThan : public ASTNodeBinaryOperand {
+class CLessEqualThan : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << "<=" << ASTNode::DELIMITER;
+        os << "<=" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTLessEqualThan>(*this);
+    ANode clone() const override {
+        return std::make_shared<CLessEqualThan>(*this);
     }
 };
 
-class ASTGreaterEqualThan : public ASTNodeBinaryOperand {
+class CGreaterEqualThan : public CNodeBinaryOperand {
 public:
-    using ASTNodeBinaryOperand::ASTNodeBinaryOperand;
+    using CNodeBinaryOperand::CNodeBinaryOperand;
 
-    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+    CValue eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                 std::set<std::pair<size_t, size_t>> &visitedReferences) const override;
 
     void print(std::ostream &os) const override {
         m_Left->print(os);
         m_Right->print(os);
-        os << ">=" << ASTNode::DELIMITER;
+        os << ">=" << CNode::DELIMITER;
     };
 
-    EASTNode clone() const override {
-        return std::make_shared<ASTGreaterEqualThan>(*this);
+    ANode clone() const override {
+        return std::make_shared<CGreaterEqualThan>(*this);
     }
 };
 
-class ASTBuilder : public CExprBuilder {
+class CBuilder : public CExprBuilder {
 public:
     void opAdd() override;
 
@@ -581,14 +581,14 @@ public:
     void funcCall(std::string fnName,
                   int paramCount) override;
 
-    std::shared_ptr<ASTNode> getRoot();
+    std::shared_ptr<CNode> getRoot();
 private:
-    std::deque<std::shared_ptr<ASTNode>> m_BuilderStack;
+    std::deque<std::shared_ptr<CNode>> m_BuilderStack;
 };
 
 
-CValue ASTPow::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                    std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CPow::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                  std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -599,8 +599,8 @@ CValue ASTPow::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode
     return std::monostate();
 }
 
-CValue ASTNeg::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                    std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CNeg::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                  std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue childValue = m_Child->eval(sheetNodeData, visitedReferences);
     if (std::holds_alternative<double>(childValue)) {
         return -std::get<double>(childValue);
@@ -610,8 +610,8 @@ CValue ASTNeg::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode
 }
 
 
-CValue ASTAddition::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CAddition::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -631,8 +631,8 @@ CValue ASTAddition::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTSubtract::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CSubtract::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -642,8 +642,8 @@ CValue ASTSubtract::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -653,8 +653,8 @@ CValue ASTMultiply::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                     std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
     bool isRightDouble = std::holds_alternative<double>(rightValue);
 
@@ -671,8 +671,8 @@ CValue ASTDivide::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTN
 }
 
 
-CValue ASTEquals::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CEquals::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                     std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -685,7 +685,7 @@ CValue ASTEquals::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTN
     return std::monostate();
 }
 
-CValue ASTNotEqual::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
+CValue ASTNotEqual::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
                          std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
@@ -700,8 +700,8 @@ CValue ASTNotEqual::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
 }
 
 
-CValue ASTLessThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                         std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CLessThan::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                       std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -714,8 +714,8 @@ CValue ASTLessThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EAS
     return std::monostate();
 }
 
-CValue ASTGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                            std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                          std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -728,8 +728,8 @@ CValue ASTGreaterThan::eval(const std::unordered_map<std::pair<size_t, size_t>, 
     return std::monostate();
 }
 
-CValue ASTLessEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                              std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CLessEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                            std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -743,8 +743,8 @@ CValue ASTLessEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>
 }
 
 
-CValue ASTGreaterEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                                 std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CGreaterEqualThan::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                               std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     CValue leftValue = m_Left->eval(sheetNodeData, visitedReferences);
     CValue rightValue = m_Right->eval(sheetNodeData, visitedReferences);
 
@@ -757,8 +757,8 @@ CValue ASTGreaterEqualThan::eval(const std::unordered_map<std::pair<size_t, size
     return std::monostate();
 }
 
-CValue ASTReference::eval(const std::unordered_map<std::pair<size_t, size_t>, EASTNode> &sheetNodeData,
-                          std::set<std::pair<size_t, size_t>> &visitedReferences) const {
+CValue CReference::eval(const std::unordered_map<std::pair<size_t, size_t>, ANode> &sheetNodeData,
+                        std::set<std::pair<size_t, size_t>> &visitedReferences) const {
     std::pair<size_t, size_t> key = {getColumn(), getRow()};
     auto it = sheetNodeData.find(key);
 
@@ -776,7 +776,7 @@ CValue ASTReference::eval(const std::unordered_map<std::pair<size_t, size_t>, EA
     return std::monostate();
 }
 
-ASTReference::ASTReference(const std::string &str) {
+CReference::CReference(const std::string &str) {
     size_t index = 0;
     m_Column = 0;
 
@@ -799,88 +799,88 @@ ASTReference::ASTReference(const std::string &str) {
     m_Row = std::stoul(std::string(str.substr(index)));
 }
 
-void ASTBuilder::opAdd() {
-    m_BuilderStack.push_back(std::make_shared<ASTAddition>());
+void CBuilder::opAdd() {
+    m_BuilderStack.push_back(std::make_shared<CAddition>());
 }
 
-void ASTBuilder::opSub() {
-    m_BuilderStack.push_back(std::make_shared<ASTSubtract>());
+void CBuilder::opSub() {
+    m_BuilderStack.push_back(std::make_shared<CSubtract>());
 }
 
-void ASTBuilder::opMul() {
-    m_BuilderStack.push_back(std::make_shared<ASTMultiply>());
+void CBuilder::opMul() {
+    m_BuilderStack.push_back(std::make_shared<CMultiply>());
 }
 
-void ASTBuilder::opDiv() {
-    m_BuilderStack.push_back(std::make_shared<ASTDivide>());
+void CBuilder::opDiv() {
+    m_BuilderStack.push_back(std::make_shared<CDivide>());
 }
 
-void ASTBuilder::opPow() {
-    m_BuilderStack.push_back(std::make_shared<ASTPow>());
+void CBuilder::opPow() {
+    m_BuilderStack.push_back(std::make_shared<CPow>());
 }
 
-void ASTBuilder::opNeg() {
-    m_BuilderStack.push_back(std::make_shared<ASTNeg>());
+void CBuilder::opNeg() {
+    m_BuilderStack.push_back(std::make_shared<CNeg>());
 }
 
-void ASTBuilder::opEq() {
-    m_BuilderStack.push_back(std::make_shared<ASTEquals>());
+void CBuilder::opEq() {
+    m_BuilderStack.push_back(std::make_shared<CEquals>());
 }
 
-void ASTBuilder::opNe() {
+void CBuilder::opNe() {
     m_BuilderStack.push_back(std::make_shared<ASTNotEqual>());
 }
 
-void ASTBuilder::opLt() {
-    m_BuilderStack.push_back(std::make_shared<ASTLessThan>());
+void CBuilder::opLt() {
+    m_BuilderStack.push_back(std::make_shared<CLessThan>());
 }
 
-void ASTBuilder::opLe() {
-    m_BuilderStack.push_back(std::make_shared<ASTLessEqualThan>());
+void CBuilder::opLe() {
+    m_BuilderStack.push_back(std::make_shared<CLessEqualThan>());
 }
 
-void ASTBuilder::opGt() {
-    m_BuilderStack.push_back(std::make_shared<ASTGreaterThan>());
+void CBuilder::opGt() {
+    m_BuilderStack.push_back(std::make_shared<CGreaterThan>());
 }
 
-void ASTBuilder::opGe() {
-    m_BuilderStack.push_back(std::make_shared<ASTGreaterEqualThan>());
+void CBuilder::opGe() {
+    m_BuilderStack.push_back(std::make_shared<CGreaterEqualThan>());
 }
 
-void ASTBuilder::valNumber(double val) {
-    m_BuilderStack.push_back(std::make_shared<ASTNodeDouble>(val));
+void CBuilder::valNumber(double val) {
+    m_BuilderStack.push_back(std::make_shared<CNodeDouble>(val));
 }
 
-void ASTBuilder::valString(std::string val) {
-    m_BuilderStack.push_back(std::make_shared<ASTNodeString>(val));
+void CBuilder::valString(std::string val) {
+    m_BuilderStack.push_back(std::make_shared<CNodeString>(val));
 }
 
-void ASTBuilder::valReference(std::string val) {
-    m_BuilderStack.push_back(std::make_shared<ASTReference>(val));
+void CBuilder::valReference(std::string val) {
+    m_BuilderStack.push_back(std::make_shared<CReference>(val));
 }
 
-void ASTBuilder::valRange(std::string val) {}
+void CBuilder::valRange(std::string val) {}
 
-void ASTBuilder::funcCall(std::string fnName, int paramCount) {}
+void CBuilder::funcCall(std::string fnName, int paramCount) {}
 
-std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
+std::shared_ptr<CNode> CBuilder::getRoot() {
 
-    std::stack<EASTNode> helperStack;
+    std::stack<ANode> helperStack;
     while (!m_BuilderStack.empty()) {
-        EASTNode current = m_BuilderStack.front();
+        ANode current = m_BuilderStack.front();
         m_BuilderStack.pop_front();
 
         if (current->getType() == BINARY_OPERAND) {
             if(helperStack.empty()){
                 throw std::invalid_argument("Can't get root of invalid expression");
             }
-            EASTNode right = helperStack.top();
+            ANode right = helperStack.top();
             helperStack.pop();
 
             if(helperStack.empty()){
                 throw std::invalid_argument("Can't get root of invalid expression");
             }
-            EASTNode left = helperStack.top();
+            ANode left = helperStack.top();
             helperStack.pop();
 
             current->setChildrenBinary(left, right);
@@ -890,7 +890,7 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
             if(helperStack.empty()){
                 throw std::invalid_argument("Can't get root of invalid expression");
             }
-            EASTNode child = helperStack.top();
+            ANode child = helperStack.top();
             helperStack.pop();
 
             current->setChildrenUnary(child);
@@ -903,7 +903,7 @@ std::shared_ptr<ASTNode> ASTBuilder::getRoot() {
     if(helperStack.empty()){
         throw std::invalid_argument("Can't get root of invalid expression");
     }
-    EASTNode output = helperStack.top();
+    ANode output = helperStack.top();
     helperStack.pop();
     if(!helperStack.empty()){
         throw std::invalid_argument("Can't get root of invalid expression");
@@ -979,7 +979,7 @@ public:
                     currentKey.second = std::stoul(stringUntilDelimiter);
                     isAtCPosSecond = false;
                 } else {
-                    if (stringUntilDelimiter[0] == ASTNode::STRING_DELIMITER) {
+                    if (stringUntilDelimiter[0] == CNode::STRING_DELIMITER) {
                         // ignore STRING_DELIMITER before string
                         char currentChar;
                         char nextChar;
@@ -989,14 +989,14 @@ public:
 
                         std::string stringData;
                         bool foundDelimiterOffset = false;
-                        while (currentChar == ASTNode::DELIMITER_OFFSET || nextChar != ASTNode::DELIMITER) {
+                        while (currentChar == CNode::DELIMITER_OFFSET || nextChar != CNode::DELIMITER) {
 
                             // ignore first DELIMITER_OFFSET
-                            if (foundDelimiterOffset || currentChar != ASTNode::DELIMITER_OFFSET) {
+                            if (foundDelimiterOffset || currentChar != CNode::DELIMITER_OFFSET) {
                                 stringData += currentChar;
                             }
 
-                            foundDelimiterOffset = currentChar == ASTNode::DELIMITER_OFFSET;
+                            foundDelimiterOffset = currentChar == CNode::DELIMITER_OFFSET;
                             currentChar = nextChar;
                             is.get(nextChar);
                         }
@@ -1047,7 +1047,7 @@ public:
 
     bool save(std::ostream &os) const {
         for (auto &[key, node]: m_SheetNodeData) {
-            os << key.first << ASTNode::DELIMITER << key.second << ASTNode::DELIMITER << *node;
+            os << key.first << CNode::DELIMITER << key.second << CNode::DELIMITER << *node;
         }
         return true;
     };
@@ -1085,7 +1085,7 @@ public:
     }
 
     void copyRect(CPos dst, CPos src, int w = 1, int h = 1) {
-        std::unordered_map<std::pair<size_t, size_t>, EASTNode> tmpCopy;
+        std::unordered_map<std::pair<size_t, size_t>, ANode> tmpCopy;
         for (size_t y = 0; y < (size_t) h; y++) {
             for (size_t x = 0; x < (size_t) w; x++) {
                 std::pair<size_t, size_t> keySrc = {src.getColumn() + x, src.getRow() + y};
@@ -1098,7 +1098,7 @@ public:
 
                     tmpCopy[keyDest] = m_SheetNodeData[keySrc]->clone();
                 } else if (it != m_SheetNodeData.end()) {
-                    EASTNode node = m_SheetNodeData[keySrc]->clone();
+                    ANode node = m_SheetNodeData[keySrc]->clone();
                     node->moveRelative(dst.getColumn() - src.getColumn(),
                                        dst.getRow() - src.getRow());
                     m_SheetNodeData[keyDest] = node;
@@ -1118,17 +1118,17 @@ private:
     static std::string getDataUntilDelimiter(std::istream &is) {
         std::string outputString;
         char ch;
-        while (is.get(ch) && ch != ASTNode::DELIMITER) {
+        while (is.get(ch) && ch != CNode::DELIMITER) {
             // ignore STRING_DELIMITER logic for string literals is solved within load()
             outputString += ch;
-            if (ch == ASTNode::STRING_DELIMITER) return outputString;
+            if (ch == CNode::STRING_DELIMITER) return outputString;
 
         }
         return outputString;
     }
 
-    ASTBuilder m_Builder;
-    std::unordered_map<std::pair<size_t, size_t>, EASTNode> m_SheetNodeData;
+    CBuilder m_Builder;
+    std::unordered_map<std::pair<size_t, size_t>, ANode> m_SheetNodeData;
 };
 
 #ifndef __PROGTEST__

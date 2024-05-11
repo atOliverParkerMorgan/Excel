@@ -10,45 +10,34 @@
 #include <cassert>
 
 using namespace std;
-class CPos {
+
+class A
+{
 public:
-    CPos(std::string_view str) {
-        size_t index = 0;
-        m_Column = 0;
-
-        for (; !isdigit(str[index]); ++index) {
-            bool isUpper = std::isupper(str[index]);
-            if ((!isUpper && !std::islower(str[index]) || index + 1 >= str.size())) {
-                throw std::invalid_argument("CPos argument is not valid");
-            }
-            const char baseChar = isUpper ? 'A' : 'a';
-            m_Column *= SYSTEM_VALUE;
-            m_Column += (str[index] - baseChar + 1);
-        }
-
-        if (index == 0) {
-            throw std::invalid_argument("CPos argument is not valid");
-        }
-
-        m_Row = std::stoul(std::string(str.substr(index)));
-    }
-
-
-    size_t getRow() const {
-        return m_Row;
-    }
-
-    size_t getColumn() const {
-        return m_Column;
-    }
-
-
+    A ( int x = 67 ) { m_X = x; }
+    void print ( void ) const { cout << m_X; }
 private:
-    size_t m_Row;
-    size_t m_Column;
-    inline static int SYSTEM_VALUE = 26;
+    int m_X;
 };
+
+class B : public A
+{
+public:
+    B ( int x, int y ) { m_Y = y; }
+    void print ( void ) const { A::print (); cout << m_Y; }
+private:
+    int m_Y;
+};
+
+void foo ( B & val )
+{
+    val . print ( );
+}
+
 int main ( void )
 {
-    std::cout << sizeof(size_t) << std::endl;
+    B test ( 5, 27 );
+
+    foo ( test );
+    return 0;
 }

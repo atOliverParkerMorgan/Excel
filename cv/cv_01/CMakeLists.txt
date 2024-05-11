@@ -6,4 +6,5 @@ add_executable(cv_01 loadData.cpp sort.cpp
         ../cv_06/Iheritance.cpp
         ../../znalost/test.cpp
         ../cv_10/template.cpp
+        ../cv_11/test.cpp
 )

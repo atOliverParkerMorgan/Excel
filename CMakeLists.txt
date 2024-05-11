@@ -15,6 +15,8 @@ add_subdirectory(cv/cv_04)
 add_subdirectory(cv/cv_06)
 add_subdirectory(cv/cv_07)
 add_subdirectory(cv/cv_10)
+add_subdirectory(cv/cv_11)
+
 
 add_subdirectory(znalost)
 
