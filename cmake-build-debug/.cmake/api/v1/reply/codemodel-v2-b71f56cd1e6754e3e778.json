@@ -1,0 +1,526 @@
+{
+	"configurations" : 
+	[
+		{
+			"directories" : 
+			[
+				{
+					"build" : ".",
+					"childIndexes" : 
+					[
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					],
+					"jsonFile" : "directory-.-Debug-f5ebdc15457944623624.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"projectIndex" : 0,
+					"source" : "."
+				},
+				{
+					"build" : "cv/cv_01",
+					"jsonFile" : "directory-cv.cv_01-Debug-839ddf1592a1f6439468.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_01",
+					"targetIndexes" : 
+					[
+						3
+					]
+				},
+				{
+					"build" : "cv/cv_02",
+					"jsonFile" : "directory-cv.cv_02-Debug-02829ec9258c4267402d.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_02",
+					"targetIndexes" : 
+					[
+						4
+					]
+				},
+				{
+					"build" : "cv/cv_03/complex",
+					"jsonFile" : "directory-cv.cv_03.complex-Debug-23983735351ece4d8a10.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_03/complex",
+					"targetIndexes" : 
+					[
+						2
+					]
+				},
+				{
+					"build" : "cv/cv_04",
+					"jsonFile" : "directory-cv.cv_04-Debug-75fbfbb35dcc5563ad6c.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_04",
+					"targetIndexes" : 
+					[
+						8
+					]
+				},
+				{
+					"build" : "cv/cv_06",
+					"jsonFile" : "directory-cv.cv_06-Debug-81633ac2e0fd398af65b.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_06",
+					"targetIndexes" : 
+					[
+						0
+					]
+				},
+				{
+					"build" : "cv/cv_07",
+					"jsonFile" : "directory-cv.cv_07-Debug-764c5f1cae5118af4571.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_07",
+					"targetIndexes" : 
+					[
+						5
+					]
+				},
+				{
+					"build" : "cv/cv_10",
+					"jsonFile" : "directory-cv.cv_10-Debug-79734be1c23107e898f2.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_10",
+					"targetIndexes" : 
+					[
+						6
+					]
+				},
+				{
+					"build" : "cv/cv_11",
+					"jsonFile" : "directory-cv.cv_11-Debug-71b1da942373f57dc018.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "cv/cv_11",
+					"targetIndexes" : 
+					[
+						7
+					]
+				},
+				{
+					"build" : "znalost",
+					"jsonFile" : "directory-znalost-Debug-37233bdf0eb1d7320528.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "znalost",
+					"targetIndexes" : 
+					[
+						18
+					]
+				},
+				{
+					"build" : "hw/hw_01",
+					"jsonFile" : "directory-hw.hw_01-Debug-17f69d4a16c33884ca76.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/hw_01",
+					"targetIndexes" : 
+					[
+						9
+					]
+				},
+				{
+					"build" : "hw/hw_02",
+					"jsonFile" : "directory-hw.hw_02-Debug-5bee5264f99ba4194ce4.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/hw_02",
+					"targetIndexes" : 
+					[
+						10
+					]
+				},
+				{
+					"build" : "hw/hw_03",
+					"jsonFile" : "directory-hw.hw_03-Debug-70565592142d8d3d00e9.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/hw_03",
+					"targetIndexes" : 
+					[
+						11
+					]
+				},
+				{
+					"build" : "hw/hw_04",
+					"jsonFile" : "directory-hw.hw_04-Debug-7363b30d0673438b28a8.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/hw_04",
+					"targetIndexes" : 
+					[
+						12
+					]
+				},
+				{
+					"build" : "hw/hw_05",
+					"jsonFile" : "directory-hw.hw_05-Debug-50ca75bebff9258e01e5.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/hw_05",
+					"targetIndexes" : 
+					[
+						13
+					]
+				},
+				{
+					"build" : "hw/hw_06",
+					"jsonFile" : "directory-hw.hw_06-Debug-a35cd4ba038e661020bf.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/hw_06",
+					"targetIndexes" : 
+					[
+						14
+					]
+				},
+				{
+					"build" : "hw/velka_uloha",
+					"jsonFile" : "directory-hw.velka_uloha-Debug-7998605dbc1bc012fc41.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/velka_uloha",
+					"targetIndexes" : 
+					[
+						17
+					]
+				},
+				{
+					"build" : "hw/velka_uloha/all_in_one",
+					"jsonFile" : "directory-hw.velka_uloha.all_in_one-Debug-db14dc0303e844263bba.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw/velka_uloha/all_in_one",
+					"targetIndexes" : 
+					[
+						1
+					]
+				},
+				{
+					"build" : "hw_cv/cv_03",
+					"jsonFile" : "directory-hw_cv.cv_03-Debug-02f529fe180d0359598a.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw_cv/cv_03",
+					"targetIndexes" : 
+					[
+						15
+					]
+				},
+				{
+					"build" : "hw_cv/cv_06",
+					"jsonFile" : "directory-hw_cv.cv_06-Debug-44bbf56ad90652272f13.json",
+					"minimumCMakeVersion" : 
+					{
+						"string" : "3.10"
+					},
+					"parentIndex" : 0,
+					"projectIndex" : 0,
+					"source" : "hw_cv/cv_06",
+					"targetIndexes" : 
+					[
+						16
+					]
+				}
+			],
+			"name" : "Debug",
+			"projects" : 
+			[
+				{
+					"directoryIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18,
+						19
+					],
+					"name" : "Pa2",
+					"targetIndexes" : 
+					[
+						0,
+						1,
+						2,
+						3,
+						4,
+						5,
+						6,
+						7,
+						8,
+						9,
+						10,
+						11,
+						12,
+						13,
+						14,
+						15,
+						16,
+						17,
+						18
+					]
+				}
+			],
+			"targets" : 
+			[
+				{
+					"directoryIndex" : 5,
+					"id" : "Inherit::@bffe3ed839a1d178be04",
+					"jsonFile" : "target-Inherit-Debug-9d3bc5fc42d07d88d923.json",
+					"name" : "Inherit",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 17,
+					"id" : "all_in_one::@e8b8e77336179d5f3d54",
+					"jsonFile" : "target-all_in_one-Debug-b6629f98e6f1b2710918.json",
+					"name" : "all_in_one",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 3,
+					"id" : "complex::@3b2a06531e7bd1896f6d",
+					"jsonFile" : "target-complex-Debug-f4bd105f2d841c0e8db2.json",
+					"name" : "complex",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 1,
+					"id" : "cv_01::@6af4144cfdc0d3a8b257",
+					"jsonFile" : "target-cv_01-Debug-e398c52dd4f56984b0e5.json",
+					"name" : "cv_01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 2,
+					"id" : "cv_02::@cc8269860fe0378f1b3a",
+					"jsonFile" : "target-cv_02-Debug-b0f6bf4c3ce9794050fa.json",
+					"name" : "cv_02",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 6,
+					"id" : "cv_07::@1a7d98178cb4b8037e2c",
+					"jsonFile" : "target-cv_07-Debug-33183c04402a0a596acf.json",
+					"name" : "cv_07",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 7,
+					"id" : "cv_10::@9b034efbe9e7271d301e",
+					"jsonFile" : "target-cv_10-Debug-b652a1130a867a3604b6.json",
+					"name" : "cv_10",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 8,
+					"id" : "cv_11::@502948b0bcb171d7ecd5",
+					"jsonFile" : "target-cv_11-Debug-a0ebd627c360d7eeb0e3.json",
+					"name" : "cv_11",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 4,
+					"id" : "fronta::@39850aacc250781acd85",
+					"jsonFile" : "target-fronta-Debug-e226951ed30c9efe33c2.json",
+					"name" : "fronta",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 10,
+					"id" : "hw_01::@3341725e5d3e3901f5b8",
+					"jsonFile" : "target-hw_01-Debug-42585bc509a823a4e338.json",
+					"name" : "hw_01",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 11,
+					"id" : "hw_02::@3f9b7fc8a775a48d7c54",
+					"jsonFile" : "target-hw_02-Debug-74474c7ad4f79de428c8.json",
+					"name" : "hw_02",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 12,
+					"id" : "hw_03::@4161b9dce64e97895dc9",
+					"jsonFile" : "target-hw_03-Debug-565f2cd2ec372af2c9b5.json",
+					"name" : "hw_03",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 13,
+					"id" : "hw_04::@fbb58734408e1fb7bdf3",
+					"jsonFile" : "target-hw_04-Debug-80f7b17834208f231748.json",
+					"name" : "hw_04",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 14,
+					"id" : "hw_05::@2444f20c439cbbec0b07",
+					"jsonFile" : "target-hw_05-Debug-ffbee4d00b35f84206ee.json",
+					"name" : "hw_05",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 15,
+					"id" : "hw_06::@f5d417f9dc56005d8f79",
+					"jsonFile" : "target-hw_06-Debug-03b374715397a8c7715d.json",
+					"name" : "hw_06",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 18,
+					"id" : "hw_cv_3::@3ca64314539fc98f309f",
+					"jsonFile" : "target-hw_cv_3-Debug-c0862b5cd1b327b1bc67.json",
+					"name" : "hw_cv_3",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 19,
+					"id" : "hw_cv_6::@9777e82d514bf9722fe8",
+					"jsonFile" : "target-hw_cv_6-Debug-e4eaca8ae4d1bdef37a1.json",
+					"name" : "hw_cv_6",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 16,
+					"id" : "velka_uloha::@6f4d08d46888da1333ba",
+					"jsonFile" : "target-velka_uloha-Debug-bfeb12086237ea1cf39a.json",
+					"name" : "velka_uloha",
+					"projectIndex" : 0
+				},
+				{
+					"directoryIndex" : 9,
+					"id" : "znalost::@138361ff01f6a1111472",
+					"jsonFile" : "target-znalost-Debug-a4226eca0a9f729bdfa5.json",
+					"name" : "znalost",
+					"projectIndex" : 0
+				}
+			]
+		}
+	],
+	"kind" : "codemodel",
+	"paths" : 
+	{
+		"build" : "/home/olixandr/CLionProjects/Pa2/cmake-build-debug",
+		"source" : "/home/olixandr/CLionProjects/Pa2"
+	},
+	"version" : 
+	{
+		"major" : 2,
+		"minor" : 6
+	}
+}

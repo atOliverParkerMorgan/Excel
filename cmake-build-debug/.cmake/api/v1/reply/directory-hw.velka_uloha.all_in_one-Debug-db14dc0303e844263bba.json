@@ -1,0 +1,14 @@
+{
+	"backtraceGraph" : 
+	{
+		"commands" : [],
+		"files" : [],
+		"nodes" : []
+	},
+	"installers" : [],
+	"paths" : 
+	{
+		"build" : "hw/velka_uloha/all_in_one",
+		"source" : "hw/velka_uloha/all_in_one"
+	}
+}
