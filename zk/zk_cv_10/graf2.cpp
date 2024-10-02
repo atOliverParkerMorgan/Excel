@@ -1,278 +1,113 @@
 #ifndef __TRAINER__
 
+#include <iostream>
 #include <cassert>
-#include <vector>
-#include <string>
-#include <queue>
-#include <tuple>
-#include <utility>
-#include <map>
 #include <set>
-#include <optional>
+#include <map>
+#include <vector>
+#include <queue>
+#include <stack>
 
 #endif
 
-using Grid = std::vector<std::string>;
-using NodeData = std::optional<unsigned>;
-constexpr int MOVES[][2] = {{0,  1},
-                            {0,  -1},
-                            {1,  0},
-                            {-1, 0}};
+constexpr int NOT_FOUND = -1;
 
-NodeData bfs(const Grid &g, const std::pair<int, int> from, const std::pair<int, int> to, bool hasKey) {
-    std::map<std::pair<int, int>, bool> visited;
-    std::map<std::pair<int, int>, std::pair<int, int>> parents;
+struct Node {
+    ~Node() = default;
 
-    const int height = (int) g.size();
-    const int width = (int) g[0].size();
+    explicit Node(unsigned int id) : id(id) {};
 
-    size_t pathLengthCnt = 0;
+    size_t id;
+    std::vector<std::pair<size_t, Node *>> neighbors;
+    std::pair<size_t, Node *> parent;
+    bool visited = false;
+};
 
-    // find start
+using EQueue = std::pair<size_t, Node *>;
 
-    std::queue<std::pair<int, int>> queue;
-    queue.push(from);
-    visited[from] = true;
+
+void loadData(std::vector<Node *> &allNodes, size_t &numberOfNodes) {
+    std::cin >> numberOfNodes;
+    allNodes.reserve(numberOfNodes);
+    for (size_t id = 0; id < numberOfNodes; ++id) {
+        allNodes.push_back(new Node(id));
+    }
+
+    int numberOfEdges;
+    std::cin >> numberOfEdges;
+
+    for (int i = 0; i < numberOfEdges; ++i) {
+        size_t nodeId;
+        size_t neighbourId;
+        size_t distance;
+        std::cin >> nodeId;
+        std::cin >> neighbourId;
+        std::cin >> distance;
+        allNodes[nodeId]->neighbors.emplace_back(distance, allNodes[neighbourId]);
+    }
+}
+
+int bfs(Node *from, Node *to, std::vector<Node *> &allNodes) {
+    for (Node *node: allNodes) {
+        node->visited = false;
+        node->parent = std::make_pair(0, nullptr);
+    }
+
+    std::vector<size_t> distanceVector;
+    distanceVector.reserve(allNodes.size());
+    for (int i = 0; i < allNodes.size(); ++i) {
+        distanceVector.push_back(INTMAX_MAX);
+    }
+    distanceVector[from->id] = 0;
+
+    std::priority_queue<EQueue, std::vector<EQueue>, std::greater<>> queue;
+    queue.emplace(0, from);
+    from->visited = true;
 
     while (!queue.empty()) {
-        std::pair<int, int> current = queue.front();
+        Node *currentNode = queue.top().second;
+
         queue.pop();
+        currentNode->visited = true;
 
-        if (current == to) {
-            std::pair<int, int> tmp = current;
-            while (parents.contains(tmp)) {
-                ++pathLengthCnt;
-                tmp = parents[tmp];
-            }
-
-            return pathLengthCnt;
+        if (currentNode == to) {
+            return (int) distanceVector[currentNode->id];
         }
 
-        for (auto move: MOVES) {
-            std::pair<int, int> neighbour;
-            const int x = (current.first + move[0]);
-            const int y = (current.second + move[1]);
-            if (x >= 0 && x < width && y >= 0 && y < height) {
-                neighbour = std::make_pair(x, y);
-                if (!visited[neighbour] && g[y][x] != '#' && (g[y][x] != 'D' || hasKey)) {
-                    queue.push(neighbour);
-                    visited[neighbour] = true;
-                    parents[neighbour] = current;
-                }
+        for (std::pair<size_t, Node *> neighbourNode: currentNode->neighbors) {
+            const size_t distance = neighbourNode.first;
+            Node *neighbour = neighbourNode.second;
+            size_t newDistance = distance + distanceVector[currentNode->id];
+            if (!neighbour->visited && newDistance < distanceVector[neighbour->id]) {
+                distanceVector[neighbour->id] = newDistance;
+
+                queue.emplace(newDistance, neighbour);
             }
         }
     }
 
-    return std::nullopt;
+    return NOT_FOUND;
 }
-
-std::pair<int, int> findCords(const Grid &g, char c) {
-    std::pair<int, int> startPos = {-1, 0};
-    for (const std::string &s: g) {
-        size_t pos = s.find(c);
-        if (pos != std::string::npos) {
-            startPos.first = (int) pos;
-            return startPos;
-        }
-        ++startPos.second;
-    }
-    return {-1, 0};
-}
-
-
-std::optional<unsigned> shortestPath(const Grid &g) {
-    std::pair<int, int> start = findCords(g, 's');
-    std::pair<int, int> end = findCords(g, 'e');
-
-
-    NodeData pathFromKey, pathToKey, path = bfs(g, start, end, false);
-
-    // find all keys
-    std::vector<std::pair<int, int>> keys;
-    std::pair<int, int> key;
-    for (const std::string &s: g) {
-        for (int i = 0; i < s.size(); ++i) {
-            if (s[i] == 'k') {
-                key.first = i;
-                keys.push_back(key);
-            }
-        }
-        ++key.second;
-    }
-
-    std::vector<unsigned> allPathLengthsWithKey;
-    for (std::pair<int, int> element: keys) {
-        pathToKey = bfs(g, start, element, false);
-        pathFromKey = bfs(g, element, end, true);
-
-
-        unsigned pathLengthWithKey;
-        if (pathToKey != std::nullopt && pathFromKey != std::nullopt) {
-            pathLengthWithKey = pathToKey.value() + pathFromKey.value();
-            allPathLengthsWithKey.push_back(pathLengthWithKey);
-        }
-    }
-    unsigned pathLengthWithKey;
-    if (!allPathLengthsWithKey.empty()) {
-        unsigned min = allPathLengthsWithKey[0];
-        for (unsigned el: allPathLengthsWithKey) {
-            if (el < min) {
-                min = el;
-            }
-        }
-
-        pathLengthWithKey = min;
-
-    } else {
-        return path;
-    }
-
-    if (path == std::nullopt || pathLengthWithKey < path) {
-        return std::make_optional<unsigned>(pathLengthWithKey);
-    }
-
-    return path;
-}
-
-#ifndef __TRAINER__
 
 int main() {
-    assert(shortestPath({
-                                "######",
-                                "#skDek#",
-                                "######",
-                        }) == 3);
+    std::vector<Node *> allNodes;
+    size_t numberOfNodes;
 
-    assert(shortestPath({
-                                "#####",
-                                "#s e#",
-                                "#####",
-                        }) == 2);
-    assert(shortestPath({
-                                " ",
-                                "s",
-                                " ",
-                                " ",
-                                " ",
-                                " ",
-                                "e",
-                        }) == 5);
-    assert(!shortestPath({
-                                 "############################",
-                                 "#s                   #    e#",
-                                 "############################",
-                         }));
-    assert(!shortestPath({
-                                 "s #  ",
-                                 "### e",
-                         }));
-    assert(shortestPath({
-                                "     ",
-                                " s#e ",
-                                " ##  ",
-                        }) == 4);
-    assert(!shortestPath({
-                                 "s#e",
-                         }));
-    assert(shortestPath({
-                                "#########",
-                                "#   #   #",
-                                "# # # # #",
-                                "#s#   #e#",
-                                "#########",
-                        }) == 14);
-    assert(shortestPath({
-                                "       ",
-                                " ####  ",
-                                "   s## ",
-                                "###  #e",
-                        }) == 14);
-    assert(!shortestPath({
-                                 "s    #     e",
-                         }));
-    assert(!shortestPath({
-                                 "e#",
-                                 "#s",
-                         }));
-    assert(shortestPath({
-                                "s #    #  ",
-                                " #   ## # ",
-                                " #   #    ",
-                                "          ",
-                                "#### # #  ",
-                                "       #  ",
-                                "  ##### e ",
-                                "          ",
-                        }) == 14);
+    loadData(allNodes, numberOfNodes);
 
+    unsigned int from, to;
+    while (std::cin >> from >> to) {
+        int output = bfs(allNodes[from], allNodes[to], allNodes);
+        if (output != NOT_FOUND) {
+            std::cout << output << std::endl;
+        } else {
+            std::cout << 'X' << std::endl;
+        }
+    }
 
-    assert(shortestPath({
-                                "########",
-                                "#    ###",
-                                "# k sDe#",
-                                "#    ###",
-                                "########",
-                        }) == 6);
-    assert(shortestPath({
-                                "########",
-                                "#     ##",
-                                "# k sDe#",
-                                "#     ##",
-                                "########",
-                        }) == 6);
-    assert(shortestPath({
-                                "      k        ",
-                                "s############# ",
-                                "D#             ",
-                                "e  ############",
-                        }) == 16);
-    assert(shortestPath({
-                                "s             ",
-                                "D####### #####",
-                                "      e# #    ",
-                                "       #k#    ",
-                                "       ###    ",
-                        }) == 30);
-    assert(!shortestPath({
-                                 "s             ",
-                                 "D####### #####",
-                                 "       # #    ",
-                                 "       #k# e  ",
-                                 "       ###    ",
-                         }));
-    assert(shortestPath({
-                                "skDe",
-                        }) == 3);
-    assert(!shortestPath({
-                                 "sDke",
-                         }));
-    assert(shortestPath({
-                                "kseD",
-                        }) == 1);
-    assert(!shortestPath({
-                                 "ks#De",
-                         }));
-    assert(!shortestPath({
-                                 "k###",
-                                 "#sDe",
-                         }));
-    assert(shortestPath({
-                                "               ",
-                                " ############# ",
-                                "    s        # ",
-                                "############ # ",
-                                "             # ",
-                                " #############D",
-                                "             # ",
-                                "############ # ",
-                                "             # ",
-                                " ############# ",
-                                "             # ",
-                                "       ###k  #e",
-                        }) == 157);
+    for (size_t i = 0; i < numberOfNodes; ++i) {
+        delete allNodes[i];
+    }
 
-    return EXIT_SUCCESS;
+    return 0;
 }
-
-#endif
-

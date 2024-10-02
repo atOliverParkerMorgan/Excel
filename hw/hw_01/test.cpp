@@ -463,7 +463,7 @@ void CLandRegister::print(const std::string &category) {
             }
         }
     } else {
-        std::cout << "By Iterator" << std::endl;
+        std::cout << "By CIterator" << std::endl;
         for (CIterator p = listByOwner(category); !p.atEnd(); p.next()) {
             std::cout << "[ ( Owner: " << p.owner() << ") , City: " << p.city()
                       << ", Addr: "

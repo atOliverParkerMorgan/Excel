@@ -31,6 +31,12 @@ add_subdirectory(hw/hw_06)
 add_subdirectory(hw/velka_uloha)
 add_subdirectory(hw/velka_uloha/all_in_one)
 
+add_subdirectory(zk/zk_cv_9)
+add_subdirectory(zk/zk_cv_10)
+add_subdirectory(zk/mhd)
+add_subdirectory(zk/teleport)
+add_subdirectory(zk/battleRoyal)
+
 
 
 add_subdirectory(hw_cv/cv_03)

@@ -1,4 +1,4 @@
-add_executable(zk_cv_10
-        graf3.cpp
+add_executable(zk_cv_9
+        CSocialNet.cpp
 )
 

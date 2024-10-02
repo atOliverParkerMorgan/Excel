@@ -82,7 +82,7 @@ public:
         if (!m_Begin) {
             m_Begin = newNode;
         } else {
-            // Traverse the list to find the appropriate position for insertion
+            // Traverse the list to findDistance the appropriate position for insertion
             CNode *prev = nullptr;
             CNode *current = m_Begin;
             while (current && strcmp(value, current->Value()) > 0) {
