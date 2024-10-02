@@ -82,72 +82,54 @@ build cv/cv_01/CMakeFiles/cv_01.dir/loadData.cpp.o: CXX_COMPILER__cv_01_unscanne
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/sort.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_01/sort.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/sort.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/__/hw/hw_01/CLandRegister.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/hw_01/CLandRegister.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/__/hw/hw_01/CLandRegister.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/__/hw/hw_01
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/cv_04/fronta.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_04/fronta.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_04/fronta.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_04
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/cv_05/String.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_05/String.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_05/String.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_05
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/cv_06/Iheritance.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_06/Iheritance.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_06/Iheritance.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_06
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/__/znalost/test.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/znalost/test.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/__/znalost/test.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/__/znalost
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/cv_10/template.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_10/template.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_10/template.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_10
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 build cv/cv_01/CMakeFiles/cv_01.dir/__/cv_11/test.cpp.o: CXX_COMPILER__cv_01_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_11/test.cpp || cmake_object_order_depends_target_cv_01
   DEP_FILE = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_11/test.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   OBJECT_FILE_DIR = cv/cv_01/CMakeFiles/cv_01.dir/__/cv_11
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
-  TARGET_PDB = cv/cv_01/cv_01.pdb
 
 
 # =============================================================================
@@ -162,9 +144,8 @@ build cv/cv_01/cv_01: CXX_EXECUTABLE_LINKER__cv_01_Debug cv/cv_01/CMakeFiles/cv_
   OBJECT_DIR = cv/cv_01/CMakeFiles/cv_01.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_01/CMakeFiles/cv_01.dir/
   TARGET_FILE = cv/cv_01/cv_01
-  TARGET_PDB = cv/cv_01/cv_01.pdb
+  TARGET_PDB = cv_01.dbg
 
 
 #############################################
@@ -208,24 +189,18 @@ build cv/cv_02/CMakeFiles/cv_02.dir/studentI.cpp.o: CXX_COMPILER__cv_02_unscanne
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_02/CMakeFiles/cv_02.dir
   OBJECT_FILE_DIR = cv/cv_02/CMakeFiles/cv_02.dir
-  TARGET_COMPILE_PDB = cv/cv_02/CMakeFiles/cv_02.dir/
-  TARGET_PDB = cv/cv_02/cv_02.pdb
 
 build cv/cv_02/CMakeFiles/cv_02.dir/studentII.cpp.o: CXX_COMPILER__cv_02_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_02/studentII.cpp || cmake_object_order_depends_target_cv_02
   DEP_FILE = cv/cv_02/CMakeFiles/cv_02.dir/studentII.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_02/CMakeFiles/cv_02.dir
   OBJECT_FILE_DIR = cv/cv_02/CMakeFiles/cv_02.dir
-  TARGET_COMPILE_PDB = cv/cv_02/CMakeFiles/cv_02.dir/
-  TARGET_PDB = cv/cv_02/cv_02.pdb
 
 build cv/cv_02/CMakeFiles/cv_02.dir/studentIII.cpp.o: CXX_COMPILER__cv_02_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_02/studentIII.cpp || cmake_object_order_depends_target_cv_02
   DEP_FILE = cv/cv_02/CMakeFiles/cv_02.dir/studentIII.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_02/CMakeFiles/cv_02.dir
   OBJECT_FILE_DIR = cv/cv_02/CMakeFiles/cv_02.dir
-  TARGET_COMPILE_PDB = cv/cv_02/CMakeFiles/cv_02.dir/
-  TARGET_PDB = cv/cv_02/cv_02.pdb
 
 
 # =============================================================================
@@ -240,9 +215,8 @@ build cv/cv_02/cv_02: CXX_EXECUTABLE_LINKER__cv_02_Debug cv/cv_02/CMakeFiles/cv_
   OBJECT_DIR = cv/cv_02/CMakeFiles/cv_02.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_02/CMakeFiles/cv_02.dir/
   TARGET_FILE = cv/cv_02/cv_02
-  TARGET_PDB = cv/cv_02/cv_02.pdb
+  TARGET_PDB = cv_02.dbg
 
 
 #############################################
@@ -286,16 +260,12 @@ build cv/cv_03/complex/CMakeFiles/complex.dir/test.cpp.o: CXX_COMPILER__complex_
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_03/complex/CMakeFiles/complex.dir
   OBJECT_FILE_DIR = cv/cv_03/complex/CMakeFiles/complex.dir
-  TARGET_COMPILE_PDB = cv/cv_03/complex/CMakeFiles/complex.dir/
-  TARGET_PDB = cv/cv_03/complex/complex.pdb
 
 build cv/cv_03/complex/CMakeFiles/complex.dir/Complex.cpp.o: CXX_COMPILER__complex_unscanned_Debug /home/olixandr/CLionProjects/Pa2/cv/cv_03/complex/Complex.cpp || cmake_object_order_depends_target_complex
   DEP_FILE = cv/cv_03/complex/CMakeFiles/complex.dir/Complex.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_03/complex/CMakeFiles/complex.dir
   OBJECT_FILE_DIR = cv/cv_03/complex/CMakeFiles/complex.dir
-  TARGET_COMPILE_PDB = cv/cv_03/complex/CMakeFiles/complex.dir/
-  TARGET_PDB = cv/cv_03/complex/complex.pdb
 
 
 # =============================================================================
@@ -310,9 +280,8 @@ build cv/cv_03/complex/complex: CXX_EXECUTABLE_LINKER__complex_Debug cv/cv_03/co
   OBJECT_DIR = cv/cv_03/complex/CMakeFiles/complex.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_03/complex/CMakeFiles/complex.dir/
   TARGET_FILE = cv/cv_03/complex/complex
-  TARGET_PDB = cv/cv_03/complex/complex.pdb
+  TARGET_PDB = complex.dbg
 
 
 #############################################
@@ -356,8 +325,6 @@ build cv/cv_04/CMakeFiles/fronta.dir/fronta.cpp.o: CXX_COMPILER__fronta_unscanne
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_04/CMakeFiles/fronta.dir
   OBJECT_FILE_DIR = cv/cv_04/CMakeFiles/fronta.dir
-  TARGET_COMPILE_PDB = cv/cv_04/CMakeFiles/fronta.dir/
-  TARGET_PDB = cv/cv_04/fronta.pdb
 
 
 # =============================================================================
@@ -372,9 +339,8 @@ build cv/cv_04/fronta: CXX_EXECUTABLE_LINKER__fronta_Debug cv/cv_04/CMakeFiles/f
   OBJECT_DIR = cv/cv_04/CMakeFiles/fronta.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_04/CMakeFiles/fronta.dir/
   TARGET_FILE = cv/cv_04/fronta
-  TARGET_PDB = cv/cv_04/fronta.pdb
+  TARGET_PDB = fronta.dbg
 
 
 #############################################
@@ -418,8 +384,6 @@ build cv/cv_06/CMakeFiles/Inherit.dir/Iheritance.cpp.o: CXX_COMPILER__Inherit_un
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_06/CMakeFiles/Inherit.dir
   OBJECT_FILE_DIR = cv/cv_06/CMakeFiles/Inherit.dir
-  TARGET_COMPILE_PDB = cv/cv_06/CMakeFiles/Inherit.dir/
-  TARGET_PDB = cv/cv_06/Inherit.pdb
 
 
 # =============================================================================
@@ -434,9 +398,8 @@ build cv/cv_06/Inherit: CXX_EXECUTABLE_LINKER__Inherit_Debug cv/cv_06/CMakeFiles
   OBJECT_DIR = cv/cv_06/CMakeFiles/Inherit.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_06/CMakeFiles/Inherit.dir/
   TARGET_FILE = cv/cv_06/Inherit
-  TARGET_PDB = cv/cv_06/Inherit.pdb
+  TARGET_PDB = Inherit.dbg
 
 
 #############################################
@@ -480,8 +443,6 @@ build cv/cv_07/CMakeFiles/cv_07.dir/poly_zadani.cpp.o: CXX_COMPILER__cv_07_unsca
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_07/CMakeFiles/cv_07.dir
   OBJECT_FILE_DIR = cv/cv_07/CMakeFiles/cv_07.dir
-  TARGET_COMPILE_PDB = cv/cv_07/CMakeFiles/cv_07.dir/
-  TARGET_PDB = cv/cv_07/cv_07.pdb
 
 
 # =============================================================================
@@ -496,9 +457,8 @@ build cv/cv_07/cv_07: CXX_EXECUTABLE_LINKER__cv_07_Debug cv/cv_07/CMakeFiles/cv_
   OBJECT_DIR = cv/cv_07/CMakeFiles/cv_07.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_07/CMakeFiles/cv_07.dir/
   TARGET_FILE = cv/cv_07/cv_07
-  TARGET_PDB = cv/cv_07/cv_07.pdb
+  TARGET_PDB = cv_07.dbg
 
 
 #############################################
@@ -542,8 +502,6 @@ build cv/cv_10/CMakeFiles/cv_10.dir/template.cpp.o: CXX_COMPILER__cv_10_unscanne
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_10/CMakeFiles/cv_10.dir
   OBJECT_FILE_DIR = cv/cv_10/CMakeFiles/cv_10.dir
-  TARGET_COMPILE_PDB = cv/cv_10/CMakeFiles/cv_10.dir/
-  TARGET_PDB = cv/cv_10/cv_10.pdb
 
 
 # =============================================================================
@@ -558,9 +516,8 @@ build cv/cv_10/cv_10: CXX_EXECUTABLE_LINKER__cv_10_Debug cv/cv_10/CMakeFiles/cv_
   OBJECT_DIR = cv/cv_10/CMakeFiles/cv_10.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_10/CMakeFiles/cv_10.dir/
   TARGET_FILE = cv/cv_10/cv_10
-  TARGET_PDB = cv/cv_10/cv_10.pdb
+  TARGET_PDB = cv_10.dbg
 
 
 #############################################
@@ -604,8 +561,6 @@ build cv/cv_11/CMakeFiles/cv_11.dir/test.cpp.o: CXX_COMPILER__cv_11_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = cv/cv_11/CMakeFiles/cv_11.dir
   OBJECT_FILE_DIR = cv/cv_11/CMakeFiles/cv_11.dir
-  TARGET_COMPILE_PDB = cv/cv_11/CMakeFiles/cv_11.dir/
-  TARGET_PDB = cv/cv_11/cv_11.pdb
 
 
 # =============================================================================
@@ -620,9 +575,8 @@ build cv/cv_11/cv_11: CXX_EXECUTABLE_LINKER__cv_11_Debug cv/cv_11/CMakeFiles/cv_
   OBJECT_DIR = cv/cv_11/CMakeFiles/cv_11.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = cv/cv_11/CMakeFiles/cv_11.dir/
   TARGET_FILE = cv/cv_11/cv_11
-  TARGET_PDB = cv/cv_11/cv_11.pdb
+  TARGET_PDB = cv_11.dbg
 
 
 #############################################
@@ -666,32 +620,24 @@ build znalost/CMakeFiles/znalost.dir/test.cpp.o: CXX_COMPILER__znalost_unscanned
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = znalost/CMakeFiles/znalost.dir
   OBJECT_FILE_DIR = znalost/CMakeFiles/znalost.dir
-  TARGET_COMPILE_PDB = znalost/CMakeFiles/znalost.dir/
-  TARGET_PDB = znalost/znalost.pdb
 
 build znalost/CMakeFiles/znalost.dir/__/zk/zk_cv_10/main.cpp.o: CXX_COMPILER__znalost_unscanned_Debug /home/olixandr/CLionProjects/Pa2/zk/zk_cv_10/main.cpp || cmake_object_order_depends_target_znalost
   DEP_FILE = znalost/CMakeFiles/znalost.dir/__/zk/zk_cv_10/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = znalost/CMakeFiles/znalost.dir
   OBJECT_FILE_DIR = znalost/CMakeFiles/znalost.dir/__/zk/zk_cv_10
-  TARGET_COMPILE_PDB = znalost/CMakeFiles/znalost.dir/
-  TARGET_PDB = znalost/znalost.pdb
 
 build znalost/CMakeFiles/znalost.dir/__/zk/teleport/teleport.cpp.o: CXX_COMPILER__znalost_unscanned_Debug /home/olixandr/CLionProjects/Pa2/zk/teleport/teleport.cpp || cmake_object_order_depends_target_znalost
   DEP_FILE = znalost/CMakeFiles/znalost.dir/__/zk/teleport/teleport.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = znalost/CMakeFiles/znalost.dir
   OBJECT_FILE_DIR = znalost/CMakeFiles/znalost.dir/__/zk/teleport
-  TARGET_COMPILE_PDB = znalost/CMakeFiles/znalost.dir/
-  TARGET_PDB = znalost/znalost.pdb
 
 build znalost/CMakeFiles/znalost.dir/__/zk/queue.cpp.o: CXX_COMPILER__znalost_unscanned_Debug /home/olixandr/CLionProjects/Pa2/zk/queue.cpp || cmake_object_order_depends_target_znalost
   DEP_FILE = znalost/CMakeFiles/znalost.dir/__/zk/queue.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = znalost/CMakeFiles/znalost.dir
   OBJECT_FILE_DIR = znalost/CMakeFiles/znalost.dir/__/zk
-  TARGET_COMPILE_PDB = znalost/CMakeFiles/znalost.dir/
-  TARGET_PDB = znalost/znalost.pdb
 
 
 # =============================================================================
@@ -706,9 +652,8 @@ build znalost/znalost: CXX_EXECUTABLE_LINKER__znalost_Debug znalost/CMakeFiles/z
   OBJECT_DIR = znalost/CMakeFiles/znalost.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = znalost/CMakeFiles/znalost.dir/
   TARGET_FILE = znalost/znalost
-  TARGET_PDB = znalost/znalost.pdb
+  TARGET_PDB = znalost.dbg
 
 
 #############################################
@@ -752,8 +697,6 @@ build hw/hw_01/CMakeFiles/hw_01.dir/test.cpp.o: CXX_COMPILER__hw_01_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw/hw_01/CMakeFiles/hw_01.dir
   OBJECT_FILE_DIR = hw/hw_01/CMakeFiles/hw_01.dir
-  TARGET_COMPILE_PDB = hw/hw_01/CMakeFiles/hw_01.dir/
-  TARGET_PDB = hw/hw_01/hw_01.pdb
 
 
 # =============================================================================
@@ -768,9 +711,8 @@ build hw/hw_01/hw_01: CXX_EXECUTABLE_LINKER__hw_01_Debug hw/hw_01/CMakeFiles/hw_
   OBJECT_DIR = hw/hw_01/CMakeFiles/hw_01.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/hw_01/CMakeFiles/hw_01.dir/
   TARGET_FILE = hw/hw_01/hw_01
-  TARGET_PDB = hw/hw_01/hw_01.pdb
+  TARGET_PDB = hw_01.dbg
 
 
 #############################################
@@ -814,8 +756,6 @@ build hw/hw_02/CMakeFiles/hw_02.dir/test.cpp.o: CXX_COMPILER__hw_02_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw/hw_02/CMakeFiles/hw_02.dir
   OBJECT_FILE_DIR = hw/hw_02/CMakeFiles/hw_02.dir
-  TARGET_COMPILE_PDB = hw/hw_02/CMakeFiles/hw_02.dir/
-  TARGET_PDB = hw/hw_02/hw_02.pdb
 
 
 # =============================================================================
@@ -830,9 +770,8 @@ build hw/hw_02/hw_02: CXX_EXECUTABLE_LINKER__hw_02_Debug hw/hw_02/CMakeFiles/hw_
   OBJECT_DIR = hw/hw_02/CMakeFiles/hw_02.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/hw_02/CMakeFiles/hw_02.dir/
   TARGET_FILE = hw/hw_02/hw_02
-  TARGET_PDB = hw/hw_02/hw_02.pdb
+  TARGET_PDB = hw_02.dbg
 
 
 #############################################
@@ -876,8 +815,6 @@ build hw/hw_03/CMakeFiles/hw_03.dir/test.cpp.o: CXX_COMPILER__hw_03_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw/hw_03/CMakeFiles/hw_03.dir
   OBJECT_FILE_DIR = hw/hw_03/CMakeFiles/hw_03.dir
-  TARGET_COMPILE_PDB = hw/hw_03/CMakeFiles/hw_03.dir/
-  TARGET_PDB = hw/hw_03/hw_03.pdb
 
 
 # =============================================================================
@@ -892,9 +829,8 @@ build hw/hw_03/hw_03: CXX_EXECUTABLE_LINKER__hw_03_Debug hw/hw_03/CMakeFiles/hw_
   OBJECT_DIR = hw/hw_03/CMakeFiles/hw_03.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/hw_03/CMakeFiles/hw_03.dir/
   TARGET_FILE = hw/hw_03/hw_03
-  TARGET_PDB = hw/hw_03/hw_03.pdb
+  TARGET_PDB = hw_03.dbg
 
 
 #############################################
@@ -938,8 +874,6 @@ build hw/hw_04/CMakeFiles/hw_04.dir/test.cpp.o: CXX_COMPILER__hw_04_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw/hw_04/CMakeFiles/hw_04.dir
   OBJECT_FILE_DIR = hw/hw_04/CMakeFiles/hw_04.dir
-  TARGET_COMPILE_PDB = hw/hw_04/CMakeFiles/hw_04.dir/
-  TARGET_PDB = hw/hw_04/hw_04.pdb
 
 
 # =============================================================================
@@ -954,9 +888,8 @@ build hw/hw_04/hw_04: CXX_EXECUTABLE_LINKER__hw_04_Debug hw/hw_04/CMakeFiles/hw_
   OBJECT_DIR = hw/hw_04/CMakeFiles/hw_04.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/hw_04/CMakeFiles/hw_04.dir/
   TARGET_FILE = hw/hw_04/hw_04
-  TARGET_PDB = hw/hw_04/hw_04.pdb
+  TARGET_PDB = hw_04.dbg
 
 
 #############################################
@@ -1000,8 +933,6 @@ build hw/hw_05/CMakeFiles/hw_05.dir/test.cpp.o: CXX_COMPILER__hw_05_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw/hw_05/CMakeFiles/hw_05.dir
   OBJECT_FILE_DIR = hw/hw_05/CMakeFiles/hw_05.dir
-  TARGET_COMPILE_PDB = hw/hw_05/CMakeFiles/hw_05.dir/
-  TARGET_PDB = hw/hw_05/hw_05.pdb
 
 
 # =============================================================================
@@ -1016,9 +947,8 @@ build hw/hw_05/hw_05: CXX_EXECUTABLE_LINKER__hw_05_Debug hw/hw_05/CMakeFiles/hw_
   OBJECT_DIR = hw/hw_05/CMakeFiles/hw_05.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/hw_05/CMakeFiles/hw_05.dir/
   TARGET_FILE = hw/hw_05/hw_05
-  TARGET_PDB = hw/hw_05/hw_05.pdb
+  TARGET_PDB = hw_05.dbg
 
 
 #############################################
@@ -1062,8 +992,6 @@ build hw/hw_06/CMakeFiles/hw_06.dir/test.cpp.o: CXX_COMPILER__hw_06_unscanned_De
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw/hw_06/CMakeFiles/hw_06.dir
   OBJECT_FILE_DIR = hw/hw_06/CMakeFiles/hw_06.dir
-  TARGET_COMPILE_PDB = hw/hw_06/CMakeFiles/hw_06.dir/
-  TARGET_PDB = hw/hw_06/hw_06.pdb
 
 
 # =============================================================================
@@ -1078,9 +1006,8 @@ build hw/hw_06/hw_06: CXX_EXECUTABLE_LINKER__hw_06_Debug hw/hw_06/CMakeFiles/hw_
   OBJECT_DIR = hw/hw_06/CMakeFiles/hw_06.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/hw_06/CMakeFiles/hw_06.dir/
   TARGET_FILE = hw/hw_06/hw_06
-  TARGET_PDB = hw/hw_06/hw_06.pdb
+  TARGET_PDB = hw_06.dbg
 
 
 #############################################
@@ -1119,212 +1046,166 @@ build hw/hw_06/rebuild_cache: phony hw/hw_06/CMakeFiles/rebuild_cache.util
 
 build cmake_object_order_depends_target_velka_uloha: phony || .
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/main.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/main.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/main.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/main.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/main.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNode.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNode.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNode.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNode.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNode.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNode.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CBuilder.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CBuilder.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CBuilder.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CBuilder.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CBuilder.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CBuilder.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CPos.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CPos.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CPos.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CPos.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CPos.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CPos.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeLiteral.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNodeLiteral.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeLiteral.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNodeLiteral.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNodeLiteral.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNodeLiteral.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CReference.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CReference.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CReference.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CReference.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CReference.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CReference.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeDouble.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNodeDouble.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeDouble.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNodeDouble.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNodeDouble.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNodeDouble.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeString.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNodeString.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeString.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNodeString.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNodeString.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNodeString.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeUnaryOperand.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNodeUnaryOperand.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeUnaryOperand.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNodeUnaryOperand.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNodeUnaryOperand.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNodeUnaryOperand.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNeg.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNeg.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNeg.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNeg.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNeg.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNeg.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeBinaryOperand.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNodeBinaryOperand.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeBinaryOperand.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNodeBinaryOperand.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNodeBinaryOperand.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNodeBinaryOperand.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CAddition.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CAddition.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CAddition.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CAddition.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CAddition.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CAddition.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CMultiply.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CMultiply.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CMultiply.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CMultiply.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CMultiply.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CMultiply.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CDivide.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CDivide.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CDivide.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CDivide.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CDivide.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CDivide.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSubtract.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CSubtract.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSubtract.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CSubtract.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CSubtract.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CSubtract.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CEquals.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CEquals.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CEquals.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CEquals.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CEquals.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CEquals.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CLessThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CLessThan.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CLessThan.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CLessThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CLessThan.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CLessThan.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CGreaterThan.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterThan.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CGreaterThan.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterThan.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CLessEqualThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CLessEqualThan.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CLessEqualThan.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CLessEqualThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CLessEqualThan.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CLessEqualThan.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterEqualThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CGreaterEqualThan.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterEqualThan.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterEqualThan.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CGreaterEqualThan.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterEqualThan.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CPow.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CPow.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CPow.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CPow.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CPow.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CPow.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNotEqual.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CNotEqual.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNotEqual.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CNotEqual.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CNotEqual.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CNotEqual.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
-build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CSpreadSheet.cpp || cmake_object_order_depends_target_velka_uloha
-  DEP_FILE = hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o.d
+build velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o: CXX_COMPILER__velka_uloha_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/CSpreadSheet.cpp || cmake_object_order_depends_target_velka_uloha
+  DEP_FILE = velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/.
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/.
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
+  OBJECT_FILE_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
 
 
 # =============================================================================
@@ -1332,41 +1213,40 @@ build hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o: CXX_COMPILER
 
 
 #############################################
-# Link the executable hw/velka_uloha/velka_uloha
+# Link the executable velka_uloha/velka_uloha
 
-build hw/velka_uloha/velka_uloha: CXX_EXECUTABLE_LINKER__velka_uloha_Debug hw/velka_uloha/CMakeFiles/velka_uloha.dir/main.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNode.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CBuilder.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CPos.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeLiteral.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CReference.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeDouble.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeString.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeUnaryOperand.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNeg.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNodeBinaryOperand.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CAddition.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CMultiply.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CDivide.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSubtract.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CEquals.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CLessThan.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterThan.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CLessEqualThan.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterEqualThan.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CPow.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CNotEqual.cpp.o hw/velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o
+build velka_uloha/velka_uloha: CXX_EXECUTABLE_LINKER__velka_uloha_Debug velka_uloha/CMakeFiles/velka_uloha.dir/main.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNode.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CBuilder.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CPos.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNodeLiteral.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CReference.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNodeDouble.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNodeString.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNodeUnaryOperand.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNeg.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNodeBinaryOperand.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CAddition.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CMultiply.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CDivide.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CSubtract.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CEquals.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CLessThan.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterThan.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CLessEqualThan.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CGreaterEqualThan.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CPow.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CNotEqual.cpp.o velka_uloha/CMakeFiles/velka_uloha.dir/CSpreadSheet.cpp.o
   FLAGS = -g
-  LINK_LIBRARIES = -Wl,-rpath,/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/./x86_64-linux-gnu  -lexpression_parser  -lasan
-  LINK_PATH = -L/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/./x86_64-linux-gnu
-  OBJECT_DIR = hw/velka_uloha/CMakeFiles/velka_uloha.dir
+  LINK_LIBRARIES = -Wl,-rpath,/home/olixandr/CLionProjects/Pa2/velka_uloha/x86_64-linux-gnu  -lexpression_parser  -lasan
+  LINK_PATH = -L/home/olixandr/CLionProjects/Pa2/velka_uloha/x86_64-linux-gnu
+  OBJECT_DIR = velka_uloha/CMakeFiles/velka_uloha.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/velka_uloha/CMakeFiles/velka_uloha.dir/
-  TARGET_FILE = hw/velka_uloha/velka_uloha
-  TARGET_PDB = hw/velka_uloha/velka_uloha.pdb
+  TARGET_FILE = velka_uloha/velka_uloha
+  TARGET_PDB = velka_uloha.dbg
 
 
 #############################################
 # Utility command for edit_cache
 
-build hw/velka_uloha/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw/velka_uloha && /snap/clion/296/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+build velka_uloha/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/velka_uloha && /snap/clion/296/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
-build hw/velka_uloha/edit_cache: phony hw/velka_uloha/CMakeFiles/edit_cache.util
+build velka_uloha/edit_cache: phony velka_uloha/CMakeFiles/edit_cache.util
 
 
 #############################################
 # Utility command for rebuild_cache
 
-build hw/velka_uloha/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw/velka_uloha && /snap/clion/296/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/olixandr/CLionProjects/Pa2 -B/home/olixandr/CLionProjects/Pa2/cmake-build-debug
+build velka_uloha/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/velka_uloha && /snap/clion/296/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/olixandr/CLionProjects/Pa2 -B/home/olixandr/CLionProjects/Pa2/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 
-build hw/velka_uloha/rebuild_cache: phony hw/velka_uloha/CMakeFiles/rebuild_cache.util
+build velka_uloha/rebuild_cache: phony velka_uloha/CMakeFiles/rebuild_cache.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -1382,14 +1262,12 @@ build hw/velka_uloha/rebuild_cache: phony hw/velka_uloha/CMakeFiles/rebuild_cach
 
 build cmake_object_order_depends_target_all_in_one: phony || .
 
-build hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o: CXX_COMPILER__all_in_one_unscanned_Debug /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/all_in_one/all_in_one.cpp || cmake_object_order_depends_target_all_in_one
-  DEP_FILE = hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o.d
+build velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o: CXX_COMPILER__all_in_one_unscanned_Debug /home/olixandr/CLionProjects/Pa2/velka_uloha/all_in_one/all_in_one.cpp || cmake_object_order_depends_target_all_in_one
+  DEP_FILE = velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always -Wall -pedantic -g -fsanitize=address
-  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/all_in_one/.
-  OBJECT_DIR = hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir
-  OBJECT_FILE_DIR = hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir
-  TARGET_COMPILE_PDB = hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/
-  TARGET_PDB = hw/velka_uloha/all_in_one/all_in_one.pdb
+  INCLUDES = -I/home/olixandr/CLionProjects/Pa2/velka_uloha/all_in_one/.
+  OBJECT_DIR = velka_uloha/all_in_one/CMakeFiles/all_in_one.dir
+  OBJECT_FILE_DIR = velka_uloha/all_in_one/CMakeFiles/all_in_one.dir
 
 
 # =============================================================================
@@ -1397,41 +1275,40 @@ build hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o: CXX_
 
 
 #############################################
-# Link the executable hw/velka_uloha/all_in_one/all_in_one
+# Link the executable velka_uloha/all_in_one/all_in_one
 
-build hw/velka_uloha/all_in_one/all_in_one: CXX_EXECUTABLE_LINKER__all_in_one_Debug hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o
+build velka_uloha/all_in_one/all_in_one: CXX_EXECUTABLE_LINKER__all_in_one_Debug velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/all_in_one.cpp.o
   FLAGS = -g
-  LINK_LIBRARIES = -Wl,-rpath,/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/all_in_one/../x86_64-linux-gnu  -lexpression_parser  -lasan
-  LINK_PATH = -L/home/olixandr/CLionProjects/Pa2/hw/velka_uloha/all_in_one/../x86_64-linux-gnu
-  OBJECT_DIR = hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir
+  LINK_LIBRARIES = -Wl,-rpath,/home/olixandr/CLionProjects/Pa2/velka_uloha/all_in_one/../x86_64-linux-gnu  -lexpression_parser  -lasan
+  LINK_PATH = -L/home/olixandr/CLionProjects/Pa2/velka_uloha/all_in_one/../x86_64-linux-gnu
+  OBJECT_DIR = velka_uloha/all_in_one/CMakeFiles/all_in_one.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw/velka_uloha/all_in_one/CMakeFiles/all_in_one.dir/
-  TARGET_FILE = hw/velka_uloha/all_in_one/all_in_one
-  TARGET_PDB = hw/velka_uloha/all_in_one/all_in_one.pdb
+  TARGET_FILE = velka_uloha/all_in_one/all_in_one
+  TARGET_PDB = all_in_one.dbg
 
 
 #############################################
 # Utility command for edit_cache
 
-build hw/velka_uloha/all_in_one/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw/velka_uloha/all_in_one && /snap/clion/296/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
+build velka_uloha/all_in_one/CMakeFiles/edit_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/velka_uloha/all_in_one && /snap/clion/296/bin/cmake/linux/x64/bin/cmake -E echo No\ interactive\ CMake\ dialog\ available.
   DESC = No interactive CMake dialog available...
   restat = 1
 
-build hw/velka_uloha/all_in_one/edit_cache: phony hw/velka_uloha/all_in_one/CMakeFiles/edit_cache.util
+build velka_uloha/all_in_one/edit_cache: phony velka_uloha/all_in_one/CMakeFiles/edit_cache.util
 
 
 #############################################
 # Utility command for rebuild_cache
 
-build hw/velka_uloha/all_in_one/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
-  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw/velka_uloha/all_in_one && /snap/clion/296/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/olixandr/CLionProjects/Pa2 -B/home/olixandr/CLionProjects/Pa2/cmake-build-debug
+build velka_uloha/all_in_one/CMakeFiles/rebuild_cache.util: CUSTOM_COMMAND
+  COMMAND = cd /home/olixandr/CLionProjects/Pa2/cmake-build-debug/velka_uloha/all_in_one && /snap/clion/296/bin/cmake/linux/x64/bin/cmake --regenerate-during-build -S/home/olixandr/CLionProjects/Pa2 -B/home/olixandr/CLionProjects/Pa2/cmake-build-debug
   DESC = Running CMake to regenerate build system...
   pool = console
   restat = 1
 
-build hw/velka_uloha/all_in_one/rebuild_cache: phony hw/velka_uloha/all_in_one/CMakeFiles/rebuild_cache.util
+build velka_uloha/all_in_one/rebuild_cache: phony velka_uloha/all_in_one/CMakeFiles/rebuild_cache.util
 
 # =============================================================================
 # Write statements declared in CMakeLists.txt:
@@ -1452,8 +1329,6 @@ build zk/zk_cv_9/CMakeFiles/zk_cv_9.dir/CSocialNet.cpp.o: CXX_COMPILER__zk_cv_9_
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/zk_cv_9/CMakeFiles/zk_cv_9.dir
   OBJECT_FILE_DIR = zk/zk_cv_9/CMakeFiles/zk_cv_9.dir
-  TARGET_COMPILE_PDB = zk/zk_cv_9/CMakeFiles/zk_cv_9.dir/
-  TARGET_PDB = zk/zk_cv_9/zk_cv_9.pdb
 
 
 # =============================================================================
@@ -1468,9 +1343,8 @@ build zk/zk_cv_9/zk_cv_9: CXX_EXECUTABLE_LINKER__zk_cv_9_Debug zk/zk_cv_9/CMakeF
   OBJECT_DIR = zk/zk_cv_9/CMakeFiles/zk_cv_9.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = zk/zk_cv_9/CMakeFiles/zk_cv_9.dir/
   TARGET_FILE = zk/zk_cv_9/zk_cv_9
-  TARGET_PDB = zk/zk_cv_9/zk_cv_9.pdb
+  TARGET_PDB = zk_cv_9.dbg
 
 
 #############################################
@@ -1514,16 +1388,12 @@ build zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/graf3.cpp.o: CXX_COMPILER__zk_cv_10_un
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir
   OBJECT_FILE_DIR = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir
-  TARGET_COMPILE_PDB = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/
-  TARGET_PDB = zk/zk_cv_10/zk_cv_10.pdb
 
 build zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/__/mhd/main.cpp.o: CXX_COMPILER__zk_cv_10_unscanned_Debug /home/olixandr/CLionProjects/Pa2/zk/mhd/main.cpp || cmake_object_order_depends_target_zk_cv_10
   DEP_FILE = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/__/mhd/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir
   OBJECT_FILE_DIR = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/__/mhd
-  TARGET_COMPILE_PDB = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/
-  TARGET_PDB = zk/zk_cv_10/zk_cv_10.pdb
 
 
 # =============================================================================
@@ -1538,9 +1408,8 @@ build zk/zk_cv_10/zk_cv_10: CXX_EXECUTABLE_LINKER__zk_cv_10_Debug zk/zk_cv_10/CM
   OBJECT_DIR = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = zk/zk_cv_10/CMakeFiles/zk_cv_10.dir/
   TARGET_FILE = zk/zk_cv_10/zk_cv_10
-  TARGET_PDB = zk/zk_cv_10/zk_cv_10.pdb
+  TARGET_PDB = zk_cv_10.dbg
 
 
 #############################################
@@ -1584,16 +1453,12 @@ build zk/mhd/CMakeFiles/mhd.dir/main.cpp.o: CXX_COMPILER__mhd_unscanned_Debug /h
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/mhd/CMakeFiles/mhd.dir
   OBJECT_FILE_DIR = zk/mhd/CMakeFiles/mhd.dir
-  TARGET_COMPILE_PDB = zk/mhd/CMakeFiles/mhd.dir/
-  TARGET_PDB = zk/mhd/mhd.pdb
 
 build zk/mhd/CMakeFiles/mhd.dir/__/battleRoyal/main.cpp.o: CXX_COMPILER__mhd_unscanned_Debug /home/olixandr/CLionProjects/Pa2/zk/battleRoyal/main.cpp || cmake_object_order_depends_target_mhd
   DEP_FILE = zk/mhd/CMakeFiles/mhd.dir/__/battleRoyal/main.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/mhd/CMakeFiles/mhd.dir
   OBJECT_FILE_DIR = zk/mhd/CMakeFiles/mhd.dir/__/battleRoyal
-  TARGET_COMPILE_PDB = zk/mhd/CMakeFiles/mhd.dir/
-  TARGET_PDB = zk/mhd/mhd.pdb
 
 
 # =============================================================================
@@ -1608,9 +1473,8 @@ build zk/mhd/mhd: CXX_EXECUTABLE_LINKER__mhd_Debug zk/mhd/CMakeFiles/mhd.dir/mai
   OBJECT_DIR = zk/mhd/CMakeFiles/mhd.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = zk/mhd/CMakeFiles/mhd.dir/
   TARGET_FILE = zk/mhd/mhd
-  TARGET_PDB = zk/mhd/mhd.pdb
+  TARGET_PDB = mhd.dbg
 
 
 #############################################
@@ -1654,8 +1518,6 @@ build zk/teleport/CMakeFiles/teleport.dir/teleport.cpp.o: CXX_COMPILER__teleport
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/teleport/CMakeFiles/teleport.dir
   OBJECT_FILE_DIR = zk/teleport/CMakeFiles/teleport.dir
-  TARGET_COMPILE_PDB = zk/teleport/CMakeFiles/teleport.dir/
-  TARGET_PDB = zk/teleport/teleport.pdb
 
 
 # =============================================================================
@@ -1670,9 +1532,8 @@ build zk/teleport/teleport: CXX_EXECUTABLE_LINKER__teleport_Debug zk/teleport/CM
   OBJECT_DIR = zk/teleport/CMakeFiles/teleport.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = zk/teleport/CMakeFiles/teleport.dir/
   TARGET_FILE = zk/teleport/teleport
-  TARGET_PDB = zk/teleport/teleport.pdb
+  TARGET_PDB = teleport.dbg
 
 
 #############################################
@@ -1716,16 +1577,12 @@ build zk/battleRoyal/CMakeFiles/battleRoyal.dir/main.cpp.o: CXX_COMPILER__battle
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/battleRoyal/CMakeFiles/battleRoyal.dir
   OBJECT_FILE_DIR = zk/battleRoyal/CMakeFiles/battleRoyal.dir
-  TARGET_COMPILE_PDB = zk/battleRoyal/CMakeFiles/battleRoyal.dir/
-  TARGET_PDB = zk/battleRoyal/battleRoyal.pdb
 
 build zk/battleRoyal/CMakeFiles/battleRoyal.dir/__/zk_cv_9/kolonizace.cpp.o: CXX_COMPILER__battleRoyal_unscanned_Debug /home/olixandr/CLionProjects/Pa2/zk/zk_cv_9/kolonizace.cpp || cmake_object_order_depends_target_battleRoyal
   DEP_FILE = zk/battleRoyal/CMakeFiles/battleRoyal.dir/__/zk_cv_9/kolonizace.cpp.o.d
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = zk/battleRoyal/CMakeFiles/battleRoyal.dir
   OBJECT_FILE_DIR = zk/battleRoyal/CMakeFiles/battleRoyal.dir/__/zk_cv_9
-  TARGET_COMPILE_PDB = zk/battleRoyal/CMakeFiles/battleRoyal.dir/
-  TARGET_PDB = zk/battleRoyal/battleRoyal.pdb
 
 
 # =============================================================================
@@ -1740,9 +1597,8 @@ build zk/battleRoyal/battleRoyal: CXX_EXECUTABLE_LINKER__battleRoyal_Debug zk/ba
   OBJECT_DIR = zk/battleRoyal/CMakeFiles/battleRoyal.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = zk/battleRoyal/CMakeFiles/battleRoyal.dir/
   TARGET_FILE = zk/battleRoyal/battleRoyal
-  TARGET_PDB = zk/battleRoyal/battleRoyal.pdb
+  TARGET_PDB = battleRoyal.dbg
 
 
 #############################################
@@ -1786,8 +1642,6 @@ build hw_cv/cv_03/CMakeFiles/hw_cv_3.dir/test.cpp.o: CXX_COMPILER__hw_cv_3_unsca
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw_cv/cv_03/CMakeFiles/hw_cv_3.dir
   OBJECT_FILE_DIR = hw_cv/cv_03/CMakeFiles/hw_cv_3.dir
-  TARGET_COMPILE_PDB = hw_cv/cv_03/CMakeFiles/hw_cv_3.dir/
-  TARGET_PDB = hw_cv/cv_03/hw_cv_3.pdb
 
 
 # =============================================================================
@@ -1802,9 +1656,8 @@ build hw_cv/cv_03/hw_cv_3: CXX_EXECUTABLE_LINKER__hw_cv_3_Debug hw_cv/cv_03/CMak
   OBJECT_DIR = hw_cv/cv_03/CMakeFiles/hw_cv_3.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw_cv/cv_03/CMakeFiles/hw_cv_3.dir/
   TARGET_FILE = hw_cv/cv_03/hw_cv_3
-  TARGET_PDB = hw_cv/cv_03/hw_cv_3.pdb
+  TARGET_PDB = hw_cv_3.dbg
 
 
 #############################################
@@ -1848,8 +1701,6 @@ build hw_cv/cv_06/CMakeFiles/hw_cv_6.dir/test.cpp.o: CXX_COMPILER__hw_cv_6_unsca
   FLAGS = -g -std=gnu++20 -fdiagnostics-color=always
   OBJECT_DIR = hw_cv/cv_06/CMakeFiles/hw_cv_6.dir
   OBJECT_FILE_DIR = hw_cv/cv_06/CMakeFiles/hw_cv_6.dir
-  TARGET_COMPILE_PDB = hw_cv/cv_06/CMakeFiles/hw_cv_6.dir/
-  TARGET_PDB = hw_cv/cv_06/hw_cv_6.pdb
 
 
 # =============================================================================
@@ -1864,9 +1715,8 @@ build hw_cv/cv_06/hw_cv_6: CXX_EXECUTABLE_LINKER__hw_cv_6_Debug hw_cv/cv_06/CMak
   OBJECT_DIR = hw_cv/cv_06/CMakeFiles/hw_cv_6.dir
   POST_BUILD = :
   PRE_LINK = :
-  TARGET_COMPILE_PDB = hw_cv/cv_06/CMakeFiles/hw_cv_6.dir/
   TARGET_FILE = hw_cv/cv_06/hw_cv_6
-  TARGET_PDB = hw_cv/cv_06/hw_cv_6.pdb
+  TARGET_PDB = hw_cv_6.dbg
 
 
 #############################################
@@ -1896,7 +1746,7 @@ build hw_cv/cv_06/rebuild_cache: phony hw_cv/cv_06/CMakeFiles/rebuild_cache.util
 
 build Inherit: phony cv/cv_06/Inherit
 
-build all_in_one: phony hw/velka_uloha/all_in_one/all_in_one
+build all_in_one: phony velka_uloha/all_in_one/all_in_one
 
 build battleRoyal: phony zk/battleRoyal/battleRoyal
 
@@ -1934,7 +1784,7 @@ build mhd: phony zk/mhd/mhd
 
 build teleport: phony zk/teleport/teleport
 
-build velka_uloha: phony hw/velka_uloha/velka_uloha
+build velka_uloha: phony velka_uloha/velka_uloha
 
 build zk_cv_10: phony zk/zk_cv_10/zk_cv_10
 
@@ -1950,7 +1800,7 @@ build znalost: phony znalost/znalost
 #############################################
 # Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug
 
-build all: phony cv/cv_01/all cv/cv_02/all cv/cv_03/complex/all cv/cv_04/all cv/cv_06/all cv/cv_07/all cv/cv_10/all cv/cv_11/all znalost/all hw/hw_01/all hw/hw_02/all hw/hw_03/all hw/hw_04/all hw/hw_05/all hw/hw_06/all hw/velka_uloha/all hw/velka_uloha/all_in_one/all zk/zk_cv_9/all zk/zk_cv_10/all zk/mhd/all zk/teleport/all zk/battleRoyal/all hw_cv/cv_03/all hw_cv/cv_06/all
+build all: phony cv/cv_01/all cv/cv_02/all cv/cv_03/complex/all cv/cv_04/all cv/cv_06/all cv/cv_07/all cv/cv_10/all cv/cv_11/all znalost/all hw/hw_01/all hw/hw_02/all hw/hw_03/all hw/hw_04/all hw/hw_05/all hw/hw_06/all velka_uloha/all velka_uloha/all_in_one/all zk/zk_cv_9/all zk/zk_cv_10/all zk/mhd/all zk/teleport/all zk/battleRoyal/all hw_cv/cv_03/all hw_cv/cv_06/all
 
 # =============================================================================
 
@@ -2053,20 +1903,6 @@ build hw/hw_06/all: phony hw/hw_06/hw_06
 # =============================================================================
 
 #############################################
-# Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw/velka_uloha
-
-build hw/velka_uloha/all: phony hw/velka_uloha/velka_uloha
-
-# =============================================================================
-
-#############################################
-# Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw/velka_uloha/all_in_one
-
-build hw/velka_uloha/all_in_one/all: phony hw/velka_uloha/all_in_one/all_in_one
-
-# =============================================================================
-
-#############################################
 # Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw_cv/cv_03
 
 build hw_cv/cv_03/all: phony hw_cv/cv_03/hw_cv_3
@@ -2077,6 +1913,20 @@ build hw_cv/cv_03/all: phony hw_cv/cv_03/hw_cv_3
 # Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug/hw_cv/cv_06
 
 build hw_cv/cv_06/all: phony hw_cv/cv_06/hw_cv_6
+
+# =============================================================================
+
+#############################################
+# Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug/velka_uloha
+
+build velka_uloha/all: phony velka_uloha/velka_uloha
+
+# =============================================================================
+
+#############################################
+# Folder: /home/olixandr/CLionProjects/Pa2/cmake-build-debug/velka_uloha/all_in_one
+
+build velka_uloha/all_in_one/all: phony velka_uloha/all_in_one/all_in_one
 
 # =============================================================================
 
@@ -2127,14 +1977,14 @@ build znalost/all: phony znalost/znalost
 #############################################
 # Re-run CMake if any of its inputs changed.
 
-build build.ninja: RERUN_CMAKE | /home/olixandr/CLionProjects/Pa2/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_03/complex/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_07/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_11/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_05/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/all_in_one/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/battleRoyal/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/mhd/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/teleport/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_9/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/znalost/CMakeLists.txt /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCCompiler.cmake.in /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCCompilerABI.c /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXCompiler.cmake.in /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCompilerIdDetection.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompileFeatures.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeFindBinUtils.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeParseImplicitIncludeInfo.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeParseLibraryArchitecture.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystem.cmake.in /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeTestCompilerCommon.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/ADSP-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/ARMCC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/ARMClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/AppleClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Borland-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Cray-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CrayClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GHS-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-FindBinUtils.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/HP-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IAR-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Intel-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/LCC-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/MSVC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/NVHPC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/OrangeC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/PGI-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/PathScale-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SCO-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/TI-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/TIClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Tasking-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Watcom-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XL-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/zOS-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Internal/FeatureTesting.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Determine-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
+build build.ninja: RERUN_CMAKE | /home/olixandr/CLionProjects/Pa2/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_03/complex/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_07/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_11/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_05/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/velka_uloha/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/velka_uloha/all_in_one/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/battleRoyal/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/mhd/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/teleport/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_9/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/znalost/CMakeLists.txt /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake
   pool = console
 
 
 #############################################
 # A missing CMake input file is not an error.
 
-build /home/olixandr/CLionProjects/Pa2/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_03/complex/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_07/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_11/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_05/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/velka_uloha/all_in_one/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/battleRoyal/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/mhd/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/teleport/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_9/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/znalost/CMakeLists.txt /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCCompiler.cmake.in /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCCompilerABI.c /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXCompiler.cmake.in /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXCompilerABI.cpp /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCompilerIdDetection.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCXXCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompileFeatures.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerABI.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineCompilerId.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeDetermineSystem.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeFindBinUtils.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeParseImplicitIncludeInfo.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeParseImplicitLinkInfo.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeParseLibraryArchitecture.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystem.cmake.in /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeTestCCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeTestCXXCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeTestCompilerCommon.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/ADSP-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/ARMCC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/ARMClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/AppleClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Borland-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Bruce-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Clang-DetermineCompilerInternal.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Compaq-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Compaq-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Cray-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CrayClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Embarcadero-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Fujitsu-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/FujitsuClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GHS-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-FindBinUtils.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/HP-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/HP-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IAR-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-C-DetermineVersionInternal.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMCPP-CXX-DetermineVersionInternal.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMClang-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IBMClang-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Intel-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/IntelLLVM-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/LCC-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/LCC-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/MSVC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/NVHPC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/NVIDIA-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/OpenWatcom-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/OrangeC-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/PGI-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/PathScale-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SCO-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SDCC-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SunPro-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/SunPro-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/TI-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/TIClang-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Tasking-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/TinyCC-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/VisualAge-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/VisualAge-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/Watcom-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XL-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XL-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XLClang-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/XLClang-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/zOS-C-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/zOS-CXX-DetermineCompiler.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Internal/CMakeDetermineLinkerId.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Internal/FeatureTesting.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Determine-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
+build /home/olixandr/CLionProjects/Pa2/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_03/complex/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_07/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/cv/cv_11/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_01/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_02/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_04/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_05/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw/hw_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_03/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/hw_cv/cv_06/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/velka_uloha/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/velka_uloha/all_in_one/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/battleRoyal/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/mhd/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/teleport/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_10/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/zk/zk_cv_9/CMakeLists.txt /home/olixandr/CLionProjects/Pa2/znalost/CMakeLists.txt /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCXXInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeCommonLanguageInclude.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeGenericSystem.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeInitializeConfigs.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeLanguageInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInformation.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/CMakeSystemSpecificInitialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/CMakeCommonCompilerMacros.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Compiler/GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-C.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU-CXX.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-GNU.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux-Initialize.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/Linux.cmake /snap/clion/296/bin/cmake/linux/x64/share/cmake-3.29/Modules/Platform/UnixPaths.cmake CMakeCache.txt CMakeFiles/3.29.6/CMakeCCompiler.cmake CMakeFiles/3.29.6/CMakeCXXCompiler.cmake CMakeFiles/3.29.6/CMakeSystem.cmake: phony
 
 
 #############################################

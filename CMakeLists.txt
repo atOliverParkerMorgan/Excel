@@ -28,8 +28,8 @@ add_subdirectory(hw/hw_04)
 add_subdirectory(hw/hw_05)
 add_subdirectory(hw/hw_06)
 
-add_subdirectory(hw/velka_uloha)
-add_subdirectory(hw/velka_uloha/all_in_one)
+add_subdirectory(velka_uloha)
+add_subdirectory(velka_uloha/all_in_one)
 
 add_subdirectory(zk/zk_cv_9)
 add_subdirectory(zk/zk_cv_10)
